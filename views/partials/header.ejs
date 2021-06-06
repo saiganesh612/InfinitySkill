@@ -28,49 +28,48 @@
 
     <!-- Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/test.css" rel="stylesheet" >
 </head>
 
 <body>
     <% if(!page){ %>
-        <header id="header" class="fixed-top d-flex align-items-center header-transparent">
-            <div class="container d-flex align-items-center justify-content-between">
-                <div class="logo">
-                    <h1><a href="/"><span>Infinity Skill</span></a></h1>
-                    <!-- Uncomment below if you prefer to use an image logo -->
-                    <!-- <a href="index.html"><img  src="assets/img/logo.png" alt="" class="img-fluid"></a> -->
-                </div>
-                <nav id="navbar" class="navbar">
-                    <ul>
-                        <li><a class="nav-link  active" href="/">Home</a></li>
-                        <li><a class="nav-link " href="/about">About </a></li>
-                        <li class="dropdown"><a href="./Categories.html"><span>Categories</span> <i
-                                    class="bi bi-chevron-down"></i></a>
-                            <ul>
-                                <li><a href="#">Drop Down 1</a></li>
-                                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i
-                                            class="bi bi-chevron-right"></i></a>
-                                    <ul>
-                                        <li><a href="#">Deep Drop Down 1</a></li>
-                                        <li><a href="#">Deep Drop Down 2</a></li>
-                                        <li><a href="#">Deep Drop Down 3</a></li>
-                                        <li><a href="#">Deep Drop Down 4</a></li>
-                                        <li><a href="#">Deep Drop Down 5</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Drop Down 2</a></li>
-                                <li><a href="#">Drop Down 3</a></li>
-                                <li><a href="#">Drop Down 4</a></li>
-                            </ul>
-                        </li>
-                        <li><a class="nav-link " href="/articles">Articles</a></li>
-                        <li><a class="nav-link" href="/contact-form">Contact</a></li>
-                        <li><a href="/login" class="btn-get-started">Login</a></li>
-                        <li><a href="/signup" class="btn-get-started">Sign-up</a></li>
-                    </ul>
-                    <i class="bi bi-list mobile-nav-toggle"></i>
-                </nav>
-                <!-- .navbar -->
-            </div>
-        </header>
+       
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <marquee behavior="scroll" direction="right" scrollamount="20">Here is some latest contest details scrolling text... left to right!</marquee>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <div class="logo">
+        <h1><a href="index.html">Infinity SKILL</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="active" href="index.html">Home</a></li>
+          <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/login">Post a contest</a></li>
+              <li><a href="/login">Participate in Contest</a></li>
+            </ul>
+          </li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="./login"> <buttontype="button" class="btn btn-light" style="color: white; background-color: #028ecd;  border-radius: 10px;"  href="" >Login</button></a></li>
+          <li><a href="./signup"> <button href="./signup"  type="button" class="btn btn-light" style="color: white; background-color: #028ecd;  border-radius: 10px;"  href="" >SignUp</button></a> </li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
     <% } %> 
     <!-- End Header -->

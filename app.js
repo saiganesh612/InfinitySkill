@@ -70,7 +70,9 @@ app.get("/articles", (req, res) => {
 app.get("/contact-form", (req, res) => {
     res.render("contact", { page: "" })
 })
-
+app.get("/home",(req,res)=>{
+    res.render("home2", { page: "" })
+})
 app.use(userRoutes)
 
 const port = process.env.PORT || 3000;

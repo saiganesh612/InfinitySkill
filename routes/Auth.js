@@ -8,12 +8,15 @@ const cryto = require("crypto")
 router.get("/login", (req, res) => {
     res.render("Auth/login", { page: "login" })
 })
+router.get("/newPassword", (req, res) => {
+    res.render("Auth/ForgetPwd", { page: "ForgetPwd" })
+})
 
 router.post("/login", passport.authenticate('local', {
     failureRedirect: "/login"
 }), (req, res) => {
     console.log("U logged in")
-    res.redirect("/")
+    res.redirect("/home")
 })
 
 router.get("/signup", (req, res) => {

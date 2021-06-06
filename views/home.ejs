@@ -1,385 +1,322 @@
 <%- include("./partials/header") %>
 
-<!-- ======= Hero Section ======= -->
-<section id="hero">
-    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
-                aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3"
-                aria-label="Slide 4"></button>
-            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4"
-                aria-label="Slide 5"></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="10000">
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
-                            <div data-aos="zoom-out">
-                                <h1>Make 10K in 1 Art with <span>Company name</span></h1>
-                                <h2>We are team of talented designers making websites( some good tagline) which suits
-                                    out theme</h2>
-                                <div class="text-center text-lg-start">
-                                    <a href="#about" class="btn-get-started scrollto">Get Started</a>
-                                </div>
-                            </div>
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    <div class="hero-container">
+      <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
 
-                        </div>
-                        <div class="col-lg-4 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
-                            <img style="height: 70vh; width: auto;" src="assets/img/hero.svg" class="img-fluid animated"
-                                alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item" data-bs-interval="2000">
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-lg-4 order-1 order-lg-1 hero-img" data-aos="zoom-out" data-aos-delay="300">
-                            <img style="height: 70vh; width: auto;" src="assets/img/hero-img.png"
-                                class="img-fluid animated" alt="">
-                        </div>
-                        <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-2 d-flex align-items-center">
-                            <div data-aos="zoom-out">
-                                <h1>Make 10K in 1 Art with <span>Company name</span></h1>
-                                <h2>We are team of talented designers making websites( some good tagline) which suits
-                                    out theme</h2>
-                                <div class="text-center text-lg-start">
-                                    <a href="#about" class="btn-get-started scrollto">Get Started</a>
-                                </div>
-                            </div>
-                        </div>
+        <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
 
-                    </div>
-                </div>
+        <div class="carousel-inner" role="listbox">
+
+          <!-- Slide 1 -->
+          <div class="carousel-item active" style="background: url(assets/img/slide/slide-1.jpg)">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Infinity Skill</span></h2>
+                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Get Started</a>
+              </div>
             </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-lg-4 order-1 order-lg-1 hero-img" data-aos="zoom-out" data-aos-delay="300">
-                            <img style="height: 70vh; width: auto;" src="assets/img/hero-img.png"
-                                class="img-fluid animated" alt="">
-                        </div>
-                        <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-2 d-flex align-items-center">
-                            <div data-aos="zoom-out">
-                                <h1>Make 10K in 1 Art with <span>Company name</span></h1>
-                                <h2>We are team of talented designers making websites( some good tagline) which suits
-                                    out theme</h2>
-                                <div class="text-center text-lg-start">
-                                    <a href="#about" class="btn-get-started scrollto">Get Started</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="carousel-item" style="background: url(assets/img/slide/slide-2.jpg)">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2 class="animate__animated fanimate__adeInDown">Lorem <span>Ipsum Dolor</span></h2>
+                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Get Started</a>
+              </div>
             </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-lg-4 order-1 order-lg-1 hero-img" data-aos="zoom-out" data-aos-delay="300">
-                            <img style="height: 70vh; width: auto;" src="assets/img/hero-img.png"
-                                class="img-fluid animated" alt="">
-                        </div>
-                        <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-2 d-flex align-items-center">
-                            <div data-aos="zoom-out">
-                                <h1>Make 10K in 1 Art with <span>Company name</span></h1>
-                                <h2>We are team of talented designers making websites( some good tagline) which suits
-                                    out theme</h2>
-                                <div class="text-center text-lg-start">
-                                    <a href="#about" class="btn-get-started scrollto">Get Started</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="carousel-item" style="background: url(assets/img/slide/slide-3.jpg)">
+            <div class="carousel-container">
+              <div class="carousel-content">
+                <h2 class="animate__animated animate__fadeInDown">Sequi ea <span>Dime Lara</span></h2>
+                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <a href="" class="btn-get-started animate__animated animate__fadeInUp">Get Started</a>
+              </div>
             </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-lg-4 order-1 order-lg-1 hero-img" data-aos="zoom-out" data-aos-delay="300">
-                            <img style="height: 70vh; width: auto;" src="assets/img/hero-img.png"
-                                class="img-fluid animated" alt="">
-                        </div>
-                        <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-2 d-flex align-items-center">
-                            <div data-aos="zoom-out">
-                                <h1>Make 10K in 1 Art with <span>Company name</span></h1>
-                                <h2>We are team of talented designers making websites( some good tagline) which suits
-                                    out theme</h2>
-                                <div class="text-center text-lg-start">
-                                    <a href="#about" class="btn-get-started scrollto">Get Started</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
+
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+
+        <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+        </a>
+
+        <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+        </a>
+
+      </div>
     </div>
-</section>
-<!-- End Hero -->
-<!-- ======= About Section ======= -->
-<section id="about" class="about">
-    <div class="container">
+  </section><!-- End Hero -->
+  <main id="main">
+  <!-- ======= Featured Section ======= -->
+    <section id="featured" class="featured">
+      <div class="container">
         <div class="row">
-            <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch"
-                data-aos="fade-right">
-                <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video"
-                    data-autoplay="true"></a>
+          <div class="col-lg-4">
+            <div class="icon-box">
+              <i class="bi bi-person-bounding-box"></i>
+              <h3><a href="">User type 1</a></h3>
+              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
             </div>
-            <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5"
-                data-aos="fade-left">
-                <h3>How it works</h3>
-                <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima
-                    temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam
-                    sint et id nulla tenetur. Suscipit aut voluptate.</p>
-
-                <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="icon"><i class="bx bx-fingerprint"></i></div>
-                    <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                    <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi
-                        sint occaecati cupiditate non provident</p>
-                </div>
-                <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="icon"><i class="bx bx-gift"></i></div>
-                    <h4 class="title"><a href="">Nemo Enim</a></h4>
-                    <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                        praesentium voluptatum deleniti atque</p>
-                </div>
-                <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon"><i class="bx bx-atom"></i></div>
-                    <h4 class="title"><a href="">Dine Pad</a></h4>
-                    <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit.
-                        Sunt aut deserunt minus aut eligendi omnis</p>
-                </div>
+          </div>
+          <div class="col-lg-4 mt-4 mt-lg-0">
+            <div class="icon-box">
+              <i class="bi bi-people"></i>
+              <h3><a href="">User type 2</a></h3>
+              <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
             </div>
+          </div>
+          <div class="col-lg-4 mt-4 mt-lg-0">
+            <div class="icon-box">
+              <i class="bi bi-file-person-fill"></i>
+              <h3><a href="">User type 3</a></h3>
+              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
-<!-- End About Section -->
-<!-- ======= Header ======= -->
-<header id="header2" class="d-flex align-items-center">
-    <div class="container justify-content-between">
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto " href="#joinContest">1.Join Contest</a></li>
-                <li style="margin-left: 50px;"><a class="nav-link scrollto" href="#rules">2.Follow Rules</a></li>
-                <li style="margin-left: 50px;"><a class="nav-link scrollto" href="#submit">3.Submit your work</a></li>
-                <li style="margin-left: 50px;"><a class="nav-link scrollto" href="#vote">4.Voting</a></li>
-                <li style="margin-left: 50px;"><a class="nav-link scrollto" href="#winner">5.Winner</a></li>
-            </ul>
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-    </div>
-</header><!-- End Header -->
+      </div>
+  </section><!-- End Featured Section -->
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about">
+    <div class="container">
 
-<main id="main">
+      <div class="row">
+        <p style=" color: rgba(36, 230, 36, 0.479);font-size: 50px;font-weight: 800;" >How it works</p>
+        <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch">
+       
+          <!-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a> -->
+          <!-- <iframe src="https://www.youtube.com/watch?v=z4kylGr9yks" title="W3Schools Free Online Web Tutorials"> </iframe> -->
+            <iframe style="margin-top: 50px; width: 1000px; height: 500px;" class="responsive-iframe" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe> 
+        </div>
+        
+        <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5" >
+         
+          <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam sint et id nulla tenetur. Suscipit aut voluptate.</p>
+
+          <div class="icon-box"  >
+            <div class="icon"><i class="bx bx-fingerprint"></i></div>
+            <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+          </div>
+
+          <div class="icon-box"  >
+            <div class="icon"><i class="bx bx-gift"></i></div>
+            <h4 class="title"><a href="">Nemo Enim</a></h4>
+            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+          </div>
+
+          <div class="icon-box"  >
+            <div class="icon"><i class="bx bx-atom"></i></div>
+            <h4 class="title"><a href="">Dine Pad</a></h4>
+            <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End About Section -->
+  <header id="header2" class="d-flex align-items-center">
+    <div class="container justify-content-between">
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li  ><a class="nav-link scrollto " href="#joinContest" style="color:rgba(196, 18, 107, 0.479) ;">1.Join Contest</a></li>
+          <li style="margin-left: 50px;"><a class="nav-link scrollto" href="#rules" style="color:rgba(174, 33, 179, 0.479) ;">2.Follow Rules</a></li>
+          <li style="margin-left: 50px;"><a class="nav-link scrollto" href="#submit" style="color:rgba(179, 157, 33, 0.76) ;">3.Submit your work</a></li>
+          <li style="margin-left: 50px;"><a class="nav-link scrollto" href="#vote" style="color:rgba(33, 190, 93, 0.479);">4.Voting</a></li>
+          <li style="margin-left: 50px;"><a class="nav-link scrollto" href="#winner" style="color:rgba(252, 47, 64, 0.699) ;">5.Winner</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+    </div>
+  </header><!-- End Header -->
+  <main id="main">
     <section id="joinContest" class="Stepwise">
         <div class="container">
-            <div class="row">
-                <div class="col-xl-5 col-lg-6 order-sm-1 order-lg-1 video-box d-flex justify-content-center align-items-stretch"
-                    data-aos="fade-right">
-                    <img src="./assets/img/How it works/1.jpg" />
-                </div>
-                <div class="col-xl-7 col-lg-6 order-sm-2 order-lg-2 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5"
-                    data-aos="fade-left">
-                    <h3>1. Join Contest</h3>
-                    <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima
-                        temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam
-                        sint et id nulla tenetur. Suscipit aut voluptate.</p>
-
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="icon"><i class="bx bx-fingerprint"></i></div>
-                        <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                        <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias
-                            excepturi sint occaecati cupiditate non provident</p>
-                    </div>
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="icon"><i class="bx bx-gift"></i></div>
-                        <h4 class="title"><a href="">Nemo Enim</a></h4>
-                        <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                            praesentium voluptatum deleniti atque</p>
-                    </div>
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="icon"><i class="bx bx-atom"></i></div>
-                        <h4 class="title"><a href="">Dine Pad</a></h4>
-                        <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis
-                            odit. Sunt aut deserunt minus aut eligendi omnis</p>
-                    </div>
-                </div>
+    
+          <div class="row">
+            <div class="col-xl-5 col-lg-6 order-sm-1 order-lg-1 video-box d-flex justify-content-center align-items-stretch">
+                <img src="/assets/img/How it works/1.jpg"/>
             </div>
+    
+            <div class="col-xl-7 col-lg-6 order-sm-2 order-lg-2 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5" >
+              <p style=" color: rgba(196, 18, 107, 0.479);font-size: 40px;font-weight: 700;" >1. Join Contest</p>
+              <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam sint et id nulla tenetur. Suscipit aut voluptate.</p>
+
+          <div class="icon-box"  >
+           
+            <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+          </div>
+
+          <div class="icon-box"  >
+            
+            <h4 class="title"><a href="">Nemo Enim</a></h4>
+            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+          </div>
+
+          <div class="icon-box"  >
+            
+            <h4 class="title"><a href="">Dine Pad</a></h4>
+            <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
+          </div>
+            </div>
+          </div>
+    
         </div>
     </section>
     <!-- ======= rules Section ======= -->
     <section id="rules" class="Stepwise">
         <div class="container">
-            <div class="row">
-                <div class="col-xl-7 col-lg-6 order-sm-2 order-lg-1 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5"
-                    data-aos="fade-left">
-                    <h3>2.Follow the rules</h3>
-                    <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima
-                        temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam
-                        sint et id nulla tenetur. Suscipit aut voluptate.</p>
-
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="icon"><i class="bx bx-fingerprint"></i></div>
-                        <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                        <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias
-                            excepturi sint occaecati cupiditate non provident</p>
-                    </div>
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="icon"><i class="bx bx-gift"></i></div>
-                        <h4 class="title"><a href="">Nemo Enim</a></h4>
-                        <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                            praesentium voluptatum deleniti atque</p>
-                    </div>
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="icon"><i class="bx bx-atom"></i></div>
-                        <h4 class="title"><a href="">Dine Pad</a></h4>
-                        <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis
-                            odit. Sunt aut deserunt minus aut eligendi omnis</p>
-                    </div>
-                </div>
-                <div class="col-xl-5 col-lg-6 order-sm-1 order-lg-2 video-box d-flex justify-content-center align-items-stretch"
-                    data-aos="fade-right">
-                    <img src="./assets/img/How it works/2.jpg" />
-                </div>
+          <div class="row">
+          
+            <div class="col-xl-7 col-lg-6 order-sm-2 order-lg-1 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5" >
+              <p style=" color: rgba(174, 33, 179, 0.479);font-size: 40px;font-weight: 700;" >2. Follow the rules</p>
+              <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam sint et id nulla tenetur. Suscipit aut voluptate.</p>
+    
+              <div class="icon-box"  >
+                <div class="icon"><i class="bx bx-fingerprint"></i></div>
+                <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+                <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+              </div>
+    
+              <div class="icon-box"  >
+                <div class="icon"><i class="bx bx-gift"></i></div>
+                <h4 class="title"><a href="">Nemo Enim</a></h4>
+                <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+              </div>
+    
+              <div class="icon-box"  >
+                <div class="icon"><i class="bx bx-atom"></i></div>
+                <h4 class="title"><a href="">Dine Pad</a></h4>
+                <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
+              </div>
+    
             </div>
+            <div class="col-xl-5 col-lg-6 order-sm-1 order-lg-2 video-box d-flex justify-content-center align-items-stretch" >
+              <img src="./assets/img/How it works/2.jpg"/>
+            </div>
+    
+          </div>
+    
         </div>
     </section><!-- End rules Section -->
-    <!-- ======= submit Section ======= -->
-    <section id="submit" class="Stepwise">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-5 col-lg-6 order-sm-1 order-lg-1 video-box d-flex justify-content-center align-items-stretch"
-                    data-aos="fade-right">
-                    <img src="./assets/img/How it works/3.jpg" />
-                </div>
-                <div class="col-xl-7 col-lg-6 order-sm-2 order-lg-2 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5"
-                    data-aos="fade-left">
-                    <h3>3.Submit your work</h3>
-                    <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima
-                        temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam
-                        sint et id nulla tenetur. Suscipit aut voluptate.</p>
+ <!-- ======= submit Section ======= -->
+ <section id="submit" class="Stepwise">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-5 col-lg-6 order-sm-1 order-lg-1 video-box d-flex justify-content-center align-items-stretch" >
+        <img src="./assets/img/How it works/3.jpg"/>
+      </div>
+      <div class="col-xl-7 col-lg-6 order-sm-2 order-lg-2 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5" >
+        <p style=" color: rgba(179, 157, 33, 0.76);font-size: 40px;font-weight: 700;" >3. Submit your work</p>
+        <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam sint et id nulla tenetur. Suscipit aut voluptate.</p>
 
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="icon"><i class="bx bx-fingerprint"></i></div>
-                        <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                        <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias
-                            excepturi sint occaecati cupiditate non provident</p>
-                    </div>
-
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="icon"><i class="bx bx-gift"></i></div>
-                        <h4 class="title"><a href="">Nemo Enim</a></h4>
-                        <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                            praesentium voluptatum deleniti atque</p>
-                    </div>
-
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="icon"><i class="bx bx-atom"></i></div>
-                        <h4 class="title"><a href="">Dine Pad</a></h4>
-                        <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis
-                            odit. Sunt aut deserunt minus aut eligendi omnis</p>
-                    </div>
-
-                </div>
-            </div>
+        <div class="icon-box" >
+          <div class="icon"><i class="bx bx-fingerprint"></i></div>
+          <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+          <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
         </div>
-    </section>
-    <!-- End submitSection -->
-    <!-- ======= Voting Section ======= -->
-    <section id="vote" class="Stepwise">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-7 col-lg-6 order-sm-2  order-lg-1 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5"
-                    data-aos="fade-left">
-                    <h3>4.Voting by team</h3>
-                    <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima
-                        temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam
-                        sint et id nulla tenetur. Suscipit aut voluptate.</p>
 
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="icon"><i class="bx bx-fingerprint"></i></div>
-                        <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                        <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias
-                            excepturi sint occaecati cupiditate non provident</p>
-                    </div>
-
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="icon"><i class="bx bx-gift"></i></div>
-                        <h4 class="title"><a href="">Nemo Enim</a></h4>
-                        <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                            praesentium voluptatum deleniti atque</p>
-                    </div>
-
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="icon"><i class="bx bx-atom"></i></div>
-                        <h4 class="title"><a href="">Dine Pad</a></h4>
-                        <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis
-                            odit. Sunt aut deserunt minus aut eligendi omnis</p>
-                    </div>
-                </div>
-                <div class="col-xl-5 col-lg-6  order-sm-1 order-lg-2 d-flex justify-content-center align-items-stretch"
-                    data-aos="fade-right">
-                    <img style="width: 500px;" src="./assets/img/How it works/4.jpg" />
-                </div>
-            </div>
+        <div class="icon-box" >
+          <div class="icon"><i class="bx bx-gift"></i></div>
+          <h4 class="title"><a href="">Nemo Enim</a></h4>
+          <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
         </div>
-    </section>
-    <!-- End vote Section -->
-    <!-- ======= winner Section ======= -->
-    <section id="winner" class="Stepwise">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-5 col-lg-6  d-flex justify-content-center align-items-stretch orger-sm-1"
-                    data-aos="fade-right">
-                    <img style="width: 500px;" src="./assets/img/How it works/5.jpg" />
-                </div>
-                <div class="col-xl-7 col-lg-6 orger-sm-2 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5"
-                    data-aos="fade-left">
-                    <h3>5.Winner A nnouncement</h3>
-                    <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima
-                        temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam
-                        sint et id nulla tenetur. Suscipit aut voluptate.</p>
 
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="icon"><i class="bx bx-fingerprint"></i></div>
-                        <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                        <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias
-                            excepturi sint occaecati cupiditate non provident</p>
-                    </div>
-
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="icon"><i class="bx bx-gift"></i></div>
-                        <h4 class="title"><a href="">Nemo Enim</a></h4>
-                        <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-                            praesentium voluptatum deleniti atque</p>
-                    </div>
-
-                    <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="icon"><i class="bx bx-atom"></i></div>
-                        <h4 class="title"><a href="">Dine Pad</a></h4>
-                        <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis
-                            odit. Sunt aut deserunt minus aut eligendi omnis</p>
-                    </div>
-                </div>
-            </div>
+        <div class="icon-box" >
+          <div class="icon"><i class="bx bx-atom"></i></div>
+          <h4 class="title"><a href="">Dine Pad</a></h4>
+          <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
         </div>
-    </section>
-    <!-- End winner Section -->
-</main><!-- End #main -->
+
+      </div> 
+    </div>
+  </div>
+</section><!-- End submitSection -->
+<!-- ======= Voting Section ======= -->
+<section id="vote" class="Stepwise">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-7 col-lg-6 order-sm-2  order-lg-1 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5" >
+        <p style=" color: rgba(33, 190, 93, 0.479);font-size: 40px;font-weight: 700;" >4. Voting by team</p>
+        <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam sint et id nulla tenetur. Suscipit aut voluptate.</p>
+
+        <div class="icon-box" >
+          <div class="icon"><i class="bx bx-fingerprint"></i></div>
+          <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+          <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+        </div>
+
+        <div class="icon-box" >
+          <div class="icon"><i class="bx bx-gift"></i></div>
+          <h4 class="title"><a href="">Nemo Enim</a></h4>
+          <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+        </div>
+
+        <div class="icon-box" >
+          <div class="icon"><i class="bx bx-atom"></i></div>
+          <h4 class="title"><a href="">Dine Pad</a></h4>
+          <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
+        </div>
+
+      </div> 
+      <div class="col-xl-5 col-lg-6  order-sm-1 order-lg-2 d-flex justify-content-center align-items-stretch" >
+        <img style="width: 500px;" src="./assets/img/How it works/4.jpg"/>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End vote Section -->
+<!-- ======= winner Section ======= -->
+<section id="winner" class="Stepwise">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-5 col-lg-6  d-flex justify-content-center align-items-stretch orger-sm-1" >
+        <img style="width: 500px;" src="./assets/img/How it works/5.jpg"/>
+      </div>
+      <div class="col-xl-7 col-lg-6 orger-sm-2 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5" >
+        <p style=" color: rgba(252, 47, 64, 0.699);font-size: 40px;font-weight: 700;" >5. Winner Announcement</p>
+        <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi. Libero laboriosam sint et id nulla tenetur. Suscipit aut voluptate.</p>
+
+        <div class="icon-box">
+          <div class="icon"><i class="bx bx-fingerprint"></i></div>
+          <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+          <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+        </div>
+
+        <div class="icon-box">
+          <div class="icon"><i class="bx bx-gift"></i></div>
+          <h4 class="title"><a href="">Nemo Enim</a></h4>
+          <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+        </div>
+
+        <div class="icon-box">
+          <div class="icon"><i class="bx bx-atom"></i></div>
+          <h4 class="title"><a href="">Dine Pad</a></h4>
+          <p class="description">Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit. Sunt aut deserunt minus aut eligendi omnis</p>
+        </div>
+
+      </div> 
+      
+    </div>
+  </div>
+</section>
+<!-- End winner Section -->
+  </main><!-- End #main -->
+
+
+
+
+  </main><!-- End #main -->
 
 <%- include("./partials/footer") %>
