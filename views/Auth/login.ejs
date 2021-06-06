@@ -1,0 +1,68 @@
+<%- include("../partials/header") %>
+
+<main id="main">
+    <section class="inner-page">
+        <div class="container">
+            <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                        <div class="card card-signin my-5">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Sign In</h5>
+                                <form class="form-signin">
+                                    <div class="form-label-group">
+                                        <input type="email" id="inputEmail" class="form-control"
+                                            placeholder="Email address" required autofocus>
+                                        <label for="inputEmail">Email address</label>
+                                    </div>
+                                    <div class="form-label-group">
+                                        <input type="password" id="inputPassword" class="form-control"
+                                            placeholder="Password" required>
+                                        <label for="inputPassword">Password</label>
+                                    </div>
+                                    <div form-label-group>
+                                        <select class="form-select form-select-lg mb-3"
+                                            aria-label="Default select example">
+                                            <option selected>Role</option>
+                                            <option value="1">Post a Contest</option>
+                                            <option value="2">Participate in Contest</option>
+                                            <option value="3">Viewer</option>
+                                        </select>
+                                    </div>
+                                    <div style="flex-wrap: wrap;">
+                                        <div style="float: left;" class="custom-control custom-checkbox mb-3">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">Remember
+                                                password</label>
+                                        </div>
+                                        <div style="float: right;">
+                                            <a href="#" style="color: navy;">Forget password</a>
+                                        </div>
+                                    </div>
+                                    <br /></br>
+                                    <div style="border: 1px solid black;">
+                                        <div style="padding: 10px;" class="custom-control custom-checkbox mb-3">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">I'm not a
+                                                robot</label>
+                                        </div>
+                                    </div>
+                                    <br /> <br /><br />
+                                    <button class="btn btn-lg btn-info btn-block text-uppercase w-100"
+                                        type="submit">Sign in</button>
+
+                                    <div style="margin-top:30px ;" align="center">
+                                        <p>Don't have account <a href="/signup">Sign-up</a></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<%- include("../partials/footer") %> 
