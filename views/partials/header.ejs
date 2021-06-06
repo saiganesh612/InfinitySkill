@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title><%= page ? "login" : "Full-stack" %></title>
+    <title><%= page ? page : "Full-stack" %></title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="assets/img/details-1.png" rel="icon">
+    <link href="/assets/img/details-1.png" rel="icon">
 
     <!-- Google Fonts -->
     <link
@@ -18,58 +18,57 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/test.css" rel="stylesheet" >
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/test.css" rel="stylesheet" >
 </head>
 
 <body>
-    <% if(!page){ %>
-       
-  <!-- ======= Top Bar ======= -->
-  <section id="topbar" class="d-flex align-items-center">
-    <div class="container d-flex justify-content-center justify-content-md-between">
-      <marquee behavior="scroll" direction="right" scrollamount="20">Here is some latest contest details scrolling text... left to right!</marquee>
-    </div>
-  </section>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="d-flex align-items-center">
-    <div class="container d-flex justify-content-between align-items-center">
-
-      <div class="logo">
-        <h1><a href="index.html">Infinity SKILL</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+  <% if(!page){ %>
+    <!-- ======= Top Bar ======= -->
+    <section id="topbar" class="d-flex align-items-center">
+      <div class="container d-flex justify-content-center justify-content-md-between">
+        <marquee behavior="scroll" direction="right" scrollamount="20">Here is some latest contest details scrolling text... left to right!</marquee>
       </div>
+    </section>
 
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="active" href="index.html">Home</a></li>
-          <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="/login">Post a contest</a></li>
-              <li><a href="/login">Participate in Contest</a></li>
-            </ul>
-          </li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/contact">Contact</a></li>
-          <li><a href="./login"> <buttontype="button" class="btn btn-light" style="color: white; background-color: #028ecd;  border-radius: 10px;"  href="" >Login</button></a></li>
-          <li><a href="./signup"> <button href="./signup"  type="button" class="btn btn-light" style="color: white; background-color: #028ecd;  border-radius: 10px;"  href="" >SignUp</button></a> </li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+    <!-- ======= Header ======= -->
+    <header id="header" class="d-flex align-items-center">
+      <div class="container d-flex justify-content-between align-items-center">
 
-    </div>
-  </header><!-- End Header -->
+        <div class="logo">
+          <h1><a href="index.html">Infinity SKILL</a></h1>
+          <!-- Uncomment below if you prefer to use an image logo -->
+          <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        </div>
 
-    <% } %> 
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><a class="active" href="index.html">Home</a></li>
+            <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
+              <ul>
+                <li><a href="/login">Post a contest</a></li>
+                <li><a href="/login">Participate in Contest</a></li>
+              </ul>
+            </li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="./login"> <buttontype="button" class="btn btn-light" style="color: white; background-color: #028ecd;  border-radius: 10px;"  href="" >Login</button></a></li>
+            <li><a href="./signup"> <button href="./signup"  type="button" class="btn btn-light" style="color: white; background-color: #028ecd;  border-radius: 10px;"  href="" >SignUp</button></a> </li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+      </div>
+    </header>
+    <!-- End Header -->
+  <% } %> 
     <!-- End Header -->

@@ -1,0 +1,37 @@
+<%- include("../partials/header") %>
+
+<main id="main">
+    <section class="inner-page">
+        <div class="container">
+            <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                        <div class="card card-signin my-5">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Forgot Password</h5>
+                                <form class="form-signin" action="/reset/<%= token %>" method="POST">
+                                    <div class="form-label-group">
+                                        <input type="password" name="password" id="password" class="form-control"
+                                            placeholder="Password" required>
+                                        <label for="password">New Password</label>
+                                    </div>
+                                    <div class="form-label-group">
+                                        <input type="password" name="confirm" id="confirm" class="form-control"
+                                            placeholder="Password" required>
+                                        <label for="confirm">Confirm Password</label>
+                                    </div>
+                                    <br>
+                                    <button class="btn btn-lg btn-info btn-block text-uppercase w-100"
+                                        type="submit">Confirm</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<%- include("../partials/footer") %> 
