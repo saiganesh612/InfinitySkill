@@ -10,54 +10,35 @@
                         <div class="card card-signin my-5">
                             <div class="card-body">
                                 <h5 class="card-title text-center">Sign Up</h5>
-                                <form class="form-signin">
+                                <form class="form-signin" action="/signup" method="POST">
                                     <div class="form-label-group">
-                                        <input type="text" id="inputtext" class="form-control"
+                                        <input type="text" name="username" id="inputtext" class="form-control"
                                             placeholder="text address" required autofocus>
                                         <label for="inputtext">Username</label>
                                     </div>
                                     <div class="form-label-group">
-                                        <input type="email" id="inputEmail" class="form-control"
+                                        <input type="email" name="email" id="inputEmail" class="form-control"
                                             placeholder="Email address" required autofocus>
                                         <label for="inputEmail">Email address</label>
                                     </div>
-
                                     <div class="form-label-group">
-                                        <input type="password" id="inputPassword" class="form-control"
+                                        <input type="password" name="password" id="inputPassword" class="form-control"
                                             placeholder="Password" required>
                                         <label for="inputPassword">Password</label>
                                     </div>
-
                                     <div class="form-label-group">
-                                        <input type="password" id="inputPassword2" class="form-control"
+                                        <input type="password" name="confirmPassword" id="inputPassword1" class="form-control"
                                             placeholder="Password" required>
                                         <label for="inputPassword1">Confirm Password</label>
                                     </div>
-                                    <div form-label-group>
-                                        <select class="form-select form-select-lg mb-3"
-                                            aria-label="Default select example">
-                                            <option selected>Role</option>
-                                            <option value="1">Post a Contest</option>
-                                            <option value="2">Participate in Contest</option>
-                                            <option value="3">Viewer</option>
-                                        </select>
-                                    </div>
-                                    <br /></br>
-                                    <div style="border: 1px solid black;">
-                                        <div style="padding: 10px;" class="custom-control custom-checkbox mb-3">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1">I'm not a
-                                                robot</label>
-                                        </div>
-                                    </div>
-                                    <br /> <br /><br />
+                                    <br /> <br />
                                     <button class="btn btn-lg btn-info btn-block text-uppercase w-100" type="submit">
-                                        Sign Up</button>
-
-                                    <div style="margin-top:30px ;" align="center">
-                                        <p>Already signed up <a href="/login">Sign-in</a></p>
-                                    </div>
+                                        Sign Up
+                                    </button>
                                 </form>
+                                <div style="margin-top:30px ;" align="center">
+                                    <p>Already signed up <a href="/login">Sign-in</a></p>
+                                </div>
                             </div>
                         </div>
                     </div>
