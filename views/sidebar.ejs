@@ -1,0 +1,54 @@
+<%- include("./partials/header2") %>
+<div class="row d-flex align-items-start">
+		
+    <div class=" col-2  nav flex-column nav-pills me-3 shadow-lg p-3 mb-5 bg-white rounded" id="v-pills-tab" role="tablist" aria-orientation="vertical" >
+        <div class="py-4 px-3 mb-4 bg-light">
+            <div class="media d-flex align-items-center">
+              <div style="height: 70px;width: 70px;border-radius: 50%; background-color:#1483ce; color: white;margin: 3px">
+                <p
+                  style="color: whitesmoke; margin-top: 13px; margin-left: 25px; font-size: 30px; font-weight: bold; text-transform: uppercase;">
+                  R
+                </p>
+              </div>
+              <div class="media-body" style="margin-left: 10px;">
+                <h4 class="m-0" style="color: #1483ce;">
+                  Reha
+                </h4>
+                <p class="font-weight-normal text-muted mb-0">Web developer</p> 
+              </div>
+             
+            </div>
+            <hr style="height: 3px; color: grey;"/> 
+        </div>	 
+      <p align="left" style="color:rgba(56, 53, 53, 0.534);font-size: 17px;" class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Dashboard</p>
+      <button  class="nav-link active text-left" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"><p style="font-size: 20px;"><i style="color: yellowgreen;font-weight: 700;" class="bi bi-check-circle-fill"></i> Participated Contests </p> </button>
+      <button  class="nav-link text-left" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"> <p style="font-size: 20px;"><i style="color: yellowgreen;font-weight: 700;" class="bi bi-trophy-fill"></i>  Posted Contests </p> </button>
+      <button  class="nav-link text-left" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false"><p style="font-size: 20px;"><i style="color: yellowgreen;font-weight: 700;" class="bi bi-currency-exchange"></i> Wallet</p></button>
+      <button  class="nav-link text-left" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><p style="font-size: 20px;"><i style="color: yellowgreen;font-weight: 700;" class="bi bi-layer-backward"></i> Log Out</p></button>
+    
+    </div>
+    <div class="col-1"></div>
+    <div class="col-8 tab-content" id="v-pills-tabContent">
+      <div class="tab-pane fade show active " id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+          <div style="margin-top: 100px;color: black;">
+                <h1>Posted contests</h1>
+          </div>
+      </div>
+      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+        <div style="margin-top: 100px;color: black;">
+            <h1>Participated Contests</h1>
+      </div>
+      </div>
+      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+        <div style="margin-top: 100px;color: black;">
+            <h1>Wallet</h1>
+      </div>
+      </div>
+      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+        <div style="margin-top: 100px;color: black;">
+            <h1>Logout</h1>
+      </div>
+      </div>
+    </div>
+  </div>
+<%- include("./partials/footer") %>

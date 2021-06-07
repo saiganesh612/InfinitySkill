@@ -18,7 +18,11 @@
   <link
     href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
     rel="stylesheet">
-
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Vendor CSS Files -->
   <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,23 +31,31 @@
   <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
   <link href="/assets/css/style.css" rel="stylesheet">
   <link href="/assets/css/test.css" rel="stylesheet">
+  <% if(page=="sidebar"){%>
+    <link href="/assets/css/sidebar.css" rel="stylesheet">
+  <%}%>
+  
 </head>
 
 <body>
-  <% if(!page){ %>
+  <% if(!page || page=="sidebar"){ %>
 
     <!-- ======= Top Bar ======= -->
-    <section id="topbar" class="d-flex align-items-center">
-      <div class="container d-flex justify-content-center justify-content-md-between">
-        <marquee behavior="scroll" direction="right" scrollamount="20">Here is some latest contest details scrolling
-          text... left to right!</marquee>
-      </div>
-    </section>
-
+    <% if(!page){%>
+      <section id="topbar" class="d-flex align-items-center">
+        <div class="container d-flex justify-content-center justify-content-md-between">
+          <marquee behavior="scroll" direction="right" scrollamount="20">Here is some latest contest details scrolling
+            text... left to right!</marquee>
+        </div>
+      </section>
+    <%} %>
     <header id="header" class="d-flex align-items-center">
       <div class="container d-flex justify-content-between align-items-center">
 
@@ -55,15 +67,15 @@
 
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="active" href="index.html">Home</a></li>
+            <li><a class="active" href="/home">Home</a></li>
             <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
-                <li><a href="#">Post a contest</a></li>
+                <li><a href="/post-contest">Post a contest</a></li>
                 <li><a href="#">Participate in Contest</a></li>
               </ul>
             </li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="/articles">Blog</a></li>
+            <li><a href="/contact-form">Contact</a></li>
           </ul>
           <div class="dropdown pmd-dropdown pmd-user-info ml-auto">
             <a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center"
@@ -73,7 +85,7 @@
 
             </a>
             <ul class="dropdown-menu dropdown-menu-right" role="menu">
-              <a class="dropdown-item" href="javascript:void(0);">Dashboard</a>
+              <a class="dropdown-item" href="/dashboard">Dashboard</a>
               <a class="dropdown-item" href="/logout">Logout</a>
             </ul>
           </div>

@@ -2299,13 +2299,26 @@ section {
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
 }
-
+.mx-auto{
+  margin-top: 100px;
+}
 .card-signin .card-title {
   margin-bottom: 2rem;
   font-weight: 300;
   font-size: 1.5rem;
 }
-
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  color: black;
+}
 .card-signin .card-body {
   padding: 2rem;
 }
@@ -2430,3 +2443,28 @@ section {
   }
 }
 
+/* POST A CONTEST CSS */
+
+.POSTCONTEST .card{
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 20px;
+  border: 1pz solid #028ecd;
+}
+.POSTCONTEST .title p{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: 900;
+  color: #028ecd;
+  font-size: 35px;
+  border-left: 8px solid yellowgreen;
+  padding: 4px;
+}
+.POSTCONTEST .form-floating>.form-control, .form-floating>.form-select {
+  height: calc(3.5rem + 2px);
+  padding: 1rem .75rem;
+  border: 1px solid #028ecd;
+}
+.POSTCONTEST .form-select{
+  color: inherit !important;
+  background-color: inherit !important;
+}

@@ -71,7 +71,13 @@ app.get("/contact-form", (req, res) => {
     res.render("contact", { page: "" })
 })
 app.get("/home",(req,res)=>{
-    res.render("home2", { page: "" })
+    res.render("Home2", { page: "" })
+})
+app.get("/dashboard",(req,res)=>{
+    res.render("sidebar", {page:"sidebar"})
+})
+app.get("/post-contest",(req,res)=>{
+    res.render("PostContest", {page:""})
 })
 app.use(userRoutes)
 

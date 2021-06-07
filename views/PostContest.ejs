@@ -1,0 +1,64 @@
+<%- include("./partials/header2") %>
+<div class="POSTCONTEST">
+<div class="card container" >
+    <div class="title" style="padding: 20px;" >
+        <p>Post a Contest</p>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Enter Contest name">
+                <label for="floatingInput">Contest Name</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Contest Moto">
+                <label for="floatingInput">Contest Motive</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="floatingInput" placeholder="Select contest start date">
+                <label for="floatingInput">Contest Start date</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="floatingInput" placeholder="Select contest end date">
+                <label for="floatingInput">Contest End date</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+            <label for="floatingTextarea2">Contest Description</label>
+          </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating">
+                <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                  <option selected>Open this select menu</option>
+                  <option value="1">Design</option>
+                  <option value="2">Development</option>
+                  <option value="3">Art</option>
+                </select>
+                <label for="floatingSelectGrid">Select Category</label>
+              </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="floatingInput" placeholder="Enter Sub-Category">
+                <label for="floatingInput">Enter Sub-Category</label>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary btn-lg">Send Request</button>	  
+ </div>
+</div>
+<%- include("./partials/footer") %>

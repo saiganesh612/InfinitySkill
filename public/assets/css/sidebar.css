@@ -1,0 +1,23 @@
+.me-3{
+    background-color: #f8f9fa!important;
+    color: skyblue;
+    margin-left: 10px;
+    height: 100vh;
+  }
+  .nav-pills .nav-link {
+    background: inherit!important;
+    border: 0;
+    border-radius: .25rem;
+    color: rgb(14, 166, 226);
+    font-weight: bold;
+    font-size: 15px;
+    padding: 25px;
+  
+  }
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: rgb(14, 166, 226);
+    background-color: #e4f2f7 !important;
+    border-right: 10px solid yellowgreen !important;
+    width: 100%;
+   
+  }
