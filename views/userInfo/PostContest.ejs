@@ -1,0 +1,85 @@
+<%- include("../partials/header2") %>
+
+<div class="POSTCONTEST">
+    <div class="card container">
+        <div class="title" style="padding: 20px;">
+            <p>Post a Contest</p>
+        </div>
+        <form action="/post-contest" method="POST">
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="contestName" class="form-control" id="floatingInput" placeholder="Enter Contest name">
+                        <label for="floatingInput">Contest Name</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="motive" class="form-control" id="floatingInput" placeholder="Contest Moto">
+                        <label for="floatingInput">Contest Motive</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="date" name="startDate" class="form-control" id="floatingInput"
+                            placeholder="Select contest start date">
+                        <label for="floatingInput">Contest Start date</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="date" name="endDate" class="form-control" id="floatingInput"
+                            placeholder="Select contest end date">
+                        <label for="floatingInput">Contest End date</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-floating">
+                    <textarea class="form-control" name="description" placeholder="Leave a comment here" id="floatingTextarea2"
+                        style="height: 100px"></textarea>
+                    <label for="floatingTextarea2">Contest Description</label>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating">
+                        <select class="form-select" name="category" id="floatingSelectGrid" aria-label="Floating label select example">
+                            <option selected>Open this select menu</option>
+                            <option value="Design">Design</option>
+                            <option value="Development">Development</option>
+                            <option value="Art">Art</option>
+                        </select>
+                        <label for="floatingSelectGrid">Select Category</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="subCategory" class="form-control" id="floatingInput" placeholder="Enter Sub-Category">
+                        <label for="floatingInput">Enter Sub-Category</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="number" name="prizeMoney" class="form-control" id="floatingInput" min="0" placeholder="Enter Prize Money">
+                        <label for="floatingInput">Prize Money</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="number" name="entryFee" class="form-control" id="floatingInput" min="0" placeholder="Entry Fee">
+                        <label for="floatingInput">Entry Fee</label>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-lg">Send Request</button>
+        </form>
+    </div>
+</div>
+
+<%- include("../partials/footer") %>

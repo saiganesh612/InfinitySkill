@@ -9,6 +9,7 @@ const session = require("express-session")
 const User = require("./models/user")
 
 const userRoutes = require("./routes/Auth")
+const infoRoutes = require("./routes/userinfo")
 
 // Connecting to database
 const dbUrl = "mongodb://localhost:27017/infiniteskill"
@@ -55,6 +56,12 @@ passport.use(new localStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
+// Preserving user data
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next()
+})
+
 app.get("/", (req, res) => {
     res.render("home", { page: "" })
 })
@@ -70,16 +77,13 @@ app.get("/articles", (req, res) => {
 app.get("/contact-form", (req, res) => {
     res.render("contact", { page: "" })
 })
-app.get("/home",(req,res)=>{
+
+app.get("/home", (req, res) => {
     res.render("Home2", { page: "" })
 })
-app.get("/dashboard",(req,res)=>{
-    res.render("sidebar", {page:"sidebar"})
-})
-app.get("/post-contest",(req,res)=>{
-    res.render("PostContest", {page:""})
-})
+
 app.use(userRoutes)
+app.use(infoRoutes)
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
