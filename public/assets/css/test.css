@@ -13,7 +13,7 @@ body {
 }
 
 .light {
-  background: #f3f5f7;
+  background: white;
 }
 
 a, a:hover {
@@ -101,7 +101,7 @@ a, a:hover {
 }
 .postcard .postcard__tagbox .tag__item {
   display: inline-block;
-  background: rgba(83, 83, 83, 0.4);
+  background: white;
   border-radius: 3px;
   padding: 2.5px 10px;
   margin: 0 5px 5px 0;
