@@ -1,12 +1,12 @@
 const nodemailer = require("nodemailer")
 
 module.exports = {
-    sender: "agile11fantasycricket@gmail.com",
+    sender: process.env.GMAIL_ADDRESS,
     transporter: nodemailer.createTransport({
         service: "Gmail",
         auth: {
-            user: "agile11fantasycricket@gmail.com",
-            pass: "Agile@11@2021"
+            user: process.env.GMAIL_ADDRESS,
+            pass: process.env.GMAIL_PASS
         }
     })
 }

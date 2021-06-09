@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config()
+}
+
 const express = require("express")
 const app = express()
 const path = require("path")
@@ -10,6 +14,7 @@ const User = require("./models/user")
 
 const userRoutes = require("./routes/Auth")
 const infoRoutes = require("./routes/userinfo")
+const contestRoutes = require("./routes/contests")
 
 // Connecting to database
 const dbUrl = "mongodb://localhost:27017/infiniteskill"
@@ -63,7 +68,7 @@ app.use((req, res, next) => {
 })
 
 app.get("/", (req, res) => {
-    res.render("home", { page: "" })
+    res.render("index", { page: "" })
 })
 
 app.get("/about", (req, res) => {
@@ -79,11 +84,12 @@ app.get("/contact-form", (req, res) => {
 })
 
 app.get("/home", (req, res) => {
-    res.render("Home2", { page: "" })
+    res.render("home", { page: "" })
 })
 
 app.use(userRoutes)
 app.use(infoRoutes)
+app.use(contestRoutes)
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

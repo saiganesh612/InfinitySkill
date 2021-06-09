@@ -45,55 +45,58 @@
 </head>
 
 <body>
-  <% if(!page || page=="sidebar"){ %>
+  <!-- ======= Top Bar ======= -->
+  <% if(!page){%>
+    <section id="topbar" class="d-flex align-items-center">
+      <div class="container d-flex justify-content-center justify-content-md-between">
+        <marquee behavior="scroll" direction="right" scrollamount="20">Here is some latest contest details scrolling
+          text... left to right!</marquee>
+      </div>
+    </section>
+  <%} %>
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
 
-    <!-- ======= Top Bar ======= -->
-    <% if(!page){%>
-      <section id="topbar" class="d-flex align-items-center">
-        <div class="container d-flex justify-content-center justify-content-md-between">
-          <marquee behavior="scroll" direction="right" scrollamount="20">Here is some latest contest details scrolling
-            text... left to right!</marquee>
-        </div>
-      </section>
-    <%} %>
-    <header id="header" class="d-flex align-items-center">
-      <div class="container d-flex justify-content-between align-items-center">
+      <div class="logo">
+        <h1><a href="/home">Infinity SKILL</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
 
-        <div class="logo">
-          <h1><a href="/home">Infinity SKILL</a></h1>
-          <!-- Uncomment below if you prefer to use an image logo -->
-          <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-        </div>
-
-        <nav id="navbar" class="navbar">
-          <ul>
-            <li><a class="active" href="/home">Home</a></li>
-            <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="active" href="/home">Home</a></li>
+          <li class="dropdown"><a href="#"><span>Services</span> <i class="bi bi-chevron-down"></i></a>
+            <% if(currentUser.username === "Admin"){ %>
+              <ul>
+                <li><a href="/requested-contests">Requested Contests</a></li>
+                <li><a href="/approved-contests">Approved Contests</a></li>
+              </ul>
+            <% } else { %>
               <ul>
                 <li><a href="/post-contest">Post a contest</a></li>
                 <li><a href="#">Participate in Contest</a></li>
               </ul>
-            </li>
-            <li><a href="/articles">Blog</a></li>
-            <li><a href="/contact-form">Contact</a></li>
+            <% } %> 
+          </li>
+          <li><a href="/articles">Blog</a></li>
+          <li><a href="/contact-form">Contact</a></li>
+        </ul>
+        <div class="dropdown pmd-dropdown pmd-user-info ml-auto">
+          <a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center"
+            data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
+            <img style="border-radius: 50%;" class="mr-2" src="https://i.stack.imgur.com/34AD2.jpg" width="40"
+              height="40" alt="avatar">
+
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right" role="menu">
+            <a class="dropdown-item" href="/dashboard">Dashboard</a>
+            <a class="dropdown-item" href="/logout">Logout</a>
           </ul>
-          <div class="dropdown pmd-dropdown pmd-user-info ml-auto">
-            <a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center"
-              data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
-              <img style="border-radius: 50%;" class="mr-2" src="https://i.stack.imgur.com/34AD2.jpg" width="40"
-                height="40" alt="avatar">
+        </div>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
 
-            </a>
-            <ul class="dropdown-menu dropdown-menu-right" role="menu">
-              <a class="dropdown-item" href="/dashboard">Dashboard</a>
-              <a class="dropdown-item" href="/logout">Logout</a>
-            </ul>
-          </div>
-          <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-
-      </div>
-    </header><!-- End Header -->
-
-  <% } %>
+    </div>
+  </header>
   <!-- End Header -->
