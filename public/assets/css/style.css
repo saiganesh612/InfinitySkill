@@ -2468,3 +2468,10 @@ section {
   color: inherit !important;
   background-color: inherit !important;
 }
+/* RIBBON */
+.RIBBON{
+  color:white;
+  background-color: green;
+  align-items: center;
+  transform: skew(45deg);
+}

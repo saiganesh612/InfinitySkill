@@ -176,43 +176,30 @@
 
           </div><!-- End blog sidebar -->
 
+   
           <div class=" col-lg-9 entries">
             <div>
               <main class="container py-2">
-                <% contests.forEach(contest => { %>
-                  <article class="postcard light blue">
-                    <a class="postcard__img_link" href="#">
-                      <img class="postcard__img" src="<%= contest.coverPhoto.url %>" alt="Image Title" />
-                    </a>
-                    <div class="postcard__text t-dark">
-                      <h1 class="postcard__title blue"><a href="/contest/<%= contest._id %>"><%= contest.contestName %> </a></h1>
-                      <div class="postcard__subtitle small">
-                        <time datetime="2020-05-25 12:00:00">
-                          <i class="fas fa-calendar-alt mr-2"></i><%= contest.motive %> 
-                        </time>
-                      </div>
-                      <div class="postcard__bar"></div>
-                      <div>
-                        <time datetime="2020-05-25 12:00:00">
-                          <b>START DATE:</b>
-                          <i class="fas fa-calendar-alt mr-2"></i><%= contest.startDate  %> 
-                        </time> <br />
-                        <time datetime="2020-05-25 12:00:00">
-                          <b>END DATE:</b>
-                          <i class="fas fa-calendar-alt mr-2"></i><%= contest.endDate %> 
-                        </time>
-                      </div>
-                      <div class="postcard__preview-txt"><%= contest.description %> </div>
-                      <ul class="postcard__tagbox">
-                        <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-                        <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
-                        <li class="tag__item play blue">
-                          <a href="/contest/<%= contest._id %>"><i class="fas fa-play mr-2"></i>view more</a>
-                        </li>
-                      </ul>
+                <div class="row">
+                  <% contests.forEach(contest=>{ %>
+                    <div class="col">
+                      <div class="card"  style="width: 18rem;">
+                     
+                        <img style="height: 200px;" class="img-fluid" src="<%= contest.coverPhoto.url %>" alt="contest cover page" >
+                        <div class="card-body" style="background-color: gainsboro;">
+                         <h4 class="card-title"><a style="color: black;" href="/contest/<%= contest._id %>"><%= contest.contestName %> </a></h4>
+<!--                     
+                         <p class="card-text"><b>Start Date : </b><%= contest.startDate %></p>
+                         <p class="card-text"><b>End Date : </b> <%= contest.endDate %> </p> -->
+                         <p class="card-text"><small  class="text-muted">3 days  </small> <a style="float: right;" href="/contest/<%= contest._id %>" >View more</a></p>
+                        </div>  
+                        
                     </div>
-                  </article>
-                <% }) %> 
+                  </div>
+                  <% }) %>
+                   
+                </div>
+                 
               </main>
             </div>
           </div>
