@@ -11,6 +11,17 @@ router.get("/home", async (req, res) => {
     res.render("home", { page: "", contests })
 })
 
+router.get("/sort", async (req, res) => {
+    try {
+        const { category } = req.query
+        const contests = await Contest.find({ category: { $eq: category } })
+        res.render("home", { page: "", contests })
+    } catch (err) {
+        console.log(err)
+        res.redirect("/")
+    }
+})
+
 router.get("/dashboard", async (req, res) => {
     try {
         const { postedContests, participatedContest } = req.user;
