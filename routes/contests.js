@@ -4,10 +4,15 @@ const User = require("../models/user")
 const Contest = require("../models/contest")
 const { transporter, sender } = require("../settings")
 
+router.get("/contest/:id", async (req, res) => {
+    const contest = await Contest.findById(req.params.id)
+    res.render("contests/contest", { page: "Contest", contest })
+})
+
 router.get("/requested-contests", async (req, res) => {
     try {
         const requestedContests = await Contest.find({ isApproved: { $eq: false } })
-        res.render("contests/requested", { page: "Requested Contests", requestedContests })
+        res.render("contests/requested", { page: "", requestedContests })
     } catch (err) {
         console.log(err)
         res.redirect("/home")
@@ -17,7 +22,7 @@ router.get("/requested-contests", async (req, res) => {
 router.get("/approved-contests", async (req, res) => {
     try {
         const approvedContests = await Contest.find({ isApproved: { $eq: true } })
-        res.render("contests/approved", { page: "Approved Contests", approvedContests: approvedContests.reverse() })
+        res.render("contests/approved", { page: "", approvedContests: approvedContests.reverse() })
     } catch (err) {
         console.log(err)
         res.redirect("/home")

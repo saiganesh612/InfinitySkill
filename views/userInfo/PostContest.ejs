@@ -1,25 +1,59 @@
 <%- include("../partials/header2") %>
-
-<div class="POSTCONTEST">
-    <div class="card container">
+    <div class="card container" style="margin-top: 50px; margin-bottom: 50px; padding: 20px; ">
         <div class="title" style="padding: 20px;">
-            <p>Post a Contest</p>
+            <h3 style="color: rgb(65, 131, 206);">Post a Contest</h3>
         </div>
-        <form action="/post-contest" method="POST">
+        <form action="/post-contest" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="text" name="contestName" class="form-control" id="floatingInput" placeholder="Enter Contest name">
+                        <input type="text" name="contestName" class="form-control" id="floatingInput"
+                            placeholder="Enter Contest name">
                         <label for="floatingInput">Contest Name</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="text" name="motive" class="form-control" id="floatingInput" placeholder="Contest Moto">
+                        <input type="text" name="motive" class="form-control" id="floatingInput"
+                            placeholder="Contest Moto">
                         <label for="floatingInput">Contest Motive</label>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="CoverPhoto">Upload your Cover Photo</label>
+                        <input type="file" name="coverPhoto" class="form-control" id="CoverPhoto" accept="image/*">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="rules">Upload your rules</label>
+                        <input type="file" name="rules" class="form-control" id="rules"
+                            accept="application/msword,text/plain, application/pdf,">
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+			<label for="fileType">Allow file type *</label>
+			<div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" name="Video" id="inlineCheckbox1" value="option1">
+				<label class="form-check-label" for="inlineCheckbox1">Videos</label>
+			  </div>
+			  <div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" name="Picture" id="inlineCheckbox2" value="option2">
+				<label class="form-check-label" for="inlineCheckbox2">Pictures</label>
+			  </div>
+			  <div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" name="Audio" id="inlineCheckbox3" value="option3">
+				<label class="form-check-label" for="inlineCheckbox3">Audio</label>
+			  </div>
+			  <div class="form-check form-check-inline">
+				<input class="form-check-input" type="checkbox" name="Documents" id="inlineCheckbox3" value="option3">
+				<label class="form-check-label" for="inlineCheckbox3">Documents</label>
+			  </div>
+		</div> -->
             <div class="row">
                 <div class="col">
                     <div class="form-floating mb-3">
@@ -37,42 +71,93 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="date" name="votingStart" class="form-control" id="floatingInput"
+                            placeholder="Select contest start date">
+                        <label for="floatingInput">Voting Begins at</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="date" name="votingEnd" class="form-control" id="floatingInput"
+                            placeholder="Select contest end date">
+                        <label for="floatingInput">Voting Ends at</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="date" name="WinnerDate" class="form-control" id="floatingInput"
+                            placeholder="Select contest end date">
+                        <label for="floatingInput">Winner Announcuncement on:</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="form-floating">
-                    <textarea class="form-control" name="description" placeholder="Leave a comment here" id="floatingTextarea2"
-                        style="height: 100px"></textarea>
+                    <textarea class="form-control" name="description" placeholder="Leave a comment here"
+                        id="floatingTextarea2" style="height: 100px"></textarea>
                     <label for="floatingTextarea2">Contest Description</label>
                 </div>
             </div>
+            <!-- <div class="row">
+                <div id="summernote"></div>
+                <script>
+                    $('#summernote').summernote({
+                        placeholder: 'Add your Description here',
+                        name: "description",
+                        tabsize: 2,
+                        height: 100
+                    });
+                </script>
+            </div> -->
             <br />
             <div class="row">
                 <div class="col">
-                    <div class="form-floating">
-                        <select class="form-select" name="category" id="floatingSelectGrid" aria-label="Floating label select example">
-                            <option selected>Open this select menu</option>
-                            <option value="Design">Design</option>
-                            <option value="Development">Development</option>
-                            <option value="Art">Art</option>
-                        </select>
-                        <label for="floatingSelectGrid">Select Category</label>
-                    </div>
+                    <select id="mySelect" class="form-select" name="category" onchange="myFunction()">
+                        <option value="" selected>Select any category</option>
+                        <option value="Dancing">Dancing</option>
+                        <option value="Singing">Singing</option>
+                        <option value="Music">Music</option>
+                        <option value="Art">Art</option>
+                        <option value="Graphic design">Graphic design</option>
+                        <option value="reels">Video/film/reels</option>
+                        <option value="VideoEditing">Video editing</option>
+                        <option value="PhotoEditing">Photo editing</option>
+                        <option value="SoftSkills">Soft Skills</option>
+                        <option value="Photography">Photography</option>
+                    </select>
                 </div>
                 <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="text" name="subCategory" class="form-control" id="floatingInput" placeholder="Enter Sub-Category">
-                        <label for="floatingInput">Enter Sub-Category</label>
-                    </div>
+                    <select class="form-select" name="subCategory" id="mySelect2">
+                        <option id=" ">Select sub category</option>
+                        <option id="1"></option>
+                        <option id="2"></option>
+                        <option id="3"></option>
+                        <option id="4"></option>
+                        <option id="5"></option>
+                        <option id="6"></option>
+                        <option id="7"></option>
+                        <option id="8"></option>
+                        <option id="9"></option>
+                        <option id="10"></option>
+                        <option id="11"></option>
+                    </select>
                 </div>
             </div>
+            <br>
             <div class="row">
                 <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="number" name="prizeMoney" class="form-control" id="floatingInput" min="0" placeholder="Enter Prize Money">
+                        <input type="number" name="prizeMoney" class="form-control" id="floatingInput" min="0"
+                            placeholder="Enter Prize Money">
                         <label for="floatingInput">Prize Money</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="number" name="entryFee" class="form-control" id="floatingInput" min="0" placeholder="Entry Fee">
+                        <input type="number" name="entryFee" class="form-control" id="floatingInput" min="0"
+                            placeholder="Entry Fee">
                         <label for="floatingInput">Entry Fee</label>
                     </div>
                 </div>
@@ -80,6 +165,4 @@
             <button class="btn btn-primary btn-lg">Send Request</button>
         </form>
     </div>
-</div>
-
 <%- include("../partials/footer") %>
