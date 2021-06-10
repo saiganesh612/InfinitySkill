@@ -1,77 +1,82 @@
 <%- include("../partials/header2") %>
 
-<h1 style="color: black;">Requested Contests</h1>
-
-<% if(requestedContests.length <= 0){ %>
-    <p style="color: black;">Their are no requested contests. Please check after sometime.</p>
-<% } else { %>
-    <% requestedContests.forEach(contest=> { %>
-        <article class="postcard light blue">
-            <a class="postcard__img_link" href="#">
-                <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
-            </a>
-            <div class="postcard__text t-dark">
-                <h1 class="postcard__title blue"><a href="#"><%= contest.contestName %></a></h1>
-                <div class="postcard__subtitle small">
-                    <p><b> Motive : </b><%=contest.motive %></p>
-                </div>
-                <div class="postcard__bar"></div>
-                <div style="flex-wrap: wrap;">
-                    <div style="float: left;">
-                        <b>START DATE:</b>
-                        <time datetime="2021-06-26 12:00:00">
-                            <i class="fas fa-calendar-alt mr-2"></i>
-                            <%=contest.startDate %>
-                        </time>
+<!-- <h1 style="color: black;">Requested Contests</h1> -->
+<div class="container" style="margin-top: 150px; color: rgb(34, 78, 199);">
+    <h2 style="border-left: 4px solid yellowgreen; padding: 15px;" >Requested Contests</h2>
+    <br>
+    <% if(requestedContests.length <= 0){ %>
+        <p style="color: black;margin-top: 100px;" align="center">Their are no requested contests. Please check after sometime.</p>
+    <% } else { %>
+        <% requestedContests.forEach(contest=> { %>
+            <article class="postcard light blue">
+                <a class="postcard__img_link" href="#">
+                    <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+                </a>
+                <div class="postcard__text t-dark">
+                    <h1 class="postcard__title blue"><a href="#"><%= contest.contestName %></a></h1>
+                    <div class="postcard__subtitle small">
+                        <p><b> Motive : </b><%=contest.motive %></p>
                     </div>
-                    <div style="float: right;">
-                        <b>END DATE:</b>
-                        <time datetime="2021-06-26 12:00:00">
-                            <i class="fas fa-calendar-alt mr-2"></i>
-                            <%=contest.endDate %>
-                        </time>
-                    </div>
-                </div>
-                <div>
-                    <div style="float: left;">
-                        <b>PRIZE MONEY:</b>
-                        <%= contest.prizeMoney%>
-                    </div>
-                    <div style="float: right;">
-                        <b>ENTRY FEE:</b>
-                        <%= contest.entryFee%>
-                    </div>
-                </div>
-                <div class="postcard__preview-txt">
-                    <b>Description : </b>
-                    <%= contest.description %>
-                </div>
-                <div>
-                    <div style="float: left;">
-                        <ul class="postcard__tagbox">
-                            <li class="tag__item">
-                                <%= contest.category %>
-                            </li>
-                            <li class="tag__item">10 days to go</li>
-                            <li class="tag__item play blue">
-                                <a href="#">
-                                    <%= contest.subCategory %>
-                                </a>
-                            </li>
-                        </ul>
+                    <div class="postcard__bar"></div>
+                    <div style="flex-wrap: wrap;">
+                        <div style="float: left;">
+                            <b>START DATE:</b>
+                            <time datetime="2021-06-26 12:00:00">
+                                <i class="fas fa-calendar-alt mr-2"></i>
+                                <%=contest.startDate %>
+                            </time>
+                        </div>
+                        <div style="float: right;">
+                            <b>END DATE:</b>
+                            <time datetime="2021-06-26 12:00:00">
+                                <i class="fas fa-calendar-alt mr-2"></i>
+                                <%=contest.endDate %>
+                            </time>
+                        </div>
                     </div>
                     <div>
-                        <a href="#" class="btn btn-danger">Reject</a>
-                        <a href="/approve/<%= contest._id %>" class="btn btn-primary">Approve</a>
+                        <div style="float: left;">
+                            <b>PRIZE MONEY:</b>
+                            <%= contest.prizeMoney%>
+                        </div>
+                        <div style="float: right;">
+                            <b>ENTRY FEE:</b>
+                            <%= contest.entryFee%>
+                        </div>
                     </div>
-                    <div style="float: right;">
-                        <br />
-                        <b style="color: rgb(24, 112, 228);" class="tag__item"><a href="$"> View more >></a> </b>
+                    <div class="postcard__preview-txt">
+                        <b>Description : </b>
+                        <%= contest.description %>
+                    </div>
+                    <div>
+                        <div style="float: left;">
+                            <ul class="postcard__tagbox">
+                                <li class="tag__item">
+                                    <%= contest.category %>
+                                </li>
+                                <li class="tag__item">10 days to go</li>
+                                <li class="tag__item play blue">
+                                    <a href="#">
+                                        <%= contest.subCategory %>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div style="float: right;">
+                            <br />
+                            <b style="color: rgb(24, 112, 228);" class="tag__item"><a href="$"> View more >></a> </b>
+                        </div>
+                    </div>
+                    <br/>
+                    <div>
+                        <a href="#" class="btn btn-danger">Reject</a>
+                        <a href="/approve/<%= contest._id %>" class="btn btn-success">Approve</a>
                     </div>
                 </div>
-            </div>
-        </article>
-    <% }) %>
-<% } %> 
+            </article>
+        <% }) %>
+    <% } %> 
+</div>
+
 
 <%- include("../partials/footer") %>

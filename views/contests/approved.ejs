@@ -1,9 +1,11 @@
 <%- include("../partials/header2") %>
 
-<h1 style="color: black;">Approved Contests</h1>
+<div class="container" style="margin-top: 150px; color: rgb(34, 78, 199);">
+    <h2 style="border-left: 4px solid yellowgreen; padding: 15px;" >Approved Contests</h2>
+    <br>
 
 <% if(approvedContests.length <= 0){ %>
-    <p style="color: black;">You didn't approved any contest till now.</p>
+    <p style="color: black;margin-top: 100px;" align="center">Their are no approved contests. Please check in requested contests.</p>
 <% } else { %>
     <% approvedContests.forEach(contest=> { %>
         <article class="postcard light blue">
@@ -69,5 +71,5 @@
         </article>
     <% }) %>
 <% } %> 
-
+</div>
 <%- include("../partials/footer") %>

@@ -56,7 +56,7 @@ router.post("/signup", async (req, res) => {
 router.get("/verify-email/:id", async (req, res) => {
     try {
         const user = await User.findOneAndUpdate({ emailToken: { $eq: req.params.id } }, { emailToken: null, isEmailVerified: true })
-        if (user.username === "Admin" && user.email === "saiganesh0612@gmail.com") {
+        if (user.username === "Admin" && user.email === "achiever2704@gmail.com") {
             user.isAdmin = true;
             await user.save()
         }
