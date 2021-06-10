@@ -83,10 +83,6 @@ app.get("/contact-form", (req, res) => {
     res.render("contact", { page: "" })
 })
 
-app.get("/home", (req, res) => {
-    res.render("home", { page: "" })
-})
-
 app.use(userRoutes)
 app.use(infoRoutes)
 app.use(contestRoutes)
