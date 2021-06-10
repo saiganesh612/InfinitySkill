@@ -8,7 +8,7 @@
     <% approvedContests.forEach(contest=> { %>
         <article class="postcard light blue">
             <a class="postcard__img_link" href="#">
-                <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+                <img class="postcard__img" src="<%= contest.coverPhoto.url %>" alt="Image Title" />
             </a>
             <div class="postcard__text t-dark">
                 <h1 class="postcard__title blue"><a href="#"><%= contest.contestName %></a></h1>
@@ -62,7 +62,7 @@
                     </div>
                     <div style="float: right;">
                         <br />
-                        <b style="color: rgb(24, 112, 228);" class="tag__item"><a href="$"> View more >></a> </b>
+                        <b style="color: rgb(24, 112, 228);" class="tag__item"><a href="/contest/<%= contest._id %>"> View more >></a> </b>
                     </div>
                 </div>
             </div>

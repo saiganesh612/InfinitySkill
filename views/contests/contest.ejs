@@ -1,0 +1,219 @@
+<%- include("../partials/header2") %>
+
+<section id="blog" class="blog">
+    <div class="container">
+        <div class="row">
+            <div class="entries">
+                <article class="entry entry-single">
+                    <div class="entry-img" align="center">
+                        <img src="<%= contest.coverPhoto.url %>" alt="coverPhoto" class="img-fluid" style="width: 300px;">
+                    </div>
+
+                    <h2 class="entry-title">
+                        <a href="blog-single.html"><%= contest.contestName %> </a>
+                    </h2>
+
+                    <div class="entry-meta">
+                        <ul>
+                            <li class="d-flex align-items-center"><i class="bi bi-person"></i> 
+                                <a href="blog-single.html"><%= contest.owner %> </a>
+                            </li>
+                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> 
+                                <a href="blog-single.html"><time datetime="2020-01-01"><%= contest.startDate %> </time></a>
+                            </li>
+                            <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> 
+                                <a href="blog-single.html">Participants count</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="entry-content">
+                        <blockquote>
+                            <p><%= contest.motive %> </p>
+                        </blockquote>
+                        <div>
+                            <h3 style="float: left;">Prize Money: <%= contest.prizeMoney %> /-</h3>
+                            <h3 style="float: right;">Entry fee: <%= contest.entryFee %> /-</h3>
+                        </div>
+                        <br /> <br /> <br />
+                        <p>
+                            <b>Contest Description:</b><br />
+                            <%= contest.description %> 
+                        </p>
+
+                        <h3>Rules</h3>
+                        <p>
+                            Officiis animi maxime nulla quo et harum eum quis a. Sit hic in qui quos fugit ut rerum
+                            atque. Optio
+                            provident dolores atque voluptatem rem excepturi molestiae qui. Voluptatem laborum omnis
+                            ullam
+                            quibusdam perspiciatis nulla nostrum. Voluptatum est libero eum nesciunt aliquid qui.
+                            Quia et suscipit non sequi. Maxime sed odit. Beatae nesciunt nesciunt accusamus quia aut
+                            ratione
+                            aspernatur dolor. Sint harum eveniet dicta exercitationem minima. Exercitationem omnis
+                            asperiores
+                            natus aperiam dolor consequatur id ex sed. Quibusdam rerum dolores sint consequatur quidem
+                            ea.
+                            Beatae minima sunt libero soluta sapiente in rem assumenda. Et qui odit voluptatem. Cum
+                            quibusdam
+                            voluptatem voluptatem accusamus mollitia aut atque aut.
+                        </p>
+                        <p>
+                            Rerum ea est assumenda pariatur quasi et quam. Facilis nam porro amet nostrum. In assumenda
+                            quia quae
+                            a id praesentium. Quos deleniti libero sed occaecati aut porro autem. Consectetur sed
+                            excepturi sint
+                            non placeat quia repellat incidunt labore. Autem facilis hic dolorum dolores vel.
+                            Consectetur quasi id et optio praesentium aut asperiores eaque aut. Explicabo omnis
+                            quibusdam esse. Ex
+                            libero illum iusto totam et ut aut blanditiis. Veritatis numquam ut illum ut a quam vitae.
+                        </p>
+                        <p>
+                            Alias quia non aliquid. Eos et ea velit. Voluptatem maxime enim omnis ipsa voluptas
+                            incidunt. Nulla
+                            sit eaque mollitia nisi asperiores est veniam.
+                        </p>
+                        <h3>Timeline</h3>
+                        <div class="container">
+                            <div class="main-timeline">
+                                <!-- start experience section-->
+                                <div class="timeline">
+                                    <div class="icon"></div>
+                                    <div class="date-content">
+                                        <div class="date-outer">
+                                            <span class="date" style="margin-top: 15px;">
+                                                <span class="month"> <%= contest.startDate %> </span>
+                                                <!-- <span class="year">2013</span> -->
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <h5 class="title">Contest Start date</h5>
+                                        <p class="description">
+                                            You can start submitting your works from this day
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- end experience section-->
+
+                                <!-- start experience section-->
+                                <div class="timeline">
+                                    <div class="icon"></div>
+                                    <div class="date-content">
+                                        <div class="date-outer">
+                                            <span class="date" style="margin-top: 15px;">
+                                                <span class="month"> <%= contest.endDate %> </span>
+                                                <!-- <span class="year">2013</span> -->
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <h5 class="title">Contest End Date</h5>
+                                        <p class="description">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur ex
+                                            sit amet massa
+                                            scelerisque scelerisque. Aliquam erat volutpat. Aenean interdum finibus
+                                            efficitur. Praesent
+                                            dapibus dolor felis, eu ultrices elit molestie.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- end experience section-->
+
+                                <!-- start experience section-->
+                                <div class="timeline">
+                                    <div class="icon"></div>
+                                    <div class="date-content">
+                                        <div class="date-outer">
+                                            <span class="date" style="margin-top: 15px;">
+                                                <span class="month"> <%= contest.votingStart %> </span>
+                                                <!-- <span class="year">2013</span> -->
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <h5 class="title">Voting starts on</h5>
+                                        <p class="description">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur ex
+                                            sit amet massa
+                                            scelerisque scelerisque. Aliquam erat volutpat. Aenean interdum finibus
+                                            efficitur. Praesent
+                                            dapibus dolor felis, eu ultrices elit molestie.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- end experience section-->
+
+                                <!-- start experience section-->
+                                <div class="timeline">
+                                    <div class="icon"></div>
+                                    <div class="date-content">
+                                        <div class="date-outer">
+                                            <span class="date" style="margin-top: 15px;">
+                                                <span class="month"> <%= contest.votingEnd %></span>
+                                                <!-- <span class="year">2013</span> -->
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <h5 class="title">Voting ends</h5>
+                                        <p class="description">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur ex
+                                            sit amet massa
+                                            scelerisque scelerisque. Aliquam erat volutpat. Aenean interdum finibus
+                                            efficitur. Praesent
+                                            dapibus dolor felis, eu ultrices elit molestie.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- end experience section-->
+                                <!-- start experience section-->
+                                <div class="timeline">
+                                    <div class="icon"></div>
+                                    <div class="date-content">
+                                        <div class="date-outer">
+                                            <span class="date" style="margin-top: 15px;">
+                                                <span class="month"> <%= contest.WinnerDate %></span>
+                                                <!-- <span class="year">2013</span> -->
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <h5 class="title">Winner Announcement</h5>
+                                        <p class="description">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed efficitur ex
+                                            sit amet massa
+                                            scelerisque scelerisque. Aliquam erat volutpat. Aenean interdum finibus
+                                            efficitur. Praesent
+                                            dapibus dolor felis, eu ultrices elit molestie.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- end experience section-->
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="entry-footer">
+                        <i class="bi bi-folder"></i>
+                        <ul class="cats">
+                            <li><a href="#">Category</a></li>
+                        </ul>
+
+                        <i class="bi bi-tags"></i>
+                        <ul class="tags">
+                            <li><a href="#">Sub category</a></li>
+                            <li><a href="#">Tips</a></li>
+                            <li><a href="#">Marketing</a></li>
+                        </ul>
+                    </div>
+
+                </article><!-- End blog entry -->
+            </div><!-- End blog entries list -->
+        </div>
+    </div>
+</section>
+
+<%- include("../partials/footer") %>
