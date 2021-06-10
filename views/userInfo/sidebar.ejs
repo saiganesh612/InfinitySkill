@@ -4,7 +4,7 @@
     <div class=" col-2  nav flex-column nav-pills me-3 shadow-lg p-3 mb-5 bg-white rounded" id="v-pills-tab"
       role="tablist" aria-orientation="vertical">
       <div class="py-4 px-3 mb-4 bg-light">
-        <div class="media d-flex align-items-center">
+        <div class="media d-flex align-items-center" style="width: inherit;">
           <div style="height: 70px;width: 70px;border-radius: 50%; background-color:#1483ce; color: white;margin: 3px">
             <p
               style="color: whitesmoke; margin-top: 13px; margin-left: 25px; font-size: 30px; font-weight: bold; text-transform: uppercase;">
@@ -15,7 +15,6 @@
             <h4 class="m-0" style="color: #1483ce;">
               <%= currentUser.username %> 
             </h4>
-            <p class="font-weight-normal text-muted mb-0"><%= currentUser.email %> </p>
           </div>
 
         </div>
@@ -27,19 +26,19 @@
       <% if(currentUser.username !== "Admin"){ %>
         <button class="nav-link active text-left" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
           type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
-          <p style="font-size: 20px;"><i style="color: yellowgreen;font-weight: 700;" class="bi bi-trophy-fill"></i>
+          <p style="font-size: 20px;" style="color: rgb(14, 166, 226);"><i style="color: yellowgreen;font-weight: 700;" class="bi bi-trophy-fill"></i>
             Posted Contests </p>
         </button>
         <button class="nav-link text-left" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
           type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
-          <p style="font-size: 20px;"><i style="color: yellowgreen;font-weight: 700;" class="bi bi-check-circle-fill"></i>
+          <p style="font-size: 20px;" style="color: rgb(14, 166, 226);"><i style="color: yellowgreen;font-weight: 700;" class="bi bi-check-circle-fill"></i>
             Participated Contests </p>
         </button>
       <% } %> 
       <button class="nav-link text-left" id="v-pills-messages-tab" data-bs-toggle="pill"
         data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages"
         aria-selected="false">
-        <p style="font-size: 20px;"><i style="color: yellowgreen;font-weight: 700;" class="bi bi-currency-exchange"></i>
+        <p style="font-size: 20px;" style="color: rgb(14, 166, 226);"><i style="color: yellowgreen;font-weight: 700;" class="bi bi-currency-exchange"></i>
           Wallet</p>
       </button>
 
@@ -56,7 +55,7 @@
               <% postedCont.forEach(contest => { %>
                 <article class="postcard light blue">
                   <a class="postcard__img_link" href="#">
-                    <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+                    <img class="postcard__img" src="<%= contest.coverPhoto.url %>" alt="Image Title" />
                   </a>
                   <div class="postcard__text t-dark">
                     <h1 class="postcard__title blue"><a href="#"><%= contest.contestName %> </a></h1>
@@ -121,7 +120,7 @@
               <% postedCont.forEach(contest => { %>
                 <article class="postcard light blue">
                   <a class="postcard__img_link" href="#">
-                    <img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+                    <img class="postcard__img" src="<%= contest.coverPhoto.url %>" alt="Image Title" />
                   </a>
                   <div class="postcard__text t-dark">
                     <h1 class="postcard__title blue"><a href="#"><%= contest.contestName %> </a></h1>
