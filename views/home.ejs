@@ -100,7 +100,7 @@
     <!-- Contests section -->
     <section id="blog" class="blog">
       <div>
-        <div class="row">
+        <div class="row" style="margin-left: 75px;margin-right: 75px;">
           <div class="col-lg-3">
             <div class="sidebar">
               <h3 class="sidebar-title">Search</h3>
@@ -180,26 +180,28 @@
           <div class=" col-lg-9 entries">
             <div>
               <main class="container py-2">
-                <div class="row">
-                  <% contests.forEach(contest=>{ %>
-                    <div class="col">
-                      <div class="card"  style="width: 18rem;">
-                     
-                        <img style="height: 200px;" class="img-fluid" src="<%= contest.coverPhoto.url %>" alt="contest cover page" >
-                        <div class="card-body" style="background-color: gainsboro;">
-                         <h4 class="card-title"><a style="color: black;" href="/contest/<%= contest._id %>"><%= contest.contestName %> </a></h4>
-<!--                     
-                         <p class="card-text"><b>Start Date : </b><%= contest.startDate %></p>
-                         <p class="card-text"><b>End Date : </b> <%= contest.endDate %> </p> -->
-                         <p class="card-text"><small  class="text-muted">3 days  </small> <a style="float: right;" href="/contest/<%= contest._id %>" >View more</a></p>
-                        </div>  
-                        
-                    </div>
-                  </div>
-                  <% }) %>
+                <section id="recent-blog-posts" class="recent-blog-posts">
+                  <div class="container" >         
                    
-                </div>
-                 
+                    <div class="row">
+                      <% contests.forEach(contest=>{ %>
+                         <!-- <%= contest.coverPhoto.url %> -->
+                        <div class="col-lg-4">
+                          <div class="post-box">
+                            <div class="post-img"><img src="assets/img/blog/blog-1.jpg" class="img-fluid" alt=""></div>
+                            <span class="post-date"><%= contest.startDate %></span>
+                            <h3 class="post-title"> <%= contest.contestName %> </h3>
+                            <a href="/contest/<%= contest._id %>" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+                          </div>
+                        </div>
+                      <% }) %>
+                     
+        
+                    </div>
+            
+                  </div>
+            
+                </section><!-- End Recent Blog Posts Section -->
               </main>
             </div>
           </div>
