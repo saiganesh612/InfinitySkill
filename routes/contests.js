@@ -3,13 +3,14 @@ const router = express.Router();
 const User = require("../models/user")
 const Contest = require("../models/contest")
 const { transporter, sender } = require("../settings")
+const { isLoggedIn, isAdmin } = require("../middlewares")
 
-router.get("/contest/:id", async (req, res) => {
+router.get("/contest/:id", isLoggedIn, async (req, res) => {
     const contest = await Contest.findById(req.params.id)
     res.render("contests/contest", { page: "Contest", contest })
 })
 
-router.get("/requested-contests", async (req, res) => {
+router.get("/requested-contests", isLoggedIn, isAdmin, async (req, res) => {
     try {
         const requestedContests = await Contest.find({ isApproved: { $eq: false } })
         res.render("contests/requested", { page: "", requestedContests })
@@ -19,7 +20,7 @@ router.get("/requested-contests", async (req, res) => {
     }
 })
 
-router.get("/approved-contests", async (req, res) => {
+router.get("/approved-contests", isLoggedIn, isAdmin, async (req, res) => {
     try {
         const approvedContests = await Contest.find({ isApproved: { $eq: true } })
         res.render("contests/approved", { page: "", approvedContests: approvedContests.reverse() })
@@ -29,7 +30,7 @@ router.get("/approved-contests", async (req, res) => {
     }
 })
 
-router.get("/approve/:id", async (req, res) => {
+router.get("/approve/:id", isLoggedIn, isAdmin, async (req, res) => {
     try {
         const { id } = req.params;
         const contest = await Contest.findByIdAndUpdate(id, { isApproved: true })

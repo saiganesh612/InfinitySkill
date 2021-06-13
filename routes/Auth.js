@@ -11,9 +11,10 @@ router.get("/login", (req, res) => {
 })
 
 router.post("/login", passport.authenticate('local', {
+    failureFlash: true,
     failureRedirect: "/login"
 }), (req, res) => {
-    console.log("U logged in")
+    req.flash("success", `Welcome back ${req.user.username}!!`)
     res.redirect("/home")
 })
 
@@ -42,33 +43,34 @@ router.post("/signup", async (req, res) => {
         };
 
         transporter.sendMail(mailOptions, err => {
-            if (err) return console.log("error occured", err)
-            return console.log('mail sent');
+            if (err) throw "Their is a problem occured while sending mail.Check your mail was spelled correctly and try after sometime..."
+            console.log('mail sent');
+            req.flash("success", `Verification email has been sent to ${newUser.email} please verify yourself...`)
+            res.redirect("/")
         });
-        console.log(newUser)
-        res.redirect("/")
-    } catch (err) {
-        console.log(err)
+
+    } catch (e) {
+        const errMssg = 'E11000 duplicate key error collection'
+        e.message = e.message && e.message.includes(errMssg) ? 'This email is already registered. Try to Sign Up with another mail' : e.message;
+        req.flash("error", e.message ? e.message : e);
         res.redirect("/signup")
     }
 })
 
 router.get("/verify-email/:id", async (req, res) => {
     try {
-        const user = await User.findOneAndUpdate({ emailToken: { $eq: req.params.id } }, { emailToken: null, isEmailVerified: true })
+        const user = await User.findOneAndUpdate({ emailToken: { $eq: req.params.id } }, { emailToken: undefined, isEmailVerified: true })
         if (user.username === "Admin" && user.email === "achiever2704@gmail.com") {
             user.isAdmin = true;
             await user.save()
         }
-        console.log(user)
-        console.log("email verified...")
         req.login(user, err => {
             if (err) throw "Failed to authenticate"
-            console.log("logged in")
+            req.flash("success", `Welcome ${user.username}. We verified you successfully...`)
             res.redirect("/home")
         })
     } catch (err) {
-        console.log(err)
+        req.flash("error", err)
         res.redirect("/")
     }
 })
@@ -88,7 +90,7 @@ router.post("/forgotPass", (req, res, next) => {
         (token, done) => {
             User.findOne({ email: { $eq: req.body.email } }, (err, user) => {
                 if (!user) {
-                    console.log("No account with this email address was registered")
+                    req.flash("error", "No account with this email address was registered")
                     return res.redirect('/account/forgotPass');
                 }
                 user.resetPasswordToken = token;
@@ -112,6 +114,7 @@ router.post("/forgotPass", (req, res, next) => {
             };
             transporter.sendMail(mailOptions, err => {
                 console.log('mail sent');
+                req.flash('success', `An e-mail has been sent to ${user.email} with further instructions.`);
                 done(err, 'done');
             });
         }
@@ -125,7 +128,7 @@ router.get("/reset/:token", (req, res) => {
     const { token } = req.params;
     User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }, (err, user) => {
         if (!user) {
-            console.log("Password reset token is invalid or has expired.")
+            req.flash('error', 'Password reset token is invalid or has expired.');
             return res.redirect('/forgotPass');
         }
         res.render('Auth/reset', { token: token, page: "Reset Password" });
@@ -138,7 +141,7 @@ router.post("/reset/:token", (req, res) => {
         done => {
             User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } }, (err, user) => {
                 if (!user) {
-                    console.log("Password reset token is invalid or has expired.")
+                    req.flash('error', 'Password reset token is invalid or has expired.');
                     return res.redirect('back');
                 }
                 if (req.body.password === req.body.confirm) {
@@ -153,7 +156,7 @@ router.post("/reset/:token", (req, res) => {
                         });
                     })
                 } else {
-                    console.log("Passwords do not match.")
+                    req.flash("error", "Passwords do not match.");
                     return res.redirect('back');
                 }
             });
@@ -171,7 +174,7 @@ router.post("/reset/:token", (req, res) => {
 
             transporter.sendMail(mailOptions, err => {
                 console.log('mail sent');
-                console.log("Success! Your password has been changed.")
+                req.flash('success', 'Success! Your password has been changed.');
                 done(err, 'done');
             });
         }
@@ -182,7 +185,7 @@ router.post("/reset/:token", (req, res) => {
 
 router.get("/logout", (req, res) => {
     req.logout()
-    console.log("U logged out...")
+    req.flash("success", "You logged out")
     res.redirect("/")
 })
 
