@@ -9,6 +9,7 @@ const mongoose = require("mongoose")
 const passport = require("passport")
 const localStrategy = require("passport-local")
 const session = require("express-session")
+const flash = require("connect-flash")
 
 const User = require("./models/user")
 
@@ -17,7 +18,7 @@ const infoRoutes = require("./routes/userinfo")
 const contestRoutes = require("./routes/contests")
 
 // Connecting to database
-const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/infiniteskill"
+const dbUrl = /*process.env.DB_URL ||*/ "mongodb://localhost:27017/infiniteskill"
 mongoose.connect(dbUrl, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -53,6 +54,7 @@ const sessionConfigs = {
 }
 
 app.use(session(sessionConfigs))
+app.use(flash())
 
 // Passport configurations
 app.use(passport.initialize())
@@ -64,6 +66,8 @@ passport.deserializeUser(User.deserializeUser())
 // Preserving user data
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.success = req.flash("success")
+    res.locals.error = req.flash("error")
     next()
 })
 

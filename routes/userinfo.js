@@ -54,13 +54,14 @@ router.post("/post-contest", upload.any(), async (req, res) => {
             description, category, subCategory, prizeMoney, entryFee
         })
         newContest.coverPhoto = { url: req.files[0].path, filename: req.files[0].filename }
-        newContest.rules = { url: req.files[1].path, filename: req.files[1].filename}
+        newContest.rules = { url: req.files[1].path, filename: req.files[1].filename }
         await newContest.save()
         user.postedContests.unshift(newContest)
         await user.save()
+        req.flash("success", "Thanks for posting a contest. Once this was reviewed by admin the contest will be seen by public.")
         res.redirect("/dashboard")
     } catch (err) {
-        console.log(err)
+        req.flash("error", err)
         res.redirect("/post-contest")
     }
 })
