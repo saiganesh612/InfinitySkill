@@ -5,13 +5,14 @@ const User = require("../models/user")
 const multer = require("multer")
 const { storage } = require("../cloudinary")
 const upload = multer({ storage })
+const { isLoggedIn } = require("../middlewares")
 
-router.get("/home", async (req, res) => {
+router.get("/home", isLoggedIn, async (req, res) => {
     const contests = await Contest.find({ isApproved: { $eq: true } })
     res.render("home", { page: "", contests })
 })
 
-router.get("/sort", async (req, res) => {
+router.get("/sort", isLoggedIn, async (req, res) => {
     try {
         const { category } = req.query
         const contests = await Contest.find({ category: { $eq: category } })
@@ -22,7 +23,7 @@ router.get("/sort", async (req, res) => {
     }
 })
 
-router.get("/dashboard", async (req, res) => {
+router.get("/dashboard", isLoggedIn, async (req, res) => {
     try {
         const { postedContests, participatedContest } = req.user;
         let postedCont = postedContests.map(id => (Contest.findById(id)))
@@ -36,11 +37,11 @@ router.get("/dashboard", async (req, res) => {
     }
 })
 
-router.get("/post-contest", (req, res) => {
+router.get("/post-contest", isLoggedIn, (req, res) => {
     res.render("userInfo/PostContest", { page: "" })
 })
 
-router.post("/post-contest", upload.any(), async (req, res) => {
+router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
     try {
         const { contestName, motive, startDate, endDate, votingStart,
             votingEnd, WinnerDate, description, category, subCategory, prizeMoney, entryFee
