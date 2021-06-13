@@ -6,7 +6,7 @@
             <div class="entries">
                 <article class="entry entry-single">
                     <div class="entry-img" align="center">
-                        <img src="<%= contest.coverPhoto.url %>" alt="coverPhoto" class="img-fluid" style="width: 300px;">
+                        <img src="<%= contest.coverPhoto.url %>" alt="coverPhoto" class="img-fluid" style="width: inherit; height: inherit;">
                     </div>
 
                     <h2 class="entry-title">
@@ -199,12 +199,12 @@
                     <div class="entry-footer">
                         <i class="bi bi-folder"></i>
                         <ul class="cats">
-                            <li><a href="#">Category</a></li>
+                            <li><a href="#"><%= contest.category %> </a></li>
                         </ul>
 
                         <i class="bi bi-tags"></i>
                         <ul class="tags">
-                            <li><a href="#">Sub category</a></li>
+                            <li><a href="#"><%= contest.subCategory %> </a></li>
                             <li><a href="#">Tips</a></li>
                             <li><a href="#">Marketing</a></li>
                         </ul>
