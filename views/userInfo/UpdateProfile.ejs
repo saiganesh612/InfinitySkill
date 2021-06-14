@@ -1,0 +1,46 @@
+<%- include("../partials/header2") %>
+    <div class="card container" style="margin-top: 50px; margin-bottom: 50px; padding: 20px; ">
+        <div class="title" style="padding: 20px;">
+            <h3 style="color: rgb(65, 131, 206);">Update Profile</h3>
+        </div>
+        <form action="/post-contest" method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="Name" class="form-control" id="floatingInput"
+                           >
+                        <label for="floatingInput">User name</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="email" name="email" class="form-control" id="floatingInput"
+                           >
+                        <label for="floatingInput">E-mail</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="password" name="pwd" class="form-control" id="floatingInput"
+                            >
+                        <label for="floatingInput">password</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating mb-3">
+                        <input type="password" name="pwd2" class="form-control" id="floatingInput"
+                            >
+                        <label for="floatingInput">Confirm password</label>
+                    </div>
+                </div>
+               
+            </div>
+            <br />
+          
+            <br>
+            <button class="btn btn-info btn-lg">Update Details</button>
+        </form>
+    </div>
+<%- include("../partials/footer") %>

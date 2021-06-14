@@ -41,6 +41,11 @@ router.get("/post-contest", isLoggedIn, (req, res) => {
     res.render("userInfo/PostContest", { page: "" })
 })
 
+router.get("/update-profile", isLoggedIn, (req, res) => {
+    res.render("userInfo/UpdateProfile", { page: "" })
+})
+
+
 router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
     try {
         const { contestName, motive, startDate, endDate, votingStart,

@@ -15,10 +15,10 @@
   padding-bottom:20px ;
 
 }
+
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-  color: rgb(14, 166, 226);
   background-color: #e4f2f7 !important;
   border-right: 10px solid yellowgreen !important;
   width: 100%;
-  
+  color: rgb(14, 166, 226) !important;
 }

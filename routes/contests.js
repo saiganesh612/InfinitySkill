@@ -10,6 +10,12 @@ router.get("/contest/:id", isLoggedIn, async (req, res) => {
     res.render("contests/contest", { page: "Contest", contest })
 })
 
+router.get("/participants", isLoggedIn, async (req, res) => {
+    const contest = await Contest.findById(req.params.id)
+    res.render("contests/participants", { page: " ", contest })
+})
+
+
 router.get("/requested-contests", isLoggedIn, isAdmin, async (req, res) => {
     try {
         const requestedContests = await Contest.find({ isApproved: { $eq: false } })

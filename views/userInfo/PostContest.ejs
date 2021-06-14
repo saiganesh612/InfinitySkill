@@ -1,7 +1,7 @@
 <%- include("../partials/header2") %>
     <div class="card container" style="margin-top: 50px; margin-bottom: 50px; padding: 20px; ">
         <div class="title" style="padding: 20px;">
-            <h3 style="color: rgb(65, 131, 206);">Post a Contest</h3>
+            <h3 style="color: rgb(65, 131, 206);">Create Profile</h3>
         </div>
         <form action="/post-contest" method="POST" enctype="multipart/form-data">
             <div class="row">
@@ -9,87 +9,39 @@
                     <div class="form-floating mb-3">
                         <input type="text" name="contestName" class="form-control" id="floatingInput"
                             placeholder="Enter Contest name">
-                        <label for="floatingInput">Contest Name</label>
+                        <label for="floatingInput">Full name</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-floating mb-3">
                         <input type="text" name="motive" class="form-control" id="floatingInput"
                             placeholder="Contest Moto">
-                        <label for="floatingInput">Contest Motive</label>
+                        <label for="floatingInput">E-mail</label>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="CoverPhoto">Upload your Cover Photo(9:16)</label>
-                        <input type="file" name="coverPhoto" class="form-control" id="CoverPhoto" accept="image/*">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="rules">Upload your rules</label>
-                        <input type="file" name="rules" class="form-control" id="rules"
-                            accept="application/msword,text/plain, application/pdf,">
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="row">
-			<label for="fileType">Allow file type *</label>
-			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="Video" id="inlineCheckbox1" value="option1">
-				<label class="form-check-label" for="inlineCheckbox1">Videos</label>
-			  </div>
-			  <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="Picture" id="inlineCheckbox2" value="option2">
-				<label class="form-check-label" for="inlineCheckbox2">Pictures</label>
-			  </div>
-			  <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="Audio" id="inlineCheckbox3" value="option3">
-				<label class="form-check-label" for="inlineCheckbox3">Audio</label>
-			  </div>
-			  <div class="form-check form-check-inline">
-				<input class="form-check-input" type="checkbox" name="Documents" id="inlineCheckbox3" value="option3">
-				<label class="form-check-label" for="inlineCheckbox3">Documents</label>
-			  </div>
-		</div> -->
-            <div class="row">
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="date" name="startDate" class="form-control" id="floatingInput"
-                            placeholder="Select contest start date">
-                        <label for="floatingInput">Contest Start date</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="date" name="endDate" class="form-control" id="floatingInput"
-                            placeholder="Select contest end date">
-                        <label for="floatingInput">Contest End date</label>
-                    </div>
-                </div>
-            </div>
+         
+            
             <div class="row">
                 <div class="col">
                     <div class="form-floating mb-3">
                         <input type="date" name="votingStart" class="form-control" id="floatingInput"
                             placeholder="Select contest start date">
-                        <label for="floatingInput">Voting Begins at</label>
+                        <label for="floatingInput">Date of Birth</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-floating mb-3">
                         <input type="date" name="votingEnd" class="form-control" id="floatingInput"
                             placeholder="Select contest end date">
-                        <label for="floatingInput">Voting Ends at</label>
+                        <label for="floatingInput">Address</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-floating mb-3">
                         <input type="date" name="WinnerDate" class="form-control" id="floatingInput"
                             placeholder="Select contest end date">
-                        <label for="floatingInput">Winner Announcuncement on:</label>
+                        <label for="floatingInput">Mobile number</label>
                     </div>
                 </div>
             </div>
