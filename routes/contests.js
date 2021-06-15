@@ -10,11 +10,50 @@ router.get("/contest/:id", isLoggedIn, async (req, res) => {
     res.render("contests/contest", { page: "Contest", contest })
 })
 
-router.get("/participants", isLoggedIn, async (req, res) => {
-    const contest = await Contest.findById(req.params.id)
-    res.render("contests/participants", { page: " ", contest })
+router.get("/list-of-participants", isLoggedIn, async (req, res) => {
+    try {
+        const participants = []
+        const { id } = req.query
+
+        const contest = await Contest.findOne({ _id: { $eq: id } })
+
+        const users = await User.find({ _id: { $in: contest.peopleParticipated } })
+        users.forEach(user => {
+            let participant = user.participatedContest.filter(contest => contest.contestId === id)[0]
+            participants.push({ participant, user: user.username })
+        })
+
+        res.render("contests/participants", { page: " ", participants })
+    } catch (err) {
+        res.redirect(`/contest/${id}`)
+    }
 })
 
+router.get("/participants", isLoggedIn, async (req, res) => {
+    try {
+        const { contestId } = req.query
+        const { username, _id } = req.user
+        const user = await User.findOne({ _id: { $eq: _id } })
+        if (!user) throw "You don't have access to participate in this contest"
+
+        const contest = await Contest.findOne({ _id: { $eq: contestId } })
+        if (!contest) throw "Their is no contest of this type..."
+
+        if (contest.owner === username) throw "Contest creators can't able to participant in their own contest"
+
+        const present = contest.peopleParticipated.find(person => person.equals(_id))
+        if (present) throw "You already participating in this contest"
+
+        contest.peopleParticipated.push(user)
+        user.participatedContest.unshift({ contestId })
+        await contest.save()
+        await user.save()
+        res.redirect(`/list-of-participants?id=${contestId}`)
+    } catch (err) {
+        req.flash("error", err)
+        res.redirect("back")
+    }
+})
 
 router.get("/requested-contests", isLoggedIn, isAdmin, async (req, res) => {
     try {

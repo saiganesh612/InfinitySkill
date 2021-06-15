@@ -3,42 +3,27 @@
         <div class="title" style="padding: 20px;">
             <h3 style="color: rgb(65, 131, 206);">Update Profile</h3>
         </div>
-        <form action="/post-contest" method="POST" enctype="multipart/form-data">
+        <div class="alert alert-warning">
+            <p style="margin-bottom: 2px;"> <i class="bi bi-exclamation-triangle"></i>&nbsp;&nbsp;
+                Once you update your username you will be redirected to login page
+                where you need to login again with your new credentials.
+            </p>
+        </div>
+        <form action="/update-profile?_method=PUT" method="POST">
             <div class="row">
                 <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="text" name="Name" class="form-control" id="floatingInput"
-                           >
+                        <input type="text" name="username" class="form-control" id="floatingInput" value="<%= currentUser.username %>" >
                         <label for="floatingInput">User name</label>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-floating mb-3">
-                        <input type="email" name="email" class="form-control" id="floatingInput"
-                           >
+                        <input type="email" name="email" class="form-control" id="floatingInput" value="<%= currentUser.email %>" >
                         <label for="floatingInput">E-mail</label>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="password" name="pwd" class="form-control" id="floatingInput"
-                            >
-                        <label for="floatingInput">password</label>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="form-floating mb-3">
-                        <input type="password" name="pwd2" class="form-control" id="floatingInput"
-                            >
-                        <label for="floatingInput">Confirm password</label>
-                    </div>
-                </div>
-               
-            </div>
-            <br />
-          
             <br>
             <button class="btn btn-info btn-lg">Update Details</button>
         </form>

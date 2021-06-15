@@ -25,7 +25,12 @@
                                 <a href="blog-single.html">Participants count</a>
                             </li>
                             <li>
-                                <a href="/participants" style="float: right;" ><button class="btn btn-info">Participate now</button></a>
+                                <a href="/participants?contestId=<%= contest._id %>" style="float: right;" ><button class="btn btn-info">Participate now</button></a>
+                            </li>
+                            <li>
+                                <a href="/list-of-participants?id=<%= contest._id %>" style="float: right;">
+                                    <button class="btn btn-info">View all participants</button>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -202,7 +207,7 @@
                     <div class="entry-footer">
                         <i class="bi bi-folder"></i>
                         <ul class="cats">
-                            <li><a href="#"><%= contest.category %> </a></li>
+                            <li><a href="/sort?category=<%= contest.category %>"><%= contest.category %> </a></li>
                         </ul>
 
                         <i class="bi bi-tags"></i>

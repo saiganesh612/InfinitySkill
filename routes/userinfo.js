@@ -27,7 +27,7 @@ router.get("/dashboard", isLoggedIn, async (req, res) => {
     try {
         const { postedContests, participatedContest } = req.user;
         let postedCont = postedContests.map(id => (Contest.findById(id)))
-        let participatedCont = participatedContest.map(id => (Contest.findById(id)))
+        let participatedCont = participatedContest.map(contest => (Contest.findOne({ _id: { $eq: contest.contestId } })))
         postedCont = await Promise.all(postedCont)
         participatedCont = await Promise.all(participatedCont)
         res.render("userInfo/sidebar", { page: "sidebar", postedCont, participatedCont })
@@ -40,11 +40,6 @@ router.get("/dashboard", isLoggedIn, async (req, res) => {
 router.get("/post-contest", isLoggedIn, (req, res) => {
     res.render("userInfo/PostContest", { page: "" })
 })
-
-router.get("/update-profile", isLoggedIn, (req, res) => {
-    res.render("userInfo/UpdateProfile", { page: "" })
-})
-
 
 router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
     try {
@@ -69,6 +64,22 @@ router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
     } catch (err) {
         req.flash("error", err)
         res.redirect("/post-contest")
+    }
+})
+
+router.get("/update-profile", isLoggedIn, (req, res) => {
+    res.render("userInfo/UpdateProfile", { page: "" })
+})
+
+router.put("/update-profile", isLoggedIn, async (req, res) => {
+    try {
+        const { username, email } = req.body
+        await User.findOneAndUpdate({ _id: { $eq: req.user._id } }, { username, email })
+        req.flash("success", "Changes saved successfully")
+        res.redirect("/update-profile")
+    } catch (err) {
+        req.flash("error", "Oho no, somethng went wrong")
+        res.redirect("/update-profile")
     }
 })
 
