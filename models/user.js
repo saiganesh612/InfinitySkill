@@ -22,8 +22,20 @@ const userSchema = new mongoose.Schema({
     ],
     participatedContest: [
         {
-            type: mongoose.Schema.Types.ObjectID,
-            ref: "Contest"
+            _id: false,
+            contestId: String,
+            status: {
+                type: String,
+                default: "Inprogress"
+            },
+            points: {
+                type: Number,
+                default: 0
+            },
+            workSubmitted: {
+                type: String,
+                default: "No"
+            }
         }
     ],
     isAdmin: {
