@@ -19,7 +19,7 @@
 
         </div>
         <hr style="height: 3px; color: grey;" />
-        <button align="center" class="btn btn-info" style="background: #1483ce !important ;"><a  style="color: white !important" href="/create-profile">Update Profile</a></button>
+        <button align="center" class="btn btn-info" style="background: #1483ce !important ;"><a  style="color: white !important" href="/update-profile">Update Profile</a></button>
 
       </div>
       <p align="left" style="color:rgba(56, 53, 53, 0.534);font-size: 17px;"
@@ -119,7 +119,7 @@
             <% if(participatedCont.length === 0){ %>
               <h4>You didn't participated in any contests...</h4>
             <% } else { %>
-              <% postedCont.forEach(contest => { %>
+              <% participatedCont.forEach(contest => { %>
                 <article class="postcard light blue">
                   <a class="postcard__img_link" href="#">
                     <img class="postcard__img" src="<%= contest.coverPhoto.url %>" alt="Image Title" />

@@ -23,7 +23,12 @@ const contestSchema = new mongoose.Schema({
     prizeMoney: Number,
     entryFee: Number,
     peopleInterested: Number,
-    peopleParticipated: Number,
+    peopleParticipated: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
     isApproved: {
         type: Boolean,
         default: false

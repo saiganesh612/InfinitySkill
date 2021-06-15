@@ -10,6 +10,7 @@ const passport = require("passport")
 const localStrategy = require("passport-local")
 const session = require("express-session")
 const flash = require("connect-flash")
+const methodOverride = require("method-override")
 
 const User = require("./models/user")
 
@@ -32,6 +33,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(methodOverride("_method"))
 
 const db = mongoose.connection
 db.on("error", console.error.bind(console, "Mongoose connection denied"))
