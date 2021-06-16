@@ -1,5 +1,15 @@
 <%- include("../partials/header2") %>
 
+<% 
+    const dateObj = new Date();
+    let month = dateObj.getUTCMonth() + 1; //months from 1-12
+    const day = dateObj.getUTCDate();
+    const year = dateObj.getUTCFullYear();
+
+    month = month >= 10 ? month : `0${month}`
+    today = `${year}-${month}-${day}`
+%> 
+
 <section id="blog" class="blog">
     <div class="container">
         <div class="row">
@@ -22,10 +32,22 @@
                                 <a href="blog-single.html"><time datetime="2020-01-01"><%= contest.startDate %> </time></a>
                             </li>
                             <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> 
-                                <a href="blog-single.html">Participants count</a>
+                                <a href="blog-single.html">Participants count: <%= contest.peopleParticipated.length %> </a>
                             </li>
                             <li>
-                                <a href="/participants?contestId=<%= contest._id %>" style="float: right;" ><button class="btn btn-info">Participate now</button></a>
+                                <% if(today < contest.startDate){ %>
+                                    <a href="/participants?contestId=<%= contest._id %>" style="float: right;">
+                                        <button class="btn btn-info"> Participate now </button>
+                                    </a>
+                                <% } else if(today >= contest.startDate && today <= contest.endDate){ %>
+                                    <a href="#" style="float: right;">
+                                        <button class="btn btn-info"> Submit your work </button>
+                                    </a>
+                                <% } else { %>
+                                    <p style="color: red; margin-bottom: 0;">
+                                        Contest was ended. Go to participants page to review others work.
+                                    </p>
+                                <% } %> 
                             </li>
                             <li>
                                 <a href="/list-of-participants?id=<%= contest._id %>" style="float: right;">
