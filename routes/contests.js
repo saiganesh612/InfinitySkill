@@ -105,15 +105,30 @@ router.get("/approve/:id", isLoggedIn, isAdmin, async (req, res) => {
         res.redirect("/requested-contests")
     }
 })
-router.post("/contest/:id/submitWork", isLoggedIn, isAdmin, async (req, res) => {
+
+router.post("/contest/:id/submitWork", isLoggedIn, async (req, res) => {
     try{
-       // const id = req.params;
-        const link = req.body.workSubmitted;
-        User.participatedContest.workSubmitted = link;
-        console.log("contest id",id)
+        const { workLink } = req.body
+        const { id } = req.params
+
+        const supportedLinkFormat = "https://drive.google.com/"
+        const accessPermission = "usp=sharing"
+        if (!workLink.includes(supportedLinkFormat) || !workLink.includes(accessPermission))
+            throw "This link is not supported. Please keep your drive link with access permissions."
+
+        const user = await User.findOne({ _id: { $eq: req.user._id } })
+        if(!user) throw "You don't have access to submit work"
+
+        const contest = user.participatedContest.filter(contest => contest.contestId === id)
+
+        if(contest.length === 0) throw "You don't have access to submit your work, because you are not participating in this contest."
+
+        contest[0].workSubmitted = workLink
+        await user.save()
+        res.redirect(`/list-of-participants?id=${id}`)
     }catch (err) {
-        console.log(err)
-        res.redirect("/requested-contests")
+        req.flash("error", err)
+        res.redirect("back")
     }
 })
 
