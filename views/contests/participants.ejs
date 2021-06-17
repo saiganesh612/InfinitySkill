@@ -5,14 +5,14 @@
         <h4>No participants till now</h4>
       <% } else { %>
         <table class="table table-bordered">
-          <thead class="thead-dark">
+          <thead  class="thead-dark">
             <tr>
-              <th scope="col">S.no</th>
+              <th  scope="col">S.no</th>
               <th scope="col">Contestant user name</th>
               <th scope="col">Submitted work</th>
               <th scope="col">Points</th>
               <th scope="col">Status</th>
-              <th scope="col">Votes</th>
+              <th scope="col">Drop a heart</th>
             </tr>
           </thead>
           <tbody>
@@ -21,10 +21,13 @@
                 <th scope="row"><%= index + 1 %></th>
                 <td><%= p.user %> </td>
                 <!-- <td><%= p.participant.workSubmitted %> </td> -->
-                <td><button class="btn btn-info">View My Work</button></td>
+                <td><a href="#">View my submisstion</a></td>
                 <td><%= p.participant.points %> </td>
                 <td><%= p.participant.status %> </td>
-                <td><button class="btn btn-primary">Vote me</button></td>
+                <td>
+                  <button class="btn btn-danger" style="border-radius: 50%;"><i class="bi bi-suit-heart-fill"></i></button>
+                  <button class="btn btn-success" style="border-radius: 50%;"><i class="bi bi-check-lg"></i></button>
+                </td>
               </tr>
             <% }) %> 
           </tbody>

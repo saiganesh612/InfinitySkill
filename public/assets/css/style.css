@@ -2531,3 +2531,8 @@ section {
 .recent-blog-posts .post-box:hover .post-img img {
   transform: rotate(6deg) scale(1.2);
 }
+.table .thead-dark th {
+  color: #fff;
+  background-color:#028ecd !important;
+  border-color: #fff !important;
+}

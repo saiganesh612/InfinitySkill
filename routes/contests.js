@@ -105,5 +105,16 @@ router.get("/approve/:id", isLoggedIn, isAdmin, async (req, res) => {
         res.redirect("/requested-contests")
     }
 })
+router.post("/contest/:id/submitWork", isLoggedIn, isAdmin, async (req, res) => {
+    try{
+       // const id = req.params;
+        const link = req.body.workSubmitted;
+        User.participatedContest.workSubmitted = link;
+        console.log("contest id",id)
+    }catch (err) {
+        console.log(err)
+        res.redirect("/requested-contests")
+    }
+})
 
 module.exports = router
