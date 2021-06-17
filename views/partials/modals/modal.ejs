@@ -1,0 +1,26 @@
+<!-- Work submission modal -->
+<div class="modal fade" id="submit" tabindex="-1" aria-labelledby="submitLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="color: black;" class="modal-title" id="submitLabel">Submit your work here</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/contest/<%= contest._id %>/submitWork" method="POST">
+                <div class="modal-body" style="color: black;">
+                    <p>Please upload your work in google drive and upload link here
+                        <span style="color: red;">(please make sure your link has access to everyone)</span>
+                    </p>
+                    <div class="form-floating mb-3">
+                        <input type="url" name="workLink" class="form-control" id="floatingInput"
+                            placeholder="Contest Moto" required>
+                        <label for="floatingInput">Please enter Drive link here</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
