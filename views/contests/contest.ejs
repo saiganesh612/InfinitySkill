@@ -40,42 +40,18 @@
                                         <button class="btn"  style="background-color:#028ecd !important;font-size: 15px;width: 150px;border-radius: 20px;color: white;"> Participate now </button>
                                     </a>
                                 <% } else if(today >= contest.startDate && today <= contest.endDate){ %>
-                                    <a href="#" style="float: right;"><button style="background-color:#028ecd !important;font-size: 15px;width: 150px;border-radius: 20px;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submit">
+                                    <a href="#" style="float: right;">
+                                        <button style="background-color:#028ecd !important;font-size: 15px;width: 150px;border-radius: 20px;" type="button" 
+                                        class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submit">
                                         Submit your work
-                                    </button></a>
-                                <form action="/contest/<%= contest._id %>/submitWork"  method="POST">
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="submit" tabindex="-1" aria-labelledby="submitLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h5 style="color: black;" class="modal-title" id="submitLabel">Submit your work here</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body" style="color: black;">
-                                                <p>Please upload your work in google drive and upload link here 
-                                                    <span style="color: red;">(please make sure your link has access to everyone)</span>
-                                                </p>
-                                                <div class="form-floating mb-3">
-                                                    <input type="url" name="workSubmitted" class="form-control" id="floatingInput"
-                                                        placeholder="Contest Moto" required>
-                                                    <label for="floatingInput">Please enter Drive link here</label>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                            <button type="submit" class="btn btn-success">Submit</button>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                        </button>
+                                    </a>
                                 <% } else { %>
                                     <p style="color: red; margin-bottom: 0;">
                                         Contest was ended. Go to participants page to review others work.
                                     </p>
                                 <% } %> 
                             </li>
-                           
                         </ul>
                     </div>
 
@@ -267,5 +243,7 @@
         </div>
     </div>
 </section>
+
+<%- include("../partials/modals/modal") %>
 
 <%- include("../partials/footer") %>
