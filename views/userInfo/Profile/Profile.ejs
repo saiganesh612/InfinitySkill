@@ -1,0 +1,129 @@
+<%- include("../partials/header2") %>
+<div class="container" style="margin-top: 150px;">
+    <div class="courses-container" style="justify-content:center">
+      <div class="course" style="width: 80%;">
+        <div class="course-preview">
+          <div class="d-flex flex-column align-items-center text-center">
+            <div class="mt-12">
+              <img src="./assets/img/about.jpg" style="height:150px;width: 150px; border-radius:50%;"
+                class="mr-3 rounded-circle img-thumbnail shadow-sm">
+            </div>
+            <div><br />
+              <h4>
+                Reha
+              </h4>
+              <p style="color: aliceblue;">
+               Developer
+              </p>
+              <p style="color: aliceblue;">Andhra Pradesh, India</p>
+              <div class="skills">
+                <p style="color: aliceblue; font-weight:bold;font-size:15px;">Skills</p>
+                <ul>
+                  <li>UI / UX , Front End Development, HTML, CSS, JavaScript, React , Backend, C++, Jquery</li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="course-info">
+          <div class="row">
+            <div class="col">
+              <h2>About</h2>
+              <p>
+                Hey I'm a developer with 1 year experoemcl eneijr ejhnfeihf ejkfn experoemcl eneijr ejhnfeihf ejkfnexperoemcl eneijr ejhnfeihf ejkf
+                Hey I'm a developer with 1 year experoemcl eneijr ejhnfeihf ejkfn experoemcl eneijr ejhnfeihf ejkfnexperoemcl eneijr ejhnfeihf ejkfnn
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                  <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-globe mr-2 icon-inline">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="2" y1="12" x2="22" y2="12"></line>
+                      <path
+                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                      </path>
+                    </svg>No. of contests participated</h6>
+                  <span class="text-secondary">
+                    20
+                  </span>
+                </li>
+                <br/>
+                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                  <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-github mr-2 icon-inline">
+                      <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                      </path>
+                    </svg>Contests won</h6>
+                  <span class="text-secondary">
+                    4
+                  </span>
+                </li>
+                <br/>
+                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                  <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-globe mr-2 icon-inline">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="2" y1="12" x2="22" y2="12"></line>
+                      <path
+                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                      </path>
+                    </svg>Link to Samples</h6>
+                  <span class="text-secondary">
+                    <a href="#">Drive link</a>
+                  </span>
+                </li>
+                <br/>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+           
+            <div class="col-xl-3"> 
+            <button type="button" class="btn" style="background-color:#302b63 ; color: white;padding: 10px; margin: 10px; border-radius: 27px;width: 150px;">
+                Contact
+            </button>
+              <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Chat Details</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form action="/shortlist/<%= id %>" method="POST">
+                      <div class="modal-body">
+                        <!-- <input type="text" name="username" class="form-control" id="exampleInputusername1"
+                          aria-describedby="usernameHelp" placeholder="Enter USER NAME"> -->
+                        <br />
+                        <input type="text" name="userName" class="form-control" id="exampleInputuserName1"
+                          aria-describedby="userNameHelp" placeholder="ENTER USER NAME" required>
+                      </div>
+
+                      <div class="modal-footer">
+                        <input type="submit" class="btn btn-secondary" data-dismiss="modal" value="Close">
+                        <input type="submit" class="btn" style="background-color: #302b63; color: white;" value="Save
+                        changes">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%- include("../partials/footer") %>

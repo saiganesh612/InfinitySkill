@@ -91,7 +91,7 @@ router.post("/forgotPass", (req, res, next) => {
             User.findOne({ email: { $eq: req.body.email } }, (err, user) => {
                 if (!user) {
                     req.flash("error", "No account with this email address was registered")
-                    return res.redirect('/account/forgotPass');
+                    return res.redirect('/forgotPass');
                 }
                 user.resetPasswordToken = token;
                 user.resetPasswordExpires = Date.now() + 3600000; // 1 hour

@@ -66,41 +66,14 @@
 
     <!-- ======= Featured Section ======= -->
     <section id="featured" class="featured">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="icon-box">
-              <i class="bi bi-person-bounding-box"></i>
-              <h3><a href="">User type 1</a></h3>
-              <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate
-                non provident</p>
-            </div>
-          </div>
-          <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="icon-box">
-              <i class="bi bi-people"></i>
-              <h3><a href="">User type 2</a></h3>
-              <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad
-                limino ata</p>
-            </div>
-          </div>
-          <div class="col-lg-4 mt-4 mt-lg-0">
-            <div class="icon-box">
-              <i class="bi bi-file-person-fill"></i>
-              <h3><a href="">User type 3</a></h3>
-              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur
-              </p>
-            </div>
-          </div>
-        </div>
+      <div >
 
       </div>
     </section><!-- End Featured Section -->
     <!-- Contests section -->
-    <section id="blog" class="blog">
+    <section id="blog" class="blog" style="margin-top: 0px;">
       <div>
-        <div class="row" style="margin-left: 75px;margin-right: 75px;">
+        <div class="row" >
           <div class="col-lg-3">
             <div class="sidebar">
               <h3 class="sidebar-title">Search</h3>
@@ -126,56 +99,35 @@
                   <li><a href="/sort?category=Photography">Photography <span>(14)</span></a></li>
                 </ul>
               </div><!-- End sidebar categories-->
-              <h3 class="sidebar-title">Recent Posts</h3>
-              <div class="sidebar-item recent-posts">
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-1.jpg" alt="">
-                  <h4><a href="blog-single.html">Nihil blanditiis at in nihil autem</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-2.jpg" alt="">
-                  <h4><a href="blog-single.html">Quidem autem et impedit</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-3.jpg" alt="">
-                  <h4><a href="blog-single.html">Id quia et et ut maxime similique occaecati ut</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-4.jpg" alt="">
-                  <h4><a href="blog-single.html">Laborum corporis quo dara net para</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-                <div class="post-item clearfix">
-                  <img src="assets/img/blog/blog-recent-5.jpg" alt="">
-                  <h4><a href="blog-single.html">Et dolores corrupti quae illo quod dolor</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
-                </div>
-
-              </div><!-- End sidebar recent posts-->
-
-              <h3 class="sidebar-title">Tags</h3>
-              <div class="sidebar-item tags">
+              <h3 class="sidebar-title">STATUS</h3>
+              <div class="sidebar-item categories">
                 <ul>
-                  <li><a href="#">App</a></li>
-                  <li><a href="#">IT</a></li>
-                  <li><a href="#">Business</a></li>
-                  <li><a href="#">Mac</a></li>
-                  <li><a href="#">Design</a></li>
-                  <li><a href="#">Office</a></li>
-                  <li><a href="#">Creative</a></li>
-                  <li><a href="#">Studio</a></li>
-                  <li><a href="#">Smart</a></li>
-                  <li><a href="#">Tips</a></li>
-                  <li><a href="#">Marketing</a></li>
+                  <li><a href="/sort?category=Dancing">Ongoing <span>(25)</span></a></li>
+                  <li><a href="/sort?category=Singing">Upcoming <span>(12)</span></a></li>
+                  <li><a href="/sort?category=Music">Completed<span>(5)</span></a></li>
+                  <li><a href="/sort?category=Art">Voting<span>(22)</span></a></li>
+                 
                 </ul>
-              </div><!-- End sidebar tags-->
-
+              </div><!-- End status categories-->
+              <h3 class="sidebar-title">DEADLINE</h3>
+              <div class="sidebar-item categories">
+                <ul>
+                  <li><a href="/sort?category=Dancing">Today <span>(25)</span></a></li>
+                  <li><a href="/sort?category=Singing">Tomorrow <span>(12)</span></a></li>
+                  <li><a href="/sort?category=Music">This week<span>(5)</span></a></li>
+                  <li><a href="/sort?category=Art">This month<span>(22)</span></a></li>
+                  <li><a href="/sort?category=Art">This year<span>(22)</span></a></li>
+                 
+                </ul>
+              </div><!-- End status categories-->
+              <h3 class="sidebar-title">TYPE</h3>
+              <div class="sidebar-item categories">
+                <ul>
+                  <li><a href="/sort?category=Dancing">Free <span>(25)</span></a></li>
+                  <li><a href="/sort?category=Singing">Paid <span>(12)</span></a></li>  
+                </ul>
+              </div><!-- End status categories-->
+             
             </div><!-- End sidebar -->
 
           </div><!-- End blog sidebar -->
@@ -186,17 +138,26 @@
               <main class="container py-2">
                 <section id="recent-blog-posts" class="recent-blog-posts">
                   <div class="container" >         
-                   
                     <div class="row">
                       <% contests.forEach(contest=>{ %>
-                        <div class="col-lg-4">
+                        <div class="col-lg-4" style="margin-bottom: 40px;margin-top: 40px;">
                           <div class="post-box">
-                            <div class="post-img"><img src="<%= contest.coverPhoto.url %>" class="img-fluid" alt=""></div>
-                            <span class="post-date"><%= contest.startDate %></span>
+                            <div class="post-img"><img src="<%= contest.coverPhoto.url %>" style="width: 100%; height: 200px;" class="img-fluid" alt=""></div>
+                            <div >
+                            <span style="float: left;" class="post-date"><i class="bi bi-person"></i> <%= contest.owner %></span>
+                            <span style="float: right;"><b>Prize Money:</b> <%= contest.prizeMoney %> /-</span>
+                            </div>  
                             <h3 class="post-title"> <%= contest.contestName %> </h3>
-                            <a href="/contest/<%= contest._id %>" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+                            <div>
+                              <p class="post-date"><b style="color: black;">End Date:</b> <span ><%= contest.endDate %></span></p>
+                            </div>
+                          <div>
+                            <a style="float: left;" href="/contest/<%= contest._id %>" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+                            <button style="float:right; background-color:#028ecd;color: white;" class="btn" >Join ₹ <%= contest.entryFee%> </button>
+                          </div>
                           </div>
                         </div>
+                        
                       <% }) %>
                     </div>
                   </div>

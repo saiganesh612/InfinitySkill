@@ -15,26 +15,50 @@
           <tr>
             <th scope="col">S.no</th>
             <th scope="col">Contestant user name</th>
-            <th scope="col">Submitted work</th>
-            <th scope="col">Points</th>
             <th scope="col">Status</th>
+        <% console.log(currentUser.username , Admin.username , contest.owner) %>
+        <% if(currentUser.username === Admin.username  || currentUser.username === contest.owner ){%>
+            <th scope="col">Submitted work</th>
             <th scope="col">Drop a heart</th>
+            <th scope="col">Points</th>
           </tr>
+        <% }else{ %>
+          <% if(today>=contest.votingStart && today < contest.votingEnd){ %>
+            <th scope="col">Submitted work</th>
+            <th scope="col">Drop a heart</th>
+          <%} if(today == contest.WinnerDate){%>
+            <th scope="col">Points</th>
+          <%}%>
+        <% }%>
         </thead>
         <tbody>
           <% participants.forEach((p, index) => { %>
             <tr>
               <th scope="row"><%= index + 1 %></th>
               <td><%= p.user %> </td>
-              <td><a href="<%= p.participant.workSubmitted !== "No" ? p.participant.workSubmitted : "#" %>">View my submisstion</a></td>
-              <td><%= p.participant.points %> </td>
               <td><%= p.participant.status %> </td>
+              <% if(currentUser.username ===  "Admin" || currentUser.username === contest.owner ){%>
+              <td><a href="<%= p.participant.workSubmitted !== "No" ? p.participant.workSubmitted : "#" %>">View my submisstion</a></td>
               <td>
                 <button class="btn btn-danger" style="border-radius: 50%;" onclick="calculatePoints(participantsData, userObj)">
                   <i class="bi bi-suit-heart-fill"></i>
                 </button>
                 <button class="btn btn-success" style="border-radius: 50%; display: none;"><i class="bi bi-check-lg"></i></button>
               </td>
+              <td><%= p.participant.points %> </td>  
+              <% }else{ %>
+                <% if(today>=contest.votingStart && today < contest.votingEnd){ %>
+                  <td><a href="<%= p.participant.workSubmitted !== "No" ? p.participant.workSubmitted : "#" %>">View my submisstion</a></td>
+                  <td>
+                    <button class="btn btn-danger" style="border-radius: 50%;" onclick="calculatePoints(participantsData, userObj)">
+                      <i class="bi bi-suit-heart-fill"></i>
+                    </button>
+                    <button class="btn btn-success" style="border-radius: 50%; display: none;"><i class="bi bi-check-lg"></i></button>
+                  </td>
+                <%} if(today == contest.WinnerDate){%>
+                  <td><%= p.participant.points %> </td> 
+                <%}%>
+              <% }%>
             </tr>
           <% }) %> 
         </tbody>

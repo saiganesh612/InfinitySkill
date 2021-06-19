@@ -14,16 +14,14 @@ router.get("/list-of-participants", isLoggedIn, async (req, res) => {
     try {
         const participants = []
         const { id } = req.query
-
         const contest = await Contest.findOne({ _id: { $eq: id } })
-
+        const Admin = await User.findOne({username:"Admin"})
         const users = await User.find({ _id: { $in: contest.peopleParticipated } })
         users.forEach(user => {
             let participant = user.participatedContest.filter(contest => contest.contestId === id)[0]
             participants.push({ participant, user: user.username })
         })
-
-        res.render("contests/participants", { page: " ", participants })
+        res.render("contests/participants", { page: " ", participants ,Admin,contest})
     } catch (err) {
         res.redirect(`/contest/${id}`)
     }
@@ -130,6 +128,7 @@ router.post("/contest/:id/submitWork", isLoggedIn, async (req, res) => {
         req.flash("error", err)
         res.redirect("back")
     }
+
 })
 
 module.exports = router
