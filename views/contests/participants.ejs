@@ -1,69 +1,101 @@
 <%- include("../partials/header2") %>
 
-<% 
-  const participantsData = participants;
-  const userObj = currentUser;
-%> 
+<style>
+  .display{
+    display: block;
+  }
+  .not-display{
+    display: none;
+  }
+  .disable{
+    pointer-events: none;
+    background-color: #ea848e;
+    border-color: #ea848e;
+  }
+</style>
+
+<script>
+  const participantsData = JSON.parse('<%- JSON.stringify(participants) %>');
+  const userObj = JSON.parse('<%- JSON.stringify(currentUser) %>');
+  const contestOwner = '<%- contest.owner %>';
+  window.contest = JSON.parse('<%- JSON.stringify(contest) %>');
+</script>
 
 <main style="margin-top: 150px;">
   <div class="container">
     <% if(!participants.length){ %>
       <h4>No participants till now</h4>
-    <% } else { %>
-      <table class="table table-bordered">
-        <thead  class="thead-dark">
-          <tr>
-            <th scope="col">S.no</th>
-            <th scope="col">Contestant user name</th>
-            <th scope="col">Status</th>
-        <% console.log(currentUser.username , Admin.username , contest.owner) %>
-        <% if(currentUser.username === Admin.username  || currentUser.username === contest.owner ){%>
-            <th scope="col">Submitted work</th>
-            <th scope="col">Drop a heart</th>
-            <th scope="col">Points</th>
-          </tr>
-        <% }else{ %>
-          <% if(today>=contest.votingStart && today < contest.votingEnd){ %>
-            <th scope="col">Submitted work</th>
-            <th scope="col">Drop a heart</th>
-          <%} if(today == contest.WinnerDate){%>
-            <th scope="col">Points</th>
-          <%}%>
-        <% }%>
-        </thead>
-        <tbody>
-          <% participants.forEach((p, index) => { %>
+      <% } else { %>
+        <table class="table table-bordered">
+          <thead class="thead-dark">
             <tr>
-              <th scope="row"><%= index + 1 %></th>
-              <td><%= p.user %> </td>
-              <td><%= p.participant.status %> </td>
-              <% if(currentUser.username ===  "Admin" || currentUser.username === contest.owner ){%>
-              <td><a href="<%= p.participant.workSubmitted !== "No" ? p.participant.workSubmitted : "#" %>">View my submisstion</a></td>
-              <td>
-                <button class="btn btn-danger" style="border-radius: 50%;" onclick="calculatePoints(participantsData, userObj)">
-                  <i class="bi bi-suit-heart-fill"></i>
-                </button>
-                <button class="btn btn-success" style="border-radius: 50%; display: none;"><i class="bi bi-check-lg"></i></button>
-              </td>
-              <td><%= p.participant.points %> </td>  
-              <% }else{ %>
-                <% if(today>=contest.votingStart && today < contest.votingEnd){ %>
-                  <td><a href="<%= p.participant.workSubmitted !== "No" ? p.participant.workSubmitted : "#" %>">View my submisstion</a></td>
+              <th scope="col">S.no</th>
+              <th scope="col">Contestant user name</th>
+              <th scope="col">Status</th>
+              <% if(currentUser.username==="Admin" || currentUser.username === contest.owner ){%>
+                <th scope="col">Submitted work</th>
+                <th scope="col">Drop a heart</th>
+                <th scope="col">Points</th>
+            </tr>
+            <% }else{ %>
+              <% if(today>=contest.votingStart && today < contest.votingEnd){ %>
+                <th scope="col">Submitted work</th>
+                <th scope="col">Drop a heart</th>
+              <% } %>
+              <% if(today==contest.WinnerDate){%>
+                <th scope="col">Points</th>
+              <% } %>
+            <% } %>
+          </thead>
+          <tbody>
+            <% participants.forEach((p, index)=> { %>
+              <tr>
+                <th scope="row"> <%= index + 1 %> </th>
+                <td class="<%= index + 1 %>"> <%= p.user %> </td>
+                <td> <%= p.participant.status %> </td>
+                <% if(currentUser.username==="Admin" || currentUser.username===contest.owner ){%>
                   <td>
-                    <button class="btn btn-danger" style="border-radius: 50%;" onclick="calculatePoints(participantsData, userObj)">
+                    <a href="<%= p.participant.workSubmitted !== "No" ? p.participant.workSubmitted : "#"%>">
+                      View my submisstion
+                    </a>
+                  </td>
+                  <td>
+                    <button class="btn btn-danger <%= p.user === currentUser.username && 'disable' %>  <%= index+1 %> <%= p.voted ? 'not-display' : 'display' %>" 
+                      style="border-radius: 50%;"  onclick="calculatePoints(participantsData, userObj, contestOwner, '<%= index + 1 %>')">
                       <i class="bi bi-suit-heart-fill"></i>
                     </button>
-                    <button class="btn btn-success" style="border-radius: 50%; display: none;"><i class="bi bi-check-lg"></i></button>
+                    <button class="btn btn-success <%= index+1 %> <%= p.voted ? 'display' : 'not-display' %>" style="border-radius: 50%;">
+                      <i class="bi bi-check-lg"></i>
+                    </button>
                   </td>
-                <%} if(today == contest.WinnerDate){%>
-                  <td><%= p.participant.points %> </td> 
-                <%}%>
-              <% }%>
-            </tr>
-          <% }) %> 
-        </tbody>
-      </table>
-    <% } %> 
+                  <td id="<%= index+1 %>"> <%= p.participant.points %> </td>
+                <% } else { %>
+                  <% if(today>=contest.votingStart && today < contest.votingEnd){ %>
+                    <td>
+                      <a href="<%= p.participant.workSubmitted !== "No" ? p.participant.workSubmitted : "#"%>">
+                        View my submisstion
+                      </a>
+                    </td>
+                    <td>
+                      <button class="btn btn-danger <%= p.user === currentUser.username && 'disable' %> <%= index+1 %> <%= p.voted ? 'not-display' : 'display' %>" 
+                        style="border-radius: 50%;" onclick="calculatePoints(participantsData, userObj, contestOwner, '<%= index + 1 %>')">
+                        <i class="bi bi-suit-heart-fill"></i>
+                      </button>
+                      <button class="btn btn-success <%= index+1 %> <%= p.voted ? 'display' : 'not-display' %>" style="border-radius: 50%;">
+                        <i class="bi bi-check-lg"></i>
+                      </button>
+                    </td>
+                    <td style="display: none;" id="<%= index+1 %>"> <%= p.participant.points %> </td>
+                  <% } %>
+                  <% if(today==contest.WinnerDate) { %>
+                    <td> <%= p.participant.points %> </td>
+                  <% } %>
+                <% } %>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } %>
   </div>
 </main>
 

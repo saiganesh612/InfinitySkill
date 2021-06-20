@@ -41,7 +41,20 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
-    }
+    },
+    votes: [
+        {
+            _id: false,
+            contestId: String,
+            voteList: [
+                {
+                    _id: false,
+                    isVoted: Boolean,
+                    pName: String
+                }
+            ]
+        }
+    ]
 })
 
 userSchema.plugin(passportLocalMongoose)

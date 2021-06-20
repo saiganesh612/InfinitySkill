@@ -14,14 +14,23 @@ router.get("/list-of-participants", isLoggedIn, async (req, res) => {
     try {
         const participants = []
         const { id } = req.query
+        const { votes } = req.user
+
         const contest = await Contest.findOne({ _id: { $eq: id } })
-        const Admin = await User.findOne({username:"Admin"})
         const users = await User.find({ _id: { $in: contest.peopleParticipated } })
+
+        const match = votes.filter(vote => vote.contestId === id)
+
         users.forEach(user => {
             let participant = user.participatedContest.filter(contest => contest.contestId === id)[0]
-            participants.push({ participant, user: user.username })
+            if (match.length) {
+                let style = match[0].voteList.findIndex(ele => ele.pName === user.username)
+                if (style !== -1) participants.push({ participant, user: user.username, voted: true })
+                else participants.push({ participant, user: user.username, voted: false })
+            }
+            else participants.push({ participant, user: user.username, voted: false })
         })
-        res.render("contests/participants", { page: " ", participants ,Admin,contest})
+        res.render("contests/participants", { page: " ", participants, contest })
     } catch (err) {
         res.redirect(`/contest/${id}`)
     }
@@ -105,7 +114,7 @@ router.get("/approve/:id", isLoggedIn, isAdmin, async (req, res) => {
 })
 
 router.post("/contest/:id/submitWork", isLoggedIn, async (req, res) => {
-    try{
+    try {
         const { workLink } = req.body
         const { id } = req.params
 
@@ -115,20 +124,52 @@ router.post("/contest/:id/submitWork", isLoggedIn, async (req, res) => {
             throw "This link is not supported. Please keep your drive link with access permissions."
 
         const user = await User.findOne({ _id: { $eq: req.user._id } })
-        if(!user) throw "You don't have access to submit work"
+        if (!user) throw "You don't have access to submit work"
 
         const contest = user.participatedContest.filter(contest => contest.contestId === id)
 
-        if(contest.length === 0) throw "You don't have access to submit your work, because you are not participating in this contest."
+        if (contest.length === 0) throw "You don't have access to submit your work, because you are not participating in this contest."
 
         contest[0].workSubmitted = workLink
         await user.save()
         res.redirect(`/list-of-participants?id=${id}`)
-    }catch (err) {
+    } catch (err) {
         req.flash("error", err)
         res.redirect("back")
     }
 
+})
+
+router.post("/manage-votes/:id", async (req, res) => {
+    try {
+        const { id } = req.params
+        const { cun, pts } = req.body
+
+        const user = await User.findOne({ username: { $eq: req.user.username } })
+        const cuser = await User.findOne({ username: { $eq: cun } })
+
+        const voteData = user.votes.filter(ele => ele.contestId === id)
+
+        // Dealing with votes
+        if (voteData.length && (voteData[0].voteList.findIndex(vote => vote.pName === cun) !== -1))
+            throw "You already made a vote to this member."
+
+        if (!voteData.length) user.votes.push({ contestId: id, voteList: [{ isVoted: true, pName: cun }] })
+        else {
+            const vi = user.votes.findIndex(ele => ele.contestId === id)
+            user.votes[vi].voteList.push({ isVoted: true, pName: cun })
+        }
+
+        // Updating the data
+        const index = cuser.participatedContest.findIndex(contest => contest.contestId === id)
+        cuser.participatedContest[index].points = parseInt(pts)
+
+        await user.save()
+        await cuser.save()
+        res.status(200).json({ message: "Updated" })
+    } catch (err) {
+        res.status(400).json({ message: err })
+    }
 })
 
 module.exports = router
