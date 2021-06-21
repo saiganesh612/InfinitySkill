@@ -6,10 +6,11 @@ const multer = require("multer")
 const { storage } = require("../cloudinary")
 const upload = multer({ storage })
 const { isLoggedIn } = require("../middlewares")
+const { sortBy } = require("async")
 
 router.get("/home", isLoggedIn, async (req, res) => {
     const contests = await Contest.find({ isApproved: { $eq: true } })
-    res.render("home", { page: "", contests })
+    res.render("home", { page: "", contests: contests.reverse() })
 })
 
 router.get("/sort", isLoggedIn, async (req, res) => {
@@ -19,10 +20,89 @@ router.get("/sort", isLoggedIn, async (req, res) => {
         res.render("home", { page: "", contests })
     } catch (err) {
         console.log(err)
-        res.redirect("/")
+        res.redirect("/home")
     }
 })
 
+router.get("/filter", isLoggedIn, async (req, res) => {
+    try {
+       const { status } = req.query
+       const dateObj = new Date();
+       let month = dateObj.getUTCMonth() + 1; //months from 1-12
+       const day = dateObj.getUTCDate();
+       const year = dateObj.getUTCFullYear();
+       month = month >= 10 ? month : `0${month}`
+       today = `${year}-${month}-${day}`
+       today = String(today)
+        if(status==="Ongoing"){
+            var contests = await Contest.find({ $and: [ {endDate: { "$gte": today}},{startDate :{"$lte": today}} ] })
+            //start<=today<=end
+       }else if(status==="Upcoming"){
+           var contests = await Contest.find( { startDate: {"$gt":today} } )
+           //startdate > today
+       }else if(status==="completed"){
+           var contests = await Contest.find( {  endDate: {"$lt":today} } )
+           //end date > today
+       }else if(status=="voting"){
+           var contests = await Contest.find({ $and: [ {votingEnd: { "$gte": today}},{votingStart :{"$lte": today}} ] })
+       }
+        res.render("home", { page: " ",contests})
+    } catch (err) {
+        console.log(err)
+        res.redirect("/home")
+    }
+})
+
+router.get("/classify",isLoggedIn,async(req,res)=>{
+    try{
+         const {type} = req.query;
+         if(type == 'free'){
+            var contests = await Contest.find({entryFee :{$eq: 0}})
+         }else{
+            var contests = await Contest.find({entryFee :{$gt: 0}})
+            console.log(contests)
+         }
+         res.render("home", { page: "", contests : contests.reverse() })
+    }catch(err){
+        res.redirect("/home")
+    }
+})
+
+router.get("/class",isLoggedIn,async(req,res)=>{
+    try{
+        const {popularity} = req.query;
+        if(popularity=="asc"){
+            var ans = await Contest.find()
+            var contests=ans.sort((a, b) => Number(a.peopleParticipated.length ) - Number(b.peopleParticipated.length));
+        }else{
+            var ans = await Contest.find()
+            var contests=ans.sort((a, b) => Number(b.peopleParticipated.length ) - Number(a.peopleParticipated.length)); 
+        }
+        res.render("home", { page: "", contests })
+    }catch(err){
+        console.log("EROR")
+        res.redirect("/home")
+    } 
+})
+
+
+router.get("/organise",isLoggedIn,async(req,res)=>{
+    try{
+        const {prize} = req.query;
+        if(prize=="asc"){
+            var ans = await Contest.find()
+            console.log(ans.sort((a,b)=>ParseInt(a.prizeMoney)-ParseInt(b.prizeMoney)))
+            var contests=ans.sort((a, b) => (a.prizeMoney) - (b.prizeMoney));
+        }else{
+            var ans = await Contest.find()
+            var contests=ans.sort((a, b) => (b.prizeMoney) - (a.prizeMoney)); 
+        }
+        res.render("home", { page: "", contests })
+    }catch(err){
+        console.log("EROR")
+        res.redirect("/home")
+    } 
+})
 router.get("/dashboard", isLoggedIn, async (req, res) => {
     try {
         const { postedContests, participatedContest } = req.user;

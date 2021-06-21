@@ -83,8 +83,11 @@
                   <button type="submit"><i class="bi bi-search"></i></button>
                 </form>
               </div><!-- End sidebar search formn-->
-
-              <h3 class="sidebar-title">Categories</h3>
+              <div>
+               <h3 style="float: left;" class="sidebar-title">Categories</h3>
+               <p style="float: right;"><a href="/home" style="color: red;text-decoration: none;">clear all</a></p>
+              </div>
+              <br/><br/>
               <div class="sidebar-item categories">
                 <ul>
                   <li><a href="/sort?category=Dancing">Dancing <span>(25)</span></a></li>
@@ -102,29 +105,31 @@
               <h3 class="sidebar-title">STATUS</h3>
               <div class="sidebar-item categories">
                 <ul>
-                  <li><a href="/sort?category=Dancing">Ongoing <span>(25)</span></a></li>
-                  <li><a href="/sort?category=Singing">Upcoming <span>(12)</span></a></li>
-                  <li><a href="/sort?category=Music">Completed<span>(5)</span></a></li>
-                  <li><a href="/sort?category=Art">Voting<span>(22)</span></a></li>
-                 
-                </ul>
-              </div><!-- End status categories-->
-              <h3 class="sidebar-title">DEADLINE</h3>
-              <div class="sidebar-item categories">
-                <ul>
-                  <li><a href="/sort?category=Dancing">Today <span>(25)</span></a></li>
-                  <li><a href="/sort?category=Singing">Tomorrow <span>(12)</span></a></li>
-                  <li><a href="/sort?category=Music">This week<span>(5)</span></a></li>
-                  <li><a href="/sort?category=Art">This month<span>(22)</span></a></li>
-                  <li><a href="/sort?category=Art">This year<span>(22)</span></a></li>
-                 
+                  <li><a href="/filter?status=Ongoing">Ongoing <span>(25)</span></a></li>
+                  <li><a href="/filter?status=Upcoming">Upcoming <span>(12)</span></a></li>
+                  <li><a href="/filter?status=completed">Completed<span>(5)</span></a></li>
+                  <li><a href="/filter?status=voting">Voting<span>(22)</span></a></li>
                 </ul>
               </div><!-- End status categories-->
               <h3 class="sidebar-title">TYPE</h3>
               <div class="sidebar-item categories">
                 <ul>
-                  <li><a href="/sort?category=Dancing">Free <span>(25)</span></a></li>
-                  <li><a href="/sort?category=Singing">Paid <span>(12)</span></a></li>  
+                  <li><a href="/classify?type=free">Free <span>(25)</span></a></li>
+                  <li><a href="/classify?type=paid">Paid <span>(12)</span></a></li>  
+                </ul>
+              </div><!-- End status categories-->
+              <h3 class="sidebar-title">POPULARITY</h3>
+              <div class="sidebar-item categories">
+                <ul>
+                  <li><a href="/class?popularity=asc">Low to High <span>(25)</span></a></li>
+                  <li><a href="/class?popularity=dsc">High to Low <span>(12)</span></a></li>  
+                </ul>
+              </div><!-- End status categories-->
+              <h3 class="sidebar-title">PRIZE MONEY</h3>
+              <div class="sidebar-item categories">
+                <ul>
+                  <li><a href="/organise?prize=asc">Low to High <span>(25)</span></a></li>
+                  <li><a href="/organise?prize=dsc">High to Low <span>(12)</span></a></li>  
                 </ul>
               </div><!-- End status categories-->
              
@@ -137,7 +142,7 @@
             <div>
               <main class="container py-2">
                 <section id="recent-blog-posts" class="recent-blog-posts">
-                  <div class="container" >         
+                  <div class="container" >      
                     <div class="row">
                       <% contests.forEach(contest=>{ %>
                         <div class="col-lg-4" style="margin-bottom: 40px;margin-top: 40px;">
@@ -153,11 +158,14 @@
                             </div>
                           <div>
                             <a style="float: left;" href="/contest/<%= contest._id %>" class="readmore stretched-link mt-auto"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+                            <%if(contest.entryFee>0){ %>
                             <button style="float:right; background-color:#028ecd;color: white;" class="btn" >Join ₹ <%= contest.entryFee%> </button>
+                            <%}else{ %>
+                              <button style="float:right; background-color:#6bd356;color: white;" class="btn" >Join for Free </button>
+                            <% }%>
                           </div>
                           </div>
-                        </div>
-                        
+                        </div> 
                       <% }) %>
                     </div>
                   </div>

@@ -1,5 +1,13 @@
 <%- include("../partials/header2") %>
+<% 
+    const dateObj = new Date();
+    let month = dateObj.getUTCMonth() + 1; //months from 1-12
+    const day = dateObj.getUTCDate();
+    const year = dateObj.getUTCFullYear();
 
+    month = month >= 10 ? month : `0${month}`
+    today = `${year}-${month}-${day}`
+%> 
   <div class="row d-flex align-items-start">
     <div class=" col-2  nav flex-column nav-pills me-3 shadow-lg p-3 mb-5 bg-white rounded" id="v-pills-tab"
       role="tablist" aria-orientation="vertical">
@@ -105,12 +113,11 @@
                     <div style="float: left;">
                     <ul class="postcard__tagbox">
                       <li class="tag__item"><%= contest.category %></li>
-                      <li class="tag__item">10 days to go</li>
                       <li class="tag__item play blue">
                         <a href="#"><%= contest.subCategory %></a>
                       </li>
                     </ul>
-                    
+                  
                     </div>
                     <div style="float: right;">
                       <br/>
@@ -137,19 +144,50 @@
                   <div class="postcard__text t-dark">
                     <h1 class="postcard__title blue"><a href="#"><%= contest.contestName %> </a></h1>
                     <div class="postcard__subtitle small">
-                      <time datetime="2020-05-25 12:00:00">
-                        <i class="fas fa-calendar-alt mr-2"></i>Mon, May 25th 2020
-                      </time>
+                      <p><b> Motive : </b><%=contest.motive %></p>
                     </div>
                     <div class="postcard__bar"></div>
-                    <div class="postcard__preview-txt"><%= contest.description %> </div>
+                    <div style="flex-wrap: wrap;">
+                      <div style="float: left;">
+                        <b>START DATE:</b>
+                        <time datetime="2021-06-26 12:00:00">
+                          <i class="fas fa-calendar-alt mr-2"></i> <%=contest.startDate %>
+                        </time>
+                      </div>
+                      <div style="float: right;">
+                        <b>END DATE:</b>
+                        <time datetime="2021-06-26 12:00:00">
+                          <i class="fas fa-calendar-alt mr-2"></i> <%=contest.endDate %>
+                        </time>
+                      </div>
+                    </div>
+                    <div >
+                      <div style="float: left;">
+                        <b>PRIZE MONEY:</b> <%= contest.prizeMoney%>
+                      </div>
+                      <div style="float: right;">
+                        <b>ENTRY FEE:</b> <%= contest.entryFee%>
+                      </div>
+                    </div>
+                    <div class="postcard__preview-txt">
+                      <b>Description : </b>
+                      <%= contest.description %> 
+                    </div>
+                  <div>
+                    <div style="float: left;">
                     <ul class="postcard__tagbox">
-                      <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
-                      <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+                      <li class="tag__item"><%= contest.category %></li>
                       <li class="tag__item play blue">
-                        <a href="#"><i class="fas fa-play mr-2"></i>Play Episode</a>
+                        <a href="#"><%= contest.subCategory %></a>
                       </li>
                     </ul>
+                  
+                    </div>
+                    <div style="float: right;">
+                      <br/>
+                        <b style="color: rgb(24, 112, 228);" class="tag__item"><a href="/contest/<%= contest._id %>"> View more >></a> </b>
+                    </div>
+                  </div>
                   </div>
                 </article>
               <% }) %> 
