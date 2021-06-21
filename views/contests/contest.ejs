@@ -10,6 +10,13 @@
     today = `${year}-${month}-${day}`
 %> 
 
+<script>
+    const stripePublicKey = '<%- stripePublicKey %>';
+    const currentUser = '<%- currentUser.username %>';
+    const contestId = '<%- contest._id %>';
+    const amount = '<%- contest.entryFee %>';
+</script>
+
 <section id="blog" class="blog">
     <div class="container">
         <div class="row">
@@ -35,6 +42,12 @@
                                 <a  href="/list-of-participants?id=<%= contest._id %>">Participants count: <%= contest.peopleParticipated.length %> </a>
                             </li>
                             <li>
+                                <a href="#" style="float: right;" onclick="handlePayment(parseInt(amount))">
+                                    <button class="btn"
+                                        style="background-color:#028ecd !important;font-size: 15px;width: 150px;border-radius: 20px;color: white;">
+                                        Participate now 
+                                    </button>
+                                </a>
                                 <% if(today < contest.startDate){ %>
                                     <a href="/participants?contestId=<%= contest._id %>" style="float: right;">
                                         <button class="btn"  style="background-color:#028ecd !important;font-size: 15px;width: 150px;border-radius: 20px;color: white;"> Participate now </button>

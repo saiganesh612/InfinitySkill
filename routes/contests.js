@@ -4,10 +4,11 @@ const User = require("../models/user")
 const Contest = require("../models/contest")
 const { transporter, sender } = require("../settings")
 const { isLoggedIn, isAdmin } = require("../middlewares")
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
 router.get("/contest/:id", isLoggedIn, async (req, res) => {
     const contest = await Contest.findById(req.params.id)
-    res.render("contests/contest", { page: "Contest", contest })
+    res.render("contests/contest", { page: "Contest", contest, stripePublicKey: process.env.STRIPE_PUBLIC_KEY })
 })
 
 router.get("/list-of-participants", isLoggedIn, async (req, res) => {
@@ -33,6 +34,40 @@ router.get("/list-of-participants", isLoggedIn, async (req, res) => {
         res.render("contests/participants", { page: " ", participants, contest })
     } catch (err) {
         res.redirect(`/contest/${id}`)
+    }
+})
+
+router.post("/validate-data", isLoggedIn, async (req, res) => {
+    try {
+        const { id, email, user, contestId } = req.body
+        const { username, _id } = req.user
+        const userInfo = await User.findOne({ username: { $eq: user }, email: { $eq: email } })
+        if (!userInfo) throw "Enter email that was registered by current account. we didn't cut the money."
+
+        const contest = await Contest.findOne({ _id: { $eq: contestId } })
+        if (!contest) throw "Their contest was not registered. Please aware of frauds. we didn't cut the money."
+
+        if (contest.owner === username) throw "Contest creators can't able to participant in their own contest. we didn't cut the money."
+
+        const present = contest.peopleParticipated.find(person => person.equals(_id))
+        if (present) throw "You already participating in this contest. we didn't cut the money."
+
+        const response = await stripe.charges.create({
+            amount: contest.entryFee * 100,
+            source: id,
+            currency: 'INR'
+        })
+
+        if (response.status !== "succeeded" || !response.paid) throw "Can't able to charge your card. we didn't cut the money."
+
+        contest.peopleParticipated.push(userInfo)
+        userInfo.participatedContest.unshift({ contestId })
+        await contest.save()
+        await userInfo.save()
+        res.status(200).json({ message: "Payment successful" })
+    } catch (err) {
+        console.log(err)
+        res.status(200).json({ message: err })
     }
 })
 
