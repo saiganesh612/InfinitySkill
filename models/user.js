@@ -35,6 +35,14 @@ const userSchema = new mongoose.Schema({
             workSubmitted: {
                 type: String,
                 default: "No"
+            },
+            contestType: {
+                type: String,
+                default: "free"
+            },
+            isPaid: {
+                type: Boolean,
+                default: false
             }
         }
     ],

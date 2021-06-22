@@ -15,6 +15,7 @@
     const currentUser = '<%- currentUser.username %>';
     const contestId = '<%- contest._id %>';
     const amount = '<%- contest.entryFee %>';
+    const image = '<%- contest.coverPhoto.url %>';
 </script>
 
 <section id="blog" class="blog">
@@ -42,23 +43,32 @@
                                 <a  href="/list-of-participants?id=<%= contest._id %>">Participants count: <%= contest.peopleParticipated.length %> </a>
                             </li>
                             <li>
-                                <a href="#" style="float: right;" onclick="handlePayment(parseInt(amount))">
-                                    <button class="btn"
-                                        style="background-color:#028ecd !important;font-size: 15px;width: 150px;border-radius: 20px;color: white;">
-                                        Participate now 
-                                    </button>
-                                </a>
-                                <% if(today < contest.startDate){ %>
-                                    <a href="/participants?contestId=<%= contest._id %>" style="float: right;">
-                                        <button class="btn"  style="background-color:#028ecd !important;font-size: 15px;width: 150px;border-radius: 20px;color: white;"> Participate now </button>
-                                    </a>
-                                <% } else if(today >= contest.startDate && today <= contest.endDate){ %>
-                                    <a href="#" style="float: right;">
-                                        <button style="background-color:#028ecd !important;font-size: 15px;width: 150px;border-radius: 20px;" type="button" 
-                                        class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submit">
-                                        Submit your work
+                                <% if(today <= contest.endDate){ %>
+                                    <!-- Checks free contest or paid  -->
+                                    <% if(contest.entryFee <= 0){ %>
+                                        <% if(!data.length){ %>
+                                            <a href="/participants?contestId=<%= contest._id %>" style="float: right;">
+                                                <button class="btn"
+                                                    style="background-color:#028ecd !important;font-size: 15px;width: 150px;border-radius: 20px;color: white;">
+                                                    Participate now 
+                                                </button>
+                                            </a>
+                                        <% } %>
+                                    <% } else { %>
+                                        <% if(!data.length){ %>
+                                            <button class="btn" onclick="handlePayment(parseInt(amount))"
+                                                style="background-color:#028ecd !important;font-size: 15px;width: 150px;border-radius: 20px;color: white; float: right;">
+                                                Participate now
+                                            </button>
+                                        <% } %> 
+                                    <% } %> 
+
+                                    <% if(data.length){ %>
+                                        <button style="background-color:#028ecd !important;font-size: 15px;width: 150px;border-radius: 20px; float: right;" 
+                                            type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submit">
+                                            Submit your work
                                         </button>
-                                    </a>
+                                    <% } %> 
                                 <% } else { %>
                                     <p style="color: red; margin-bottom: 0;">
                                         Contest was ended. Go to participants page to review others work.

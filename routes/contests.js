@@ -7,14 +7,18 @@ const { isLoggedIn, isAdmin } = require("../middlewares")
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
 router.get("/contest/:id", isLoggedIn, async (req, res) => {
-    const contest = await Contest.findById(req.params.id)
-    res.render("contests/contest", { page: "Contest", contest, stripePublicKey: process.env.STRIPE_PUBLIC_KEY })
+    const { id } = req.params
+    const contest = await Contest.findOne({ _id: { $eq: id } })
+
+    const data = req.user.participatedContest.filter(contest => contest.contestId === id)
+
+    res.render("contests/contest", { page: "Contest", contest, data, stripePublicKey: process.env.STRIPE_PUBLIC_KEY })
 })
 
 router.get("/list-of-participants", isLoggedIn, async (req, res) => {
+    const { id } = req.query
     try {
         const participants = []
-        const { id } = req.query
         const { votes } = req.user
 
         const contest = await Contest.findOne({ _id: { $eq: id } })
@@ -37,34 +41,75 @@ router.get("/list-of-participants", isLoggedIn, async (req, res) => {
     }
 })
 
-router.post("/validate-data", isLoggedIn, async (req, res) => {
+// Creating the checkout session for payment
+router.post("/create-checkout-session", isLoggedIn, async (req, res) => {
     try {
-        const { id, email, user, contestId } = req.body
-        const { username, _id } = req.user
-        const userInfo = await User.findOne({ username: { $eq: user }, email: { $eq: email } })
-        if (!userInfo) throw "Enter email that was registered by current account. we didn't cut the money."
+        const { amount, id, image } = req.body
+        const { username } = req.user
+        const contest = await Contest.findOne({ _id: { $eq: id } })
 
-        const contest = await Contest.findOne({ _id: { $eq: contestId } })
-        if (!contest) throw "Their contest was not registered. Please aware of frauds. we didn't cut the money."
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'INR',
+                        product_data: {
+                            name: `Entry fee for ${contest.contestName} contest.`,
+                            images: [image]
+                        },
+                        unit_amount: amount * 100,
+                    },
+                    quantity: 1,
+                },
+            ],
+            mode: 'payment',
+            success_url: `http://localhost:3000/update-data/${username}/${id}`,
+            cancel_url: `http://localhost:3000/contest/${id}`,
+        });
 
-        if (contest.owner === username) throw "Contest creators can't able to participant in their own contest. we didn't cut the money."
+        res.status(200).json({ id: session.id, message: "payment success" });
+    } catch (err) {
+        console.log(err)
+        res.status(200).json({ message: "Can't able to initiate the payment process" })
+    }
+})
 
-        const present = contest.peopleParticipated.find(person => person.equals(_id))
-        if (present) throw "You already participating in this contest. we didn't cut the money."
-
-        const response = await stripe.charges.create({
-            amount: contest.entryFee * 100,
-            source: id,
-            currency: 'INR'
-        })
-
-        if (response.status !== "succeeded" || !response.paid) throw "Can't able to charge your card. we didn't cut the money."
+router.get("/update-data/:user/:id", isLoggedIn, async (req, res) => {
+    const { user, id } = req.params
+    try {
+        const userInfo = await User.findOne({ username: { $eq: user } })
+        const contest = await Contest.findOne({ _id: { $eq: id } })
 
         contest.peopleParticipated.push(userInfo)
-        userInfo.participatedContest.unshift({ contestId })
+        userInfo.participatedContest.unshift({ contestId: id, contestType: "paid", isPaid: true })
         await contest.save()
         await userInfo.save()
-        res.status(200).json({ message: "Payment successful" })
+        req.flash("success", "Your payment was successful.")
+        res.redirect(`/contest/${id}`)
+    } catch (err) {
+        console.log(err)
+        req.flash("error", "Something went wrong.")
+        res.redirect(`/contest/${id}`)
+    }
+})
+
+router.post("/validate-data", isLoggedIn, async (req, res) => {
+    try {
+        const { user, contestId } = req.body
+        const { username, _id } = req.user
+        const userInfo = await User.findOne({ username: { $eq: user } })
+        if (!userInfo) throw "You are not authenticated user."
+
+        const contest = await Contest.findOne({ _id: { $eq: contestId } })
+        if (!contest) throw "Their contest was not registered. Please aware of frauds."
+
+        if (contest.owner === username) throw "Contest creators can't able to participant in their own contest."
+
+        const present = contest.peopleParticipated.find(person => person.equals(_id))
+        if (present) throw "You already participating in this contest."
+
+        res.status(200).json({ message: "Data validated successfully." })
     } catch (err) {
         console.log(err)
         res.status(200).json({ message: err })
@@ -90,7 +135,8 @@ router.get("/participants", isLoggedIn, async (req, res) => {
         user.participatedContest.unshift({ contestId })
         await contest.save()
         await user.save()
-        res.redirect(`/list-of-participants?id=${contestId}`)
+        req.flash("success", "Thanks for participating in this contest.")
+        res.redirect(`/contest/${contestId}`)
     } catch (err) {
         req.flash("error", err)
         res.redirect("back")
