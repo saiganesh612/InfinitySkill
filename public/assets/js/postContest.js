@@ -102,3 +102,44 @@ function myFunction() {
         document.getElementById("10").innerHTML = "Event"
     }
 }
+const validate=()=>{
+    var x=document.getElementById("stDate").value
+    var y= document.getElementById("endDate").value
+     console.log(x,y)
+     if(y<x){
+         document.getElementById("error").style.display="block"
+     }else{
+         document.getElementById("error").style.display="none"
+     }
+}
+const vote1=()=>{
+    var x= document.getElementById("voteSt").value;
+    var y= document.getElementById("endDate").value;
+    if(x<y){
+        document.getElementById("Voterror1").style.display="block"
+    }else{
+        document.getElementById("Voterror1").style.display="none"
+    }
+}
+
+const vote2=()=>{
+    var b= document.getElementById("voteEnd").value;
+    var a= document.getElementById("voteSt").value;
+    console.log(a,b)
+    if(b<a){
+        document.getElementById("Voterror2").style.display="block"
+    }else{
+        document.getElementById("Voterror2").style.display="none"
+    }
+}
+
+const winnerDate=()=>{
+    var b= document.getElementById("voteEnd").value;
+    var a = document.getElementById("winner").value;
+    console.log(a,b);
+    if(b>a){
+        document.getElementById("WinError2").style.display="block"
+    }else{
+        document.getElementById("WinError2").style.display="none"
+    }
+}

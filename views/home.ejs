@@ -1,5 +1,4 @@
 <%- include("./partials/header2") %>
-
   <!-- ======= Hero Section ======= -->
   <section id="hero">
     <div class="hero-container">
@@ -77,15 +76,28 @@
           <div class="col-lg-3">
             <div class="sidebar">
               <h3 class="sidebar-title">Search</h3>
+           
               <div class="sidebar-item search-form">
-                <form action="">
-                  <input type="text">
-                  <button type="submit"><i class="bi bi-search"></i></button>
-                </form>
-              </div><!-- End sidebar search formn-->
+                <div>
+                  <input  id="search" type="text" onchange="search()">
+                  <a href="#" > <button type="submit"><i class="bi bi-search"></i></button></a>
+                </div>
+              </div>
+            
+              <!-- End sidebar search formn-->
+            <script>
+              function search(){
+                  x=document.getElementById("search").value;
+                  axios.get( `search?contestName=${x}`).then(res=>{
+                      console.log(res)
+                      url=res.config.url;
+                      console.log(url)
+                  })
+              }
+            </script>
               <div>
                <h3 style="float: left;" class="sidebar-title">Categories</h3>
-               <p style="float: right;"><a href="/home" style="color: red;text-decoration: none;">clear all</a></p>
+               <p style="float: right;"><a href="/home" style="color: red;text-decoration: none;">Clear all</a></p>
               </div>
               <br/><br/>
               <div class="sidebar-item categories">
@@ -118,20 +130,15 @@
                   <li><a href="/classify?type=paid">Paid <span>(12)</span></a></li>  
                 </ul>
               </div><!-- End status categories-->
-              <h3 class="sidebar-title">POPULARITY</h3>
-              <div class="sidebar-item categories">
-                <ul>
-                  <li><a href="/class?popularity=asc">Low to High <span>(25)</span></a></li>
-                  <li><a href="/class?popularity=dsc">High to Low <span>(12)</span></a></li>  
-                </ul>
-              </div><!-- End status categories-->
-              <h3 class="sidebar-title">PRIZE MONEY</h3>
-              <div class="sidebar-item categories">
-                <ul>
-                  <li><a href="/organise?prize=asc">Low to High <span>(25)</span></a></li>
-                  <li><a href="/organise?prize=dsc">High to Low <span>(12)</span></a></li>  
-                </ul>
-              </div><!-- End status categories-->
+              <h3 class="sidebar-title">POPULARITY  
+                <a style="color: white;"  href="/class?popularity=asc"><button style="border-radius: 50%;" class="btn btn-success"><i class="bi bi-arrow-up"></i></button></a>
+                <a style="color: white;" href="/class?popularity=dsc"><button style="border-radius: 50%;" class="btn btn-danger"><i class="bi bi-arrow-down"></i></button></a>
+              </h3>
+              <h3 class="sidebar-title">PRIZE MONEY
+                <a style="color: white;"  href="/organise?prize=asc"><button style="border-radius: 50%;" class="btn btn-success"><i class="bi bi-arrow-up"></i></button></a>
+                <a style="color: white;" href="/organise?prize=dsc"><button style="border-radius: 50%;" class="btn btn-danger"><i class="bi bi-arrow-down"></i></button></a>
+              </h3>
+              
              
             </div><!-- End sidebar -->
 

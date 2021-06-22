@@ -71,11 +71,10 @@ router.get("/classify",isLoggedIn,async(req,res)=>{
 router.get("/class",isLoggedIn,async(req,res)=>{
     try{
         const {popularity} = req.query;
+        var ans = await Contest.find()
         if(popularity=="asc"){
-            var ans = await Contest.find()
             var contests=ans.sort((a, b) => Number(a.peopleParticipated.length ) - Number(b.peopleParticipated.length));
         }else{
-            var ans = await Contest.find()
             var contests=ans.sort((a, b) => Number(b.peopleParticipated.length ) - Number(a.peopleParticipated.length)); 
         }
         res.render("home", { page: "", contests })
@@ -89,12 +88,11 @@ router.get("/class",isLoggedIn,async(req,res)=>{
 router.get("/organise",isLoggedIn,async(req,res)=>{
     try{
         const {prize} = req.query;
+        var ans = await Contest.find()
+        var ans = await Contest.find()
         if(prize=="asc"){
-            var ans = await Contest.find()
-            console.log(ans.sort((a,b)=>ParseInt(a.prizeMoney)-ParseInt(b.prizeMoney)))
-            var contests=ans.sort((a, b) => (a.prizeMoney) - (b.prizeMoney));
+            var contests=ans.sort((a, b) => Number(a.prizeMoney) - Number(b.prizeMoney));
         }else{
-            var ans = await Contest.find()
             var contests=ans.sort((a, b) => (b.prizeMoney) - (a.prizeMoney)); 
         }
         res.render("home", { page: "", contests })
