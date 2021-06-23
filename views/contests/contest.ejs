@@ -64,12 +64,19 @@
                                     <% } %> 
 
                                     <% if(data.length){ %>
+                                        <% if(today >= contest.startDate ){ %>
+                                        <% console.log(today, contest.startDate) %>
                                         <button style="background-color:#028ecd !important;font-size: 15px;width: 150px;border-radius: 20px; float: right;" 
                                             type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submit">
                                             Submit your work
                                         </button>
+                                        <%}else{%>
+                                            <% console.log(today, contest.startDate) %>
+                                            <p style="color: green;">Contest about to start Please wait</p>
+                                        <%}%>
                                     <% } %> 
                                 <% } else { %>
+                                    
                                     <p style="color: red; margin-bottom: 0;">
                                         Contest was ended. Go to participants page to review others work.
                                     </p>
@@ -89,7 +96,7 @@
                         <br /> <br /> <br />
                         <p>
                             <b>Contest Description:</b><br />
-                            <%= contest.description %> 
+                            <%=contest.description %> 
                         </p>
 
                         <h3>Rules</h3>

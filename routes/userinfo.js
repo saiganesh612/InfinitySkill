@@ -9,8 +9,21 @@ const { isLoggedIn } = require("../middlewares")
 const { sortBy } = require("async")
 
 router.get("/home", isLoggedIn, async (req, res) => {
+    var url;
     const contests = await Contest.find({ isApproved: { $eq: true } })
+    res.render("home", { page: "", contests: contests.reverse(),url})
+})
+
+router.get("/search",isLoggedIn,async (req,res)=>{
+    try{
+    const searchField = req.query.contestName;
+    console.log("searver side",searchField);
+    const contests = await  Contest.find({ contestName :{$regex: searchField ,$options:"$i" } })
     res.render("home", { page: "", contests: contests.reverse() })
+    }catch(err){
+        console.log(err)
+        res.redirect("/home") 
+    }
 })
 
 router.get("/sort", isLoggedIn, async (req, res) => {

@@ -76,24 +76,43 @@
           <div class="col-lg-3">
             <div class="sidebar">
               <h3 class="sidebar-title">Search</h3>
-           
-              <div class="sidebar-item search-form">
-                <div>
-                  <input  id="search" type="text" onchange="search()">
-                  <a href="#" > <button type="submit"><i class="bi bi-search"></i></button></a>
+            <form id="searchForm">
+                <div class="sidebar-item search-form">
+                  <div>
+                    <input  id="search" type="text" >
+                    <button type="submit" ><i class="bi bi-search"></i></button>
+                  </div>
                 </div>
-              </div>
-            
+            </form>
               <!-- End sidebar search formn-->
             <script>
-              function search(){
+              async function search(){
                   x=document.getElementById("search").value;
-                  axios.get( `search?contestName=${x}`).then(res=>{
+                  await axios.get( `search?contestName=${x}`).then(res=>{
                       console.log(res)
                       url=res.config.url;
-                      console.log(url)
+                      console.log(url);    
                   })
+                return url;
               }
+              async function urlChange(){
+                //e.preventDefault();
+                const url1 =  await search();
+                console.log(url1);
+                var newUrl=`http://localhost:3000/${url1}`
+                console.log(newUrl);
+                window.location.href=(newUrl);
+                //history.pushState({}, null, newUrl);        
+              }
+              document.getElementById("searchForm").addEventListener("submit", (event)=>{
+                event.preventDefault();
+                urlChange(event);
+              })
+              // document.getElementById("searchForm").submit(function(e){
+              //   e.preventDefault();
+              //   urlChange();
+              // })
+             
             </script>
               <div>
                <h3 style="float: left;" class="sidebar-title">Categories</h3>
