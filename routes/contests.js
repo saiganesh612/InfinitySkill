@@ -1,3 +1,12 @@
+let url
+if (process.env.NODE_ENV === "production") {
+    url = "https://infinite-skill.herokuapp.com"
+} else {
+    url = "http://localhost:3000"
+}
+
+console.log(url)
+
 const express = require("express")
 const router = express.Router();
 const User = require("../models/user")
@@ -64,8 +73,8 @@ router.post("/create-checkout-session", isLoggedIn, async (req, res) => {
                 },
             ],
             mode: 'payment',
-            success_url: `http://localhost:3000/update-data/${username}/${id}`,
-            cancel_url: `http://localhost:3000/contest/${id}`,
+            success_url: `${url}/update-data/${username}/${id}`,
+            cancel_url: `${url}/contest/${id}`,
         });
 
         res.status(200).json({ id: session.id, message: "payment success" });
