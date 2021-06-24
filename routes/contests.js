@@ -26,16 +26,21 @@ router.get("/contest/:id", isLoggedIn, async (req, res) => {
 })
 
 router.get("/list-of-participants", isLoggedIn, async (req, res) => {
-    const { id } = req.query
+    const { id } = req.query;
+    //today
+    const dateObj = new Date();
+    let month = dateObj.getUTCMonth() + 1; //months from 1-12
+    const day = dateObj.getUTCDate();
+    const year = dateObj.getUTCFullYear();
+    month = month >= 10 ? month : `0${month}`
+    today = `${year}-${month}-${day}`
+    today = String(today)
     try {
         const participants = []
         const { votes } = req.user
-
-        const contest = await Contest.findOne({ _id: { $eq: id } })
+        const contest = await Contest.findOne({ _id: { $eq: id } })  
         const users = await User.find({ _id: { $in: contest.peopleParticipated } })
-
         const match = votes.filter(vote => vote.contestId === id)
-
         users.forEach(user => {
             let participant = user.participatedContest.filter(contest => contest.contestId === id)[0]
             if (match.length) {
@@ -45,6 +50,18 @@ router.get("/list-of-participants", isLoggedIn, async (req, res) => {
             }
             else participants.push({ participant, user: user.username, voted: false })
         })
+       //Participant status
+        participants.forEach(participants=>{
+            (participants.participant.workSubmitted)? (participants.participant.status="Work Submitted") :  (participants.participant.status="Submission Pending");
+        })
+        if(today >= contest.WinnerDate){
+            var winner = participants.reduce((prev, current) => (prev.y > current.y) ? prev : current, 1);
+            var maxPoints = winner.participant.points;
+            participants.forEach(participants=>{
+                 (participants.participant.points== maxPoints)? (participants.participant.status="Win") :  (participants.participant.status="loose");
+            })
+            console.log(participants)
+        }
         res.render("contests/participants", { page: " ", participants, contest })
     } catch (err) {
         res.redirect(`/contest/${id}`)
@@ -289,6 +306,7 @@ router.post("/contest/:id/submitWork", isLoggedIn, async (req, res) => {
 
         contest[0].workSubmitted = workLink
         await user.save()
+        
         res.redirect(`/list-of-participants?id=${id}`)
     } catch (err) {
         req.flash("error", err)
@@ -320,7 +338,6 @@ router.post("/manage-votes/:id", async (req, res) => {
         // Updating the data
         const index = cuser.participatedContest.findIndex(contest => contest.contestId === id)
         cuser.participatedContest[index].points = parseInt(pts)
-
         await user.save()
         await cuser.save()
         res.status(200).json({ message: "Updated" })

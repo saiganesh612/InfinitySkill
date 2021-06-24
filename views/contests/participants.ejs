@@ -53,11 +53,12 @@
                 <th scope="row"> <%= index + 1 %> </th>
                 <td class="<%= index + 1 %>"> <%= p.user %> </td>
                 <td>
-                <%   if( p.participant.workSubmitted !== "No"){ %>
+                  <%= p.participant.status %>
+                <!-- <%   if( p.participant.workSubmitted !== "No"){ %>
                   <p style="color: green;">  Work submitted  </p
                <% } else{ %>
                   <p style="color: red;"> Submission pending</p> 
-                <%}%>
+                <%}%> -->
               </td>
                 <% if(currentUser.username==="Admin" || currentUser.username===contest.owner ){%>
                   <td>
