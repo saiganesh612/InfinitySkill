@@ -17,12 +17,28 @@ router.get("/home", isLoggedIn, async (req, res) => {
 router.get("/search",isLoggedIn,async (req,res)=>{
     try{
     const searchField = req.query.contestName;
-    console.log("searver side",searchField);
+   // console.log("searver side",searchField);
     const contests = await  Contest.find({ contestName :{$regex: searchField ,$options:"$i" } })
     res.render("home", { page: "", contests: contests.reverse() })
     }catch(err){
         console.log(err)
         res.redirect("/home") 
+    }
+})
+
+router.get("/home",isLoggedIn,async(req,res)=>{
+    try{
+        const filters = req.query;
+        const filteredContests = Contest.filter(contestName => {
+            let isValid = true;
+            for (key in filters) {
+              console.log(key, contestName[key], filters[key]);
+              isValid = isValid && contestName[key] == filters[key];
+            }
+            return isValid;
+          });
+        console.log(filteredContests)
+    }catch(err){
     }
 })
 
