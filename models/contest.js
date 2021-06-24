@@ -29,6 +29,14 @@ const contestSchema = new mongoose.Schema({
             ref: "User"
         }
     ],
+    mode: {
+        type: String,
+        default: "free"
+    },
+    payment_status: {
+        type: String,
+        default: "unpaid"
+    },
     isApproved: {
         type: Boolean,
         default: false
