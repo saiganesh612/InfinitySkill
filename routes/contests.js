@@ -23,6 +23,15 @@ router.get("/contest/:id", isLoggedIn, async (req, res) => {
 
     res.render("contests/contest", { page: "Contest", contest, data, stripePublicKey: process.env.STRIPE_PUBLIC_KEY })
 })
+router.get("/Profile",isLoggedIn,async(req,res)=>{
+    const Details = await User.find({username:{$eq: req.query.user}})
+    const ContestDetails =  Details[0].participatedContest.map(async(contest)=>{
+       const Data = await Contest.findOne({"_id" :{"$eq": contest.contestId} }) ;
+       return Data;
+    })
+    var ContestData = await Promise.all(ContestDetails);
+    res.render("userInfo/Profile/Profile",{page: " ",Details ,ContestData })
+})
 
 router.get("/list-of-participants", isLoggedIn, async (req, res) => {
     const { id } = req.query;
@@ -57,9 +66,8 @@ router.get("/list-of-participants", isLoggedIn, async (req, res) => {
             var winner = participants.reduce((prev, current) => (prev.y > current.y) ? prev : current, 1);
             var maxPoints = winner.participant.points;
             participants.forEach(participants=>{
-                 (participants.participant.points== maxPoints)? (participants.participant.status="Win") :  (participants.participant.status="loose");
+                 (participants.participant.points== maxPoints && participants.participant.points!=0 )? (participants.participant.status="Winner") :  (participants.participant.status="Lost :(");
             })
-            console.log(participants)
         }
         res.render("contests/participants", { page: " ", participants, contest })
     } catch (err) {

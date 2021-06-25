@@ -51,15 +51,50 @@
             <% participants.forEach((p, index)=> { %>
               <tr>
                 <th scope="row"> <%= index + 1 %> </th>
-                <td class="<%= index + 1 %>"> <%= p.user %> </td>
+                <td class="<%= index + 1 %>"> <a href="/Profile?user=<%=p.user %>"> <%= p.user %> </a> </td>
                 <td>
-                  <%= p.participant.status %>
-                <!-- <%   if( p.participant.workSubmitted !== "No"){ %>
-                  <p style="color: green;">  Work submitted  </p
-               <% } else{ %>
-                  <p style="color: red;"> Submission pending</p> 
-                <%}%> -->
-              </td>
+                  <% if(p.participant.status=="Winner" || p.participant.status=="Work Submitted" ){ %>
+                      <p style="color: green;">  <%= p.participant.status %> </p>
+                      <% if(p.participant.status=="Winner"){ %>
+                            <!-- Button trigger modal -->
+                          <button type="button" style="border-radius: 20px;" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            Request Money
+                          </button>
+
+                          <!-- Modal -->
+                          <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="staticBackdropLabel">Enter your Bank details</h5>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" name="IFSC" id="floatingInput" >
+                                    <label for="floatingInput">Enter your IFSC code</label>
+                                  </div>
+                                  <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" name="AccountNum" id="floatingInput" >
+                                    <label for="floatingInput">Enter your Bank accound umber</label>
+                                  </div>
+                                  <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" name="UPI" id="floatingInput" >
+                                    <label for="floatingInput">Enter your UPI ID</label>
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary">Submit</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      <% } %> 
+                  <% }else{ %>
+                      <p style="color: red;">  <%= p.participant.status %> </p>
+                  <% } %>
+                </td>
                 <% if(currentUser.username==="Admin" || currentUser.username===contest.owner ){%>
                   <td>
                     <a href="<%= p.participant.workSubmitted !== "No" ? p.participant.workSubmitted : "#"%>">
