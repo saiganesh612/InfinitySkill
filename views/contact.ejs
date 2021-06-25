@@ -3,32 +3,6 @@
 <section id="contact" class="contact" style="margin-top: 40px;">
     <div class="container">
 
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="info-box mb-4">
-            <i class="bx bx-map"></i>
-            <h3>Our Address</h3>
-            <p>A108 Adam Street, New York, NY 535022</p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-          <div class="info-box  mb-4">
-            <i class="bx bx-envelope"></i>
-            <h3>Email Us</h3>
-            <p>contact@example.com</p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-          <div class="info-box  mb-4">
-            <i class="bx bx-phone-call"></i>
-            <h3>Call Us</h3>
-            <p>+1 5589 55488 55</p>
-          </div>
-        </div>
-
-      </div>
 
       <div class="row">
 
@@ -37,7 +11,7 @@
         </div>
 
         <div class="col-lg-6">
-          <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+        <form action="/contact-form" method="POST">
             <div class="row">
               <div class="col-md-6 form-group">
                 <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -50,12 +24,24 @@
               <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
             </div>
             <div class="form-group mt-3">
+              <input type="tel" class="form-control" name="phoneNumber" id="subject" placeholder="Contact number" required>
+            </div>
+            <div class="form-group mt-3">
+              <select class="form-control" name="queryType" aria-label="Default select example" required>
+                <option value="Participation related">Participation related</option>
+                <option value="Contest creation">Contest creation</option>
+                <option value="Work/Business related">Work/Business related</option>
+                <option value="Report abuse">Report abuse</option>
+                <option value="Contact Developer/Designer">Contact Developer/Designer</option>
+              </select>
+            </div>
+            <div class="form-group mt-3">
               <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
             </div>
             <div class="my-3">
-              <div class="loading">Loading</div>
+              <div class="loading"></div>
               <div class="error-message"></div>
-              <div class="sent-message">Your message has been sent. Thank you!</div>
+              <div class="sent-message"></div>
             </div>
             <div class="text-center"><button type="submit">Send Message</button></div>
           </form>
