@@ -70,85 +70,130 @@
       </div>
     </section><!-- End Featured Section -->
     <!-- Contests section -->
-    <section id="blog" class="blog" style="margin-top: 0px;">
+    <section id="blog" class="blog" style="margin-top: 15px;">
       <div>
         <div class="row" >
           <div class="col-lg-3">
+           
             <div class="sidebar">
               <h3 class="sidebar-title">Search</h3>
-            <form id="searchForm">
-                <div class="sidebar-item search-form">
-                  <div>
-                    <input style="height: 40px; border-radius: 5px; width: 80%;" placeholder="Search by contest name"  id="search" type="text" >
-                    <button style="height: 35px; width: 35px; border-radius: 5px; background-color: #028ecd;color: white;" type="submit" ><i class="bi bi-search"></i></button>
+              <form id="searchForm">
+                  <div class="sidebar-item search-form">
+                    <div>
+                      <input style="height: 40px; border-radius: 5px; width: 80%;" placeholder="Search by contest name"  id="search" type="text" >
+                      <button style="height: 35px; width: 35px; border-radius: 5px; background-color: #028ecd;color: white;" type="submit" ><i class="bi bi-search"></i></button>
+                    </div>
+                  </div>
+              </form>
+              <!-- End sidebar search formn-->
+              <script>
+                async function search(){
+                    x=document.getElementById("search").value;
+                    await axios.get( `search?contestName=${x}`).then(res=>{
+                        console.log(res)
+                        url=res.config.url;
+                        console.log(url);    
+                    })
+                  return url;
+                }
+                async function urlChange(){
+                  //e.preventDefault();
+                  const url1 =  await search();
+                  console.log(url1);
+                  var newUrl=`https://infinite-skill.herokuapp.com/${url1}`
+                  console.log(newUrl);
+                  window.location.href=(newUrl);
+                  //history.pushState({}, null, newUrl);        
+                }
+                document.getElementById("searchForm").addEventListener("submit", (event)=>{
+                  event.preventDefault();
+                  urlChange(event);
+                })
+                // document.getElementById("searchForm").submit(function(e){
+                //   e.preventDefault();
+                //   urlChange();
+                // })
+              
+              </script>
+               <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                      Sort by Categories
+                    </button>
+                  </h2>
+                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                      <div>
+                        <h3 style="float: left;" class="sidebar-title">Categories</h3>
+                        <p style="float: right;"><a href="/home" style="color: red;text-decoration: none;">Clear all</a></p>
+                       </div>
+                       <br/><br/>
+                       <div class="sidebar-item categories">
+                         <ul>
+                           <li><a href="/sort?category=Dancing">Dancing <span>(25)</span></a></li>
+                           <li><a href="/sort?category=Singing">Singing <span>(12)</span></a></li>
+                           <li><a href="/sort?category=Music">Music <span>(5)</span></a></li>
+                           <li><a href="/sort?category=Art">Art <span>(22)</span></a></li>
+                           <li><a href="/sort?category=Graphic design">Graphic design <span>(8)</span></a></li>
+                           <li><a href="/sort?category=Video/film/reels">Video/film/reels <span>(14)</span></a></li>
+                           <li><a href="/sort?category=Video editing">Video editing <span>(14)</span></a></li>
+                           <li><a href="/sort?category=Photo editing">Photo editing <span>(14)</span></a></li>
+                           <li><a href="/sort?category=Soft Skills">Soft Skills <span>(14)</span></a></li>
+                           <li><a href="/sort?category=Photography">Photography <span>(14)</span></a></li>
+                         </ul>
+                       </div><!-- End sidebar categories-->
+                    </div>
                   </div>
                 </div>
-            </form>
-              <!-- End sidebar search formn-->
-            <script>
-              async function search(){
-                  x=document.getElementById("search").value;
-                  await axios.get( `search?contestName=${x}`).then(res=>{
-                      console.log(res)
-                      url=res.config.url;
-                      console.log(url);    
-                  })
-                return url;
-              }
-              async function urlChange(){
-                //e.preventDefault();
-                const url1 =  await search();
-                console.log(url1);
-                var newUrl=`https://infinite-skill.herokuapp.com/${url1}`
-                console.log(newUrl);
-                window.location.href=(newUrl);
-                //history.pushState({}, null, newUrl);        
-              }
-              document.getElementById("searchForm").addEventListener("submit", (event)=>{
-                event.preventDefault();
-                urlChange(event);
-              })
-              // document.getElementById("searchForm").submit(function(e){
-              //   e.preventDefault();
-              //   urlChange();
-              // })
-             
-            </script>
-              <div>
-               <h3 style="float: left;" class="sidebar-title">Categories</h3>
-               <p style="float: right;"><a href="/home" style="color: red;text-decoration: none;">Clear all</a></p>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                      Sort by Status
+                    </button>
+                  </h2>
+                  <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                      <div>
+                        <h3 style="float: left;" class="sidebar-title">STATUS</h3>
+                        <p style="float: right;"><a href="/home" style="color: red;text-decoration: none;">Clear all</a></p>
+                       </div>
+                       <br/><br/>
+                      <div class="sidebar-item categories">
+                        <ul>
+                          <li><a href="/filter?status=Ongoing">Ongoing <span>(25)</span></a></li>
+                          <li><a href="/filter?status=Upcoming">Upcoming <span>(12)</span></a></li>
+                          <li><a href="/filter?status=completed">Completed<span>(5)</span></a></li>
+                          <li><a href="/filter?status=voting">Voting<span>(22)</span></a></li>
+                        </ul>
+                      </div><!-- End status categories-->
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                      Sort by Type
+                    </button>
+                  </h2>
+                  <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                      <div>
+                        <h3 style="float: left;" class="sidebar-title">TYPE</h3>
+                        <p style="float: right;"><a href="/home" style="color: red;text-decoration: none;">Clear all</a></p>
+                       </div>
+                       <br/><br/>
+                      <div class="sidebar-item categories">
+                        <ul>
+                          <li><a href="/classify?type=free">Free <span>(25)</span></a></li>
+                          <li><a href="/classify?type=paid">Paid <span>(12)</span></a></li>  
+                        </ul>
+                      </div><!-- End status categories-->
+                    </div>
+                  </div>
+                </div>
               </div>
-              <br/><br/>
-              <div class="sidebar-item categories">
-                <ul>
-                  <li><a href="/sort?category=Dancing">Dancing <span>(25)</span></a></li>
-                  <li><a href="/sort?category=Singing">Singing <span>(12)</span></a></li>
-                  <li><a href="/sort?category=Music">Music <span>(5)</span></a></li>
-                  <li><a href="/sort?category=Art">Art <span>(22)</span></a></li>
-                  <li><a href="/sort?category=Graphic design">Graphic design <span>(8)</span></a></li>
-                  <li><a href="/sort?category=Video/film/reels">Video/film/reels <span>(14)</span></a></li>
-                  <li><a href="/sort?category=Video editing">Video editing <span>(14)</span></a></li>
-                  <li><a href="/sort?category=Photo editing">Photo editing <span>(14)</span></a></li>
-                  <li><a href="/sort?category=Soft Skills">Soft Skills <span>(14)</span></a></li>
-                  <li><a href="/sort?category=Photography">Photography <span>(14)</span></a></li>
-                </ul>
-              </div><!-- End sidebar categories-->
-              <h3 class="sidebar-title">STATUS</h3>
-              <div class="sidebar-item categories">
-                <ul>
-                  <li><a href="/filter?status=Ongoing">Ongoing <span>(25)</span></a></li>
-                  <li><a href="/filter?status=Upcoming">Upcoming <span>(12)</span></a></li>
-                  <li><a href="/filter?status=completed">Completed<span>(5)</span></a></li>
-                  <li><a href="/filter?status=voting">Voting<span>(22)</span></a></li>
-                </ul>
-              </div><!-- End status categories-->
-              <h3 class="sidebar-title">TYPE</h3>
-              <div class="sidebar-item categories">
-                <ul>
-                  <li><a href="/classify?type=free">Free <span>(25)</span></a></li>
-                  <li><a href="/classify?type=paid">Paid <span>(12)</span></a></li>  
-                </ul>
-              </div><!-- End status categories-->
+              <br/> 
               <h3 class="sidebar-title">POPULARITY  
                 <a style="color: white;"  href="/class?popularity=asc"><button style="border-radius: 50%;" class="btn btn-success"><i class="bi bi-arrow-up"></i></button></a>
                 <a style="color: white;" href="/class?popularity=dsc"><button style="border-radius: 50%;" class="btn btn-danger"><i class="bi bi-arrow-down"></i></button></a>
