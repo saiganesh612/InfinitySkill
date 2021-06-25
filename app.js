@@ -18,8 +18,9 @@ const userRoutes = require("./routes/Auth")
 const infoRoutes = require("./routes/userinfo")
 const contestRoutes = require("./routes/contests")
 const contactRoutes = require("./routes/contact")
+
 // Connecting to database
-const dbUrl = /*process.env.DB_URL ||*/ "mongodb://localhost:27017/infiniteskill"
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/infiniteskill"
 mongoose.connect(dbUrl, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -85,14 +86,11 @@ app.get("/articles", (req, res) => {
     res.render("articles", { page: "" })
 })
 
-// app.get("/contact-form", (req, res) => {
-//     res.render("contact", { page: "" })
-// })
-
 app.use(userRoutes)
 app.use(infoRoutes)
 app.use(contestRoutes)
 app.use(contactRoutes)
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
