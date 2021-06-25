@@ -287,6 +287,40 @@ router.get("/approve/:id", isLoggedIn, isAdmin, async (req, res) => {
     }
 })
 
+router.get("/reject/:id", async (req, res) => {
+    try {
+        const { id } = req.params
+        const contest = await Contest.findOneAndDelete({ _id: { $eq: id } })
+        const user = await User.findOne({ username: { $eq: contest.owner } })
+        const contests = user.postedContests.filter(contestId => !contestId.equals(id))
+        user.postedContests = contests
+        await user.save()
+
+        const body = `
+            Hey ${contest.owner},
+            Admin reviewed your ${contest.contestName} contest and we regret to say that admin rejeted your contest.
+            This is due to wrong timeline that you mentioned in your contest or your contest may voilated our norms.
+        `
+
+        const mailOptions = {
+            from: sender,
+            to: user.email,
+            subject: `Status of ${contest.contestName} contest.`,
+            text: body
+        }
+
+        transporter.sendMail(mailOptions, err => {
+            if (err) return console.log("error occured", err)
+            return console.log('mail sent');
+        })
+
+        res.redirect("/requested-contests")
+    } catch (err) {
+        console.log(err)
+        res.redirect("/requested-contests")
+    }
+})
+
 router.post("/contest/:id/submitWork", isLoggedIn, async (req, res) => {
     try {
         const { workLink } = req.body
