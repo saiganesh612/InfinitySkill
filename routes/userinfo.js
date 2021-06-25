@@ -10,19 +10,22 @@ const { sortBy } = require("async")
 
 router.get("/home", isLoggedIn, async (req, res) => {
     var url;
-    const contests = await Contest.find({ isApproved: { $eq: true } })
-    res.render("home", { page: "", contests: contests.reverse(),url})
+    const contests = await Contest.find({
+        $and: [{ isApproved: { $eq: true }, $or: [{ mode: { $eq: "free" } }, { $and: [{ mode: "paid", payment_status: "paid" }] }] }]
+    })
+    console.log(contests)
+    res.render("home", { page: "", contests: contests.reverse(), url })
 })
 
-router.get("/search",isLoggedIn,async (req,res)=>{
-    try{
-    const searchField = req.query.contestName;
-   // console.log("searver side",searchField);
-    const contests = await  Contest.find({ contestName :{$regex: searchField ,$options:"$i" } })
-    res.render("home", { page: "", contests: contests.reverse() })
-    }catch(err){
+router.get("/search", isLoggedIn, async (req, res) => {
+    try {
+        const searchField = req.query.contestName;
+        console.log("searver side", searchField);
+        const contests = await Contest.find({ contestName: { $regex: searchField, $options: "$i" } })
+        res.render("home", { page: "", contests: contests.reverse() })
+    } catch (err) {
         console.log(err)
-        res.redirect("/home") 
+        res.redirect("/home")
     }
 })
 
@@ -55,80 +58,80 @@ router.get("/sort", isLoggedIn, async (req, res) => {
 
 router.get("/filter", isLoggedIn, async (req, res) => {
     try {
-       const { status } = req.query
-       const dateObj = new Date();
-       let month = dateObj.getUTCMonth() + 1; //months from 1-12
-       const day = dateObj.getUTCDate();
-       const year = dateObj.getUTCFullYear();
-       month = month >= 10 ? month : `0${month}`
-       today = `${year}-${month}-${day}`
-       today = String(today)
-        if(status==="Ongoing"){
-            var contests = await Contest.find({ $and: [ {endDate: { "$gte": today}},{startDate :{"$lte": today}} ] })
+        const { status } = req.query
+        const dateObj = new Date();
+        let month = dateObj.getUTCMonth() + 1; //months from 1-12
+        const day = dateObj.getUTCDate();
+        const year = dateObj.getUTCFullYear();
+        month = month >= 10 ? month : `0${month}`
+        today = `${year}-${month}-${day}`
+        today = String(today)
+        if (status === "Ongoing") {
+            var contests = await Contest.find({ $and: [{ endDate: { "$gte": today } }, { startDate: { "$lte": today } }] })
             //start<=today<=end
-       }else if(status==="Upcoming"){
-           var contests = await Contest.find( { startDate: {"$gt":today} } )
-           //startdate > today
-       }else if(status==="completed"){
-           var contests = await Contest.find( {  endDate: {"$lt":today} } )
-           //end date > today
-       }else if(status=="voting"){
-           var contests = await Contest.find({ $and: [ {votingEnd: { "$gte": today}},{votingStart :{"$lte": today}} ] })
-       }
-        res.render("home", { page: " ",contests})
+        } else if (status === "Upcoming") {
+            var contests = await Contest.find({ startDate: { "$gt": today } })
+            //startdate > today
+        } else if (status === "completed") {
+            var contests = await Contest.find({ endDate: { "$lt": today } })
+            //end date > today
+        } else if (status == "voting") {
+            var contests = await Contest.find({ $and: [{ votingEnd: { "$gte": today } }, { votingStart: { "$lte": today } }] })
+        }
+        res.render("home", { page: " ", contests })
     } catch (err) {
         console.log(err)
         res.redirect("/home")
     }
 })
 
-router.get("/classify",isLoggedIn,async(req,res)=>{
-    try{
-         const {type} = req.query;
-         if(type == 'free'){
-            var contests = await Contest.find({entryFee :{$eq: 0}})
-         }else{
-            var contests = await Contest.find({entryFee :{$gt: 0}})
+router.get("/classify", isLoggedIn, async (req, res) => {
+    try {
+        const { type } = req.query;
+        if (type == 'free') {
+            var contests = await Contest.find({ entryFee: { $eq: 0 } })
+        } else {
+            var contests = await Contest.find({ entryFee: { $gt: 0 } })
             console.log(contests)
-         }
-         res.render("home", { page: "", contests : contests.reverse() })
-    }catch(err){
+        }
+        res.render("home", { page: "", contests: contests.reverse() })
+    } catch (err) {
         res.redirect("/home")
     }
 })
 
-router.get("/class",isLoggedIn,async(req,res)=>{
-    try{
-        const {popularity} = req.query;
+router.get("/class", isLoggedIn, async (req, res) => {
+    try {
+        const { popularity } = req.query;
         var ans = await Contest.find()
-        if(popularity=="asc"){
-            var contests=ans.sort((a, b) => Number(a.peopleParticipated.length ) - Number(b.peopleParticipated.length));
-        }else{
-            var contests=ans.sort((a, b) => Number(b.peopleParticipated.length ) - Number(a.peopleParticipated.length)); 
+        if (popularity == "asc") {
+            var contests = ans.sort((a, b) => Number(a.peopleParticipated.length) - Number(b.peopleParticipated.length));
+        } else {
+            var contests = ans.sort((a, b) => Number(b.peopleParticipated.length) - Number(a.peopleParticipated.length));
         }
         res.render("home", { page: "", contests })
-    }catch(err){
+    } catch (err) {
         console.log("EROR")
         res.redirect("/home")
-    } 
+    }
 })
 
 
-router.get("/organise",isLoggedIn,async(req,res)=>{
-    try{
-        const {prize} = req.query;
+router.get("/organise", isLoggedIn, async (req, res) => {
+    try {
+        const { prize } = req.query;
         var ans = await Contest.find()
         var ans = await Contest.find()
-        if(prize=="asc"){
-            var contests=ans.sort((a, b) => Number(a.prizeMoney) - Number(b.prizeMoney));
-        }else{
-            var contests=ans.sort((a, b) => (b.prizeMoney) - (a.prizeMoney)); 
+        if (prize == "asc") {
+            var contests = ans.sort((a, b) => Number(a.prizeMoney) - Number(b.prizeMoney));
+        } else {
+            var contests = ans.sort((a, b) => (b.prizeMoney) - (a.prizeMoney));
         }
         res.render("home", { page: "", contests })
-    }catch(err){
+    } catch (err) {
         console.log("EROR")
         res.redirect("/home")
-    } 
+    }
 })
 router.get("/dashboard", isLoggedIn, async (req, res) => {
     try {
@@ -161,6 +164,9 @@ router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
             contestName, motive, startDate, endDate, votingStart, votingEnd, WinnerDate,
             description, category, subCategory, prizeMoney, entryFee
         })
+
+        if (entryFee > 0) newContest.mode = "paid"
+
         newContest.coverPhoto = { url: req.files[0].path, filename: req.files[0].filename }
         newContest.rules = { url: req.files[1].path, filename: req.files[1].filename }
         await newContest.save()
