@@ -24,3 +24,51 @@
         </div>
     </div>
 </div>
+
+<!-- Money request modal -->
+<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Enter your Bank details.</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/request-money/<%= contest._id %>" method="POST">
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="banktype" class="form-control" id="banktype" placeholder="Type of bank" required>
+                        <label for="banktype">Bank Name</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        <input type="password" name="accountNumber" class="form-control" id="accountNumber"
+                            placeholder="Enter account number" required>
+                        <label for="accountNumber">Enter account number</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        <input type="text" name="confirmAccountNumber" class="form-control" id="confirmAccountNumber"
+                            placeholder="Enter account number" required>
+                        <label for="confirmAccountNumber">Re-enter account number</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        <input type="text" name="ifsc" class="form-control" id="ifsc" placeholder="Enter account number" required>
+                        <label for="ifsc">Enter IFSC code</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        <input type="text" name="holderName" class="form-control" id="holderName" placeholder="Enter account number"
+                            required>
+                        <label for="holderName">Enter account holder name</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

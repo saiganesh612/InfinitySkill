@@ -18,7 +18,7 @@
             <br/>
           <ul align="left">
             <li><p><b> Contests Participated:</b> <%= user.participatedContest.length %>  </p></li>
-            <li><p><b> Contests Won:</b> 04</p></li>
+            <!-- <li><p><b> Contests Won:</b> 04</p></li> -->
           </ul>
           <div class="row">
             <div class="col-xl-3"> 
@@ -52,7 +52,7 @@
                 <% user.participatedContest.forEach(work => { %>
                     <% if(work.contestId== contest._id){ %>
                   <td> <%= work.points %>  </td>
-                  <td> <a href=<%= work.workSubmitted %>  >View here</a> </td>
+                  <td> <a href="<%= work.workSubmitted !== "No" ? work.workSubmitted: '#' %>"  >View here</a> </td>
                   <%  } %> 
                 <% }); %> 
                   

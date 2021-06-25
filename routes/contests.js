@@ -24,14 +24,15 @@ router.get("/contest/:id", isLoggedIn, async (req, res) => {
 
     res.render("contests/contest", { page: "Contest", contest, data, stripePublicKey: process.env.STRIPE_PUBLIC_KEY })
 })
-router.get("/Profile",isLoggedIn,async(req,res)=>{
-    const Details = await User.find({username:{$eq: req.query.user}})
-    const ContestDetails =  Details[0].participatedContest.map(async(contest)=>{
-       const Data = await Contest.findOne({"_id" :{"$eq": contest.contestId} }) ;
-       return Data;
+
+router.get("/Profile", isLoggedIn, async (req, res) => {
+    const Details = await User.find({ username: { $eq: req.query.user } })
+    const ContestDetails = Details[0].participatedContest.map(async (contest) => {
+        const Data = await Contest.findOne({ "_id": { "$eq": contest.contestId } });
+        return Data;
     })
     var ContestData = await Promise.all(ContestDetails);
-    res.render("userInfo/Profile/Profile",{page: " ",Details ,ContestData })
+    res.render("userInfo/Profile/Profile", { page: " ", Details, ContestData })
 })
 
 router.get("/list-of-participants", isLoggedIn, async (req, res) => {
@@ -47,7 +48,7 @@ router.get("/list-of-participants", isLoggedIn, async (req, res) => {
     try {
         const participants = []
         const { votes } = req.user
-        const contest = await Contest.findOne({ _id: { $eq: id } })  
+        const contest = await Contest.findOne({ _id: { $eq: id } })
         const users = await User.find({ _id: { $in: contest.peopleParticipated } })
         const match = votes.filter(vote => vote.contestId === id)
         users.forEach(user => {
@@ -59,15 +60,18 @@ router.get("/list-of-participants", isLoggedIn, async (req, res) => {
             }
             else participants.push({ participant, user: user.username, voted: false })
         })
-       //Participant status
-        participants.forEach(participants=>{
-            (participants.participant.workSubmitted)? (participants.participant.status="Work Submitted") :  (participants.participant.status="Submission Pending");
+        //Participant status
+        participants.forEach(participants => {
+            (participants.participant.workSubmitted !== "No") ? (participants.participant.status = "Work Submitted") : (participants.participant.status = "Submission Pending");
         })
-        if(today >= contest.WinnerDate){
-            var winner = participants.reduce((prev, current) => (prev.y > current.y) ? prev : current, 1);
+        if (today >= contest.WinnerDate) {
+            let winner = participants[0]
+            participants.forEach(p => {
+                if (winner.participant.points < p.participant.points) winner = p
+            })
             var maxPoints = winner.participant.points;
-            participants.forEach(participants=>{
-                 (participants.participant.points== maxPoints && participants.participant.points!=0 )? (participants.participant.status="Winner") :  (participants.participant.status="Lost :(");
+            participants.forEach(participants => {
+                (participants.participant.points == maxPoints && participants.participant.points != 0) ? (participants.participant.status = "Winner") : (participants.participant.status = "Lost :(");
             })
         }
         res.render("contests/participants", { page: " ", participants, contest })
@@ -124,7 +128,7 @@ router.get("/pay-prize-money/:id", isLoggedIn, async (req, res) => {
         month = month >= 10 ? month : `0${month}`
         today = `${year}-${month}-${day}`
 
-        if(today >= contest.endDate) throw "Sorry, you made it late."
+        if (today >= contest.endDate) throw "Sorry, you made it late."
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
@@ -151,7 +155,7 @@ router.get("/pay-prize-money/:id", isLoggedIn, async (req, res) => {
                 req.flash("success", "Your payment was successful")
                 res.redirect("/home")
             })
-        
+
     } catch (err) {
         err = err ? err : "Can't able to initiate the payment process"
         console.log(err)
@@ -348,7 +352,7 @@ router.post("/contest/:id/submitWork", isLoggedIn, async (req, res) => {
 
         contest[0].workSubmitted = workLink
         await user.save()
-        
+
         res.redirect(`/list-of-participants?id=${id}`)
     } catch (err) {
         req.flash("error", err)
