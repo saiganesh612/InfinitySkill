@@ -11,7 +11,7 @@ const { sortBy } = require("async")
 router.get("/home", isLoggedIn, async (req, res) => {
     var url;
     const contests = await Contest.find({
-        $and: [{ isApproved: { $eq: true }, $or: [{ mode: { $eq: "free" } }, { $and: [{ mode: "paid", payment_status: "paid" }] }] }]
+        $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] }]
     })
     res.render("home", { page: "", contests: contests.reverse(), url })
 })
