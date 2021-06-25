@@ -13,7 +13,6 @@ router.get("/home", isLoggedIn, async (req, res) => {
     const contests = await Contest.find({
         $and: [{ isApproved: { $eq: true }, $or: [{ mode: { $eq: "free" } }, { $and: [{ mode: "paid", payment_status: "paid" }] }] }]
     })
-    console.log(contests)
     res.render("home", { page: "", contests: contests.reverse(), url })
 })
 
