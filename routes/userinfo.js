@@ -1,7 +1,8 @@
 const express = require("express")
 const router = express.Router()
-const Contest = require("../models/contest")
 const User = require("../models/user")
+const Contest = require("../models/contest")
+const Payment = require("../models/payment")
 const multer = require("multer")
 const { storage } = require("../cloudinary")
 const upload = multer({ storage })
@@ -28,19 +29,19 @@ router.get("/search", isLoggedIn, async (req, res) => {
     }
 })
 
-router.get("/home",isLoggedIn,async(req,res)=>{
-    try{
+router.get("/home", isLoggedIn, async (req, res) => {
+    try {
         const filters = req.query;
         const filteredContests = Contest.filter(contestName => {
             let isValid = true;
             for (key in filters) {
-              console.log(key, contestName[key], filters[key]);
-              isValid = isValid && contestName[key] == filters[key];
+                console.log(key, contestName[key], filters[key]);
+                isValid = isValid && contestName[key] == filters[key];
             }
             return isValid;
-          });
+        });
         console.log(filteredContests)
-    }catch(err){
+    } catch (err) {
     }
 })
 
@@ -132,14 +133,22 @@ router.get("/organise", isLoggedIn, async (req, res) => {
         res.redirect("/home")
     }
 })
+
 router.get("/dashboard", isLoggedIn, async (req, res) => {
     try {
         const { postedContests, participatedContest } = req.user;
-        let postedCont = postedContests.map(id => (Contest.findById(id)))
+        const postedCont = await Contest.find({ _id: { $in: postedContests } })
         let participatedCont = participatedContest.map(contest => (Contest.findOne({ _id: { $eq: contest.contestId } })))
-        postedCont = await Promise.all(postedCont)
         participatedCont = await Promise.all(participatedCont)
-        res.render("userInfo/sidebar", { page: "sidebar", postedCont, participatedCont })
+
+        const paymentDetails = await Payment.find({ status: { $eq: "requested" } })
+        let payments = paymentDetails.map(async payment => {
+            const { contestName } = await Contest.findOne({ _id: { $eq: payment.contestId } })
+            return { payment, cName: contestName }
+        })
+        payments = await Promise.all(payments)
+
+        res.render("userInfo/sidebar", { page: "sidebar", postedCont, participatedCont, payments })
     } catch (err) {
         console.log(err);
         res.redirect("/home");
