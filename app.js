@@ -21,11 +21,7 @@ const contactRoutes = require("./routes/contact")
 const paymentRoutes = require("./routes/payment")
 
 // Connecting to database
-<<<<<<< HEAD
-const dbUrl =  "mongodb://localhost:27017/infiniteskill"
-=======
 const dbUrl = /*process.env.DB_URL ||*/ "mongodb://localhost:27017/infiniteskill"
->>>>>>> origin/main
 mongoose.connect(dbUrl, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
