@@ -72,3 +72,36 @@
         </div>
     </div>
 </div>
+
+<!-- Report modal -->
+<div class="modal fade" id="report" tabindex="-1" aria-labelledby="submitLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="color: black;" class="modal-title" id="submitLabel">Report form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/report" method="POST">
+                <div class="modal-body" style="color: black;">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="contestId" class="form-control" id="contestId" placeholder="Contest identifier"
+                            value="<%= contest._id %>" required readonly>
+                        <label for="contestId">Contest identifier</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="pname" class="form-control" id="pname" placeholder="Enter participant name" required>
+                        <label for="pname">Enter participant name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea name="reason" cols="30" rows="10" class="form-control" id="reason" 
+                            placeholder="Enter reason for reporting" required></textarea>
+                        <label for="reason">Enter reason for reporting</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
