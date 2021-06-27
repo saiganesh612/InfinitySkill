@@ -192,24 +192,68 @@
                     </div>
                   </div>
                 </div>
+                <div class="Filtersmobile">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingfour">
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsefour" aria-expanded="false" aria-controls="flush-collapsefour">
+                        Sort by Popularity & Prize
+                      </button>
+                    </h2>
+                    <div id="flush-collapsefour" class="accordion-collapse collapse" aria-labelledby="flush-headingfour" data-bs-parent="#accordionFlushExample">
+                      <div class="accordion-body">
+                        <div>
+                          <h3 style="float: left;" class="sidebar-title">TYPE</h3>
+                          <p style="float: right;"><a href="/home" style="color: red;text-decoration: none;">Clear all</a></p>
+                         </div>
+                         <br/><br/>
+                        <div class="sidebar-item categories">
+                          <h4>Popularity</h4>
+                          <ul>
+                            <li><a href="/class?popularity=dsc">High to low</span></a></li>
+                            <li><a href="/class?popularity=asc">Low to high</span></a></li>  
+                          </ul>
+                          <h4>Prize</h4>
+                          <ul>
+                            <li><a href="/organise?prize=dsc">High to low</span></a></li>
+                            <li><a href="/organise?prize=asc">Low to high</span></a></li>  
+                          </ul>
+                        </div><!-- End status categories-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               
               </div>
-              <br/> 
-              <h3 class="sidebar-title">POPULARITY  
-                <a style="color: white;"  href="/class?popularity=asc"><button style="border-radius: 50%;" class="btn btn-success"><i class="bi bi-arrow-up"></i></button></a>
-                <a style="color: white;" href="/class?popularity=dsc"><button style="border-radius: 50%;" class="btn btn-danger"><i class="bi bi-arrow-down"></i></button></a>
-              </h3>
-              <h3 class="sidebar-title">PRIZE MONEY
-                <a style="color: white;"  href="/organise?prize=asc"><button style="border-radius: 50%;" class="btn btn-success"><i class="bi bi-arrow-up"></i></button></a>
-                <a style="color: white;" href="/organise?prize=dsc"><button style="border-radius: 50%;" class="btn btn-danger"><i class="bi bi-arrow-down"></i></button></a>
-              </h3>
-              
-             
+              <br/>  
             </div><!-- End sidebar -->
 
           </div><!-- End blog sidebar -->
+          <div class=" col-lg-9 entries" style="margin-top: 40px;" >
+            <div class="FiltersDesktop" >
+              <p >
+                <div class="row">
+                <b style="font-size: 25px;" >Sort by:</b> 
 
-   
-          <div class=" col-lg-9 entries">
+                  <div class="col">
+                    <a  style=" font-size: 20px; " href="/class?popularity=dsc"><b >Popularity-</b>High to Low</a> 
+                  </div>
+                  <div class="col">
+                    <a style="font-size: 20px; " href="/class?popularity=asc"><b>Popularity-</b>Low to High</a>
+                  </div>
+                  <div class="col">
+                    <a style=" font-size: 20px; " href="/organise?prize=dsc"><b >Prize-</b>High to Low</a>
+                  </div>
+                  <div class="col">
+                    <a style="font-size: 20px; " href="/organise?prize=asc"><b>Prize-</b>Low to High</a>
+                  </div>
+
+                </div>
+                 
+                  
+
+              </p>
+            </div>
+            <hr/>
             <div>
               <main class="container py-2">
                 <section id="recent-blog-posts" class="recent-blog-posts">
@@ -244,7 +288,17 @@
                 <!-- End Recent Blog Posts Section -->
               </main>
             </div>
+                <div class="Footer" style="margin-left: auto;margin-right: auto;" >
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      <% for(let i=1;i<=TotalContests;i++){ %>
+                           <li class="page-item"><a class="page-link" href="?page=<%=i%>"> <%=i%> </a></li>
+                      <% } %>
+                    </ul>
+                  </nav>
+                </div>
           </div>
+          
           <!-- End blog entries list -->
         </div>
       </div>

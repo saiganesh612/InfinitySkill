@@ -8,13 +8,26 @@ const { storage } = require("../cloudinary")
 const upload = multer({ storage })
 const { isLoggedIn } = require("../middlewares")
 const { sortBy } = require("async")
+global.fetch = require("node-fetch"); 
 
+
+// /users?page=1&size=2
 router.get("/home", isLoggedIn, async (req, res) => {
-    var url;
-    const contests = await Contest.find({
+    const contestsLen = await Contest.find({
         $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] }]
     })
-    res.render("home", { page: "", contests: contests.reverse(), url })
+    let TotalContests = contestsLen.length;
+    let {page,size} = req.query;
+    if(!page) page=1;
+    if(!size) size=10;
+    TotalContests =Math.ceil(TotalContests/size);
+    const limit = parseInt(size)
+    const skip = (page-1)*size;
+    
+    const contests = await Contest.find({
+        $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] }]
+    }).limit(limit).skip(skip)
+    res.render("home", { page: "", contests: contests.reverse(),TotalContests })
 })
 
 router.get("/search", isLoggedIn, async (req, res) => {

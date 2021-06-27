@@ -2536,3 +2536,21 @@ section {
   background-color:#028ecd !important;
   border-color: #fff !important;
 }
+
+
+  @media screen and (min-width:0px) and (max-width:1199px){
+    .FiltersDesktop{
+      display: none;
+    }
+    .Filtersmobile{
+      display: block;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    .FiltersDesktop{
+      display: block;
+    }
+    .Filtersmobile{
+      display: none;
+    }
+  }
