@@ -19,6 +19,7 @@ const infoRoutes = require("./routes/userinfo")
 const contestRoutes = require("./routes/contests")
 const contactRoutes = require("./routes/contact")
 const paymentRoutes = require("./routes/payment")
+const reportRoutes = require("./routes/report")
 
 // Connecting to database
 const dbUrl = /*process.env.DB_URL ||*/ "mongodb://localhost:27017/infiniteskill"
@@ -92,6 +93,7 @@ app.use(infoRoutes)
 app.use(contestRoutes)
 app.use(contactRoutes)
 app.use(paymentRoutes)
+app.use(reportRoutes)
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

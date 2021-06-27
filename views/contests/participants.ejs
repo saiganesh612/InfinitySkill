@@ -36,11 +36,13 @@
                 <th scope="col">Submitted work</th>
                 <th scope="col">Drop a heart</th>
                 <th scope="col">Points</th>
+                <th scope="col">Report participant</th>
             </tr>
             <% }else{ %>
-              <% if(today>=contest.votingStart && today < contest.votingEnd){ %>
+              <% if(today>=contest.votingStart && today <= contest.votingEnd){ %>
                 <th scope="col">Submitted work</th>
                 <th scope="col">Drop a heart</th>
+                <th scope="col">Report participant</th>
               <% } %>
               <% if(today==contest.WinnerDate){%>
                 <th scope="col">Points</th>
@@ -81,8 +83,13 @@
                     </button>
                   </td>
                   <td id="<%= index+1 %>"> <%= p.participant.points %> </td>
+                  <td>
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#report">
+                      Report
+                    </button>
+                  </td>
                 <% } else { %>
-                  <% if(today>=contest.votingStart && today < contest.votingEnd){ %>
+                  <% if(today>=contest.votingStart && today <= contest.votingEnd){ %>
                     <td>
                       <a href="<%= p.participant.workSubmitted !== "No" ? p.participant.workSubmitted : "#"%>">
                         View my submisstion
@@ -97,7 +104,12 @@
                         <i class="bi bi-check-lg"></i>
                       </button>
                     </td>
-                    <td style="display: none;" id="<%= index+1 %>"> <%= p.participant.points %> </td>
+                    <td>
+                      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                        data-bs-target="#report">
+                        Report
+                      </button>
+                    </td>
                   <% } %>
                   <% if(today==contest.WinnerDate) { %>
                     <td> <%= p.participant.points %> </td>
