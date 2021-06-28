@@ -1,20 +1,9 @@
-let url
-if (process.env.NODE_ENV === "production") {
-    url = "https://infinite-skill.herokuapp.com"
-} else {
-    url = "http://localhost:3000"
-}
-
-console.log(url)
-
 const express = require("express")
 const router = express.Router();
 const User = require("../models/user")
 const Contest = require("../models/contest")
-const open = require("open")
-const { transporter, sender } = require("../settings")
+const { transporter, sender, url } = require("../settings")
 const { isLoggedIn, isAdmin } = require("../middlewares")
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
 router.get("/contest/:id", isLoggedIn, async (req, res) => {
     const { id } = req.params
@@ -77,90 +66,6 @@ router.get("/list-of-participants", isLoggedIn, async (req, res) => {
         res.render("contests/participants", { page: " ", participants, contest })
     } catch (err) {
         res.redirect(`/contest/${id}`)
-    }
-})
-
-// Creating the checkout session for payment
-router.post("/create-checkout-session", isLoggedIn, async (req, res) => {
-    try {
-        const { amount, id, image } = req.body
-        const { username } = req.user
-        const contest = await Contest.findOne({ _id: { $eq: id } })
-
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            line_items: [
-                {
-                    price_data: {
-                        currency: 'INR',
-                        product_data: {
-                            name: `Entry fee for ${contest.contestName} contest.`,
-                            images: [image]
-                        },
-                        unit_amount: amount * 100,
-                    },
-                    quantity: 1,
-                },
-            ],
-            mode: 'payment',
-            success_url: `${url}/update-data/${username}/${id}`,
-            cancel_url: `${url}/contest/${id}`,
-        });
-
-        res.status(200).json({ id: session.id, message: "payment success" });
-    } catch (err) {
-        console.log(err)
-        res.status(200).json({ message: "Can't able to initiate the payment process" })
-    }
-})
-
-// Payment for prize money
-router.get("/pay-prize-money/:id", isLoggedIn, async (req, res) => {
-    try {
-        const { id } = req.params
-        const contest = await Contest.findOne({ _id: { $eq: id } })
-
-        const dateObj = new Date();
-        let month = dateObj.getUTCMonth() + 1; //months from 1-12
-        const day = dateObj.getUTCDate();
-        const year = dateObj.getUTCFullYear();
-
-        month = month >= 10 ? month : `0${month}`
-        today = `${year}-${month}-${day}`
-
-        if (today >= contest.endDate) throw "Sorry, you made it late."
-
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            line_items: [
-                {
-                    price_data: {
-                        currency: 'INR',
-                        product_data: {
-                            name: `Prize money for ${contest.contestName} contest.`,
-                            images: [contest.coverPhoto.url]
-                        },
-                        unit_amount: contest.prizeMoney * 100,
-                    },
-                    quantity: 1,
-                },
-            ],
-            mode: 'payment',
-            success_url: `${url}/update-data/${id}`,
-            cancel_url: `${url}/home`,
-        });
-
-        open(session.url)
-            .then(() => {
-                req.flash("success", "Your payment was successful")
-                res.redirect("/home")
-            })
-
-    } catch (err) {
-        err = err ? err : "Can't able to initiate the payment process"
-        console.log(err)
-        req.flash("error", err)
-        res.redirect("/home")
     }
 })
 
