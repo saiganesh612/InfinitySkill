@@ -24,7 +24,6 @@ const handlePayment = async amount => {
 const changeStatus = async (event, id, username) => {
     try {
         const response = await axios.post("/update-payment-status", { id, username })
-        console.log(response)
         if (response.data.message !== "Payment Successful") throw response.data.message
         event.classList.remove("btn-danger")
         event.classList.add("btn-success")
