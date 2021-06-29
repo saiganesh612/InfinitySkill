@@ -8,8 +8,8 @@ const { storage } = require("../cloudinary")
 const upload = multer({ storage })
 const { isLoggedIn } = require("../middlewares")
 const { sortBy } = require("async")
+const ReportedIssue = require("../models/report")
 global.fetch = require("node-fetch"); 
-
 
 // /users?page=1&size=2
 router.get("/home", isLoggedIn, async (req, res) => {
@@ -23,7 +23,6 @@ router.get("/home", isLoggedIn, async (req, res) => {
     TotalContests =Math.ceil(TotalContests/size);
     const limit = parseInt(size)
     const skip = (page-1)*size;
-    
     const contests = await Contest.find({
         $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] }]
     }).limit(limit).skip(skip)
@@ -153,15 +152,15 @@ router.get("/dashboard", isLoggedIn, async (req, res) => {
         const postedCont = await Contest.find({ _id: { $in: postedContests } })
         let participatedCont = participatedContest.map(contest => (Contest.findOne({ _id: { $eq: contest.contestId } })))
         participatedCont = await Promise.all(participatedCont)
-
+        
         const paymentDetails = await Payment.find({ status: { $eq: "requested" } })
         let payments = paymentDetails.map(async payment => {
             const { contestName } = await Contest.findOne({ _id: { $eq: payment.contestId } })
             return { payment, cName: contestName }
         })
         payments = await Promise.all(payments)
-
-        res.render("userInfo/sidebar", { page: "sidebar", postedCont, participatedCont, payments })
+        const ReportedIssues = await ReportedIssue.find({ status: { $eq: "under review" } })
+        res.render("userInfo/sidebar", { page: "sidebar", postedCont, participatedCont, payments,ReportedIssues })
     } catch (err) {
         console.log(err);
         res.redirect("/home");
