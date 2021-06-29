@@ -139,4 +139,14 @@ router.post("/request-money/:id", isLoggedIn, async (req, res) => {
     }
 })
 
+router.post("/update-payment-status", isLoggedIn, async (req, res) => {
+    try {
+        const { id, username } = req.body
+        await Payment.findOneAndUpdate({ winnerName: { $eq: username }, contestId: { $eq: id } }, { status: "Payment Done" }, { new: true })
+        res.status(200).json({ message: "Payment Successful" })
+    } catch (err) {
+        res.status(200).json({ message: "Can't able to update the status. Try after sometime" })
+    }    
+})
+
 module.exports = router

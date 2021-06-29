@@ -20,3 +20,17 @@ const handlePayment = async amount => {
         alert(err)
     }
 }
+
+const changeStatus = async (event, id, username) => {
+    try {
+        const response = await axios.post("/update-payment-status", { id, username })
+        if (response.data.message !== "Payment Successful") throw response.data.message
+        event.classList.remove("btn-danger")
+        event.classList.add("btn-success")
+        event.innerText = "Paid"
+    } catch (err) {
+        console.log(err)
+        err = err ? err : "Something went wrong. Check your network connection and try again."
+        alert(err)
+    }
+}
