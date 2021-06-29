@@ -333,13 +333,19 @@
                           <li><b>Status:</b> <%= report.status %>  </li>
                         </ul>
                         <p>
-                            <%= report.reason %> 
+                          <%= report.reason %> 
                         </p>
-                        <button type="button" class="read_more_btn">Approve</button>
+                        <button type="button" class="read_more_btn" 
+                          onclick="approveReport(this, '<%= report.contestId %>', '<%= report.username %>', '<%= report.reportedOn %>')">
+                          Approve
+                        </button>&nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-outline-danger" 
+                          onclick="rejectReport(this, '<%= report.contestId %>', '<%= report.username %>', '<%= report.reportedOn %>', '<%= report.contestName %>')">
+                          Reject
+                        </button>
                       </div>
                     </div>
                   </div>
-                  <!--  -->
                 </div>
               </div>
             <% }) %> 
