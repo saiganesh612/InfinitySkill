@@ -11,6 +11,7 @@
     pointer-events: none;
     background-color: #ea848e;
     border-color: #ea848e;
+    color: white;
   }
 </style>
 
@@ -74,7 +75,8 @@
                     </a>
                   </td>
                   <td>
-                    <button class="btn btn-danger <%= p.user === currentUser.username && 'disable' %>  <%= index+1 %> <%= p.voted ? 'not-display' : 'display' %>" 
+                    <button class="btn btn-danger <%= p.user === currentUser.username && 'disable' %>  <%= index+1 %> <%= p.voted ? 'not-display' : 'display' %> 
+                      <%= p.participant.workSubmitted !=="No" ? '' : 'disable' %>" 
                       style="border-radius: 50%;"  onclick="calculatePoints(participantsData, userObj, contestOwner, '<%= index + 1 %>')">
                       <i class="bi bi-suit-heart-fill"></i>
                     </button>
@@ -84,7 +86,8 @@
                   </td>
                   <td id="<%= index+1 %>"> <%= p.participant.points %> </td>
                   <td>
-                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#report">
+                    <button type="button" class="btn btn-outline-danger <%= p.participant.workSubmitted !=="No" ? '' : 'disable' %>" 
+                      data-bs-toggle="modal" data-bs-target="#report">
                       Report
                     </button>
                   </td>
@@ -96,7 +99,8 @@
                       </a>
                     </td>
                     <td>
-                      <button class="btn btn-danger <%= p.user === currentUser.username && 'disable' %> <%= index+1 %> <%= p.voted ? 'not-display' : 'display' %>" 
+                      <button class="btn btn-danger <%= p.user === currentUser.username && 'disable' %> <%= index+1 %> <%= p.voted ? 'not-display' : 'display' %> 
+                        <%= p.participant.workSubmitted !=="No" ? '' : 'disable' %>" 
                         style="border-radius: 50%;" onclick="calculatePoints(participantsData, userObj, contestOwner, '<%= index + 1 %>')">
                         <i class="bi bi-suit-heart-fill"></i>
                       </button>
@@ -105,8 +109,8 @@
                       </button>
                     </td>
                     <td>
-                      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                        data-bs-target="#report">
+                      <button type="button" class="btn btn-outline-danger <%= p.participant.workSubmitted !=="No" ? '' : 'disable' %>" 
+                        data-bs-toggle="modal" data-bs-target="#report">
                         Report
                       </button>
                     </td>
