@@ -64,6 +64,14 @@ router.get("/list-of-participants", isLoggedIn, async (req, res) => {
                     (participants.participant.points == maxPoints && participants.participant.points != 0) ? (participants.participant.status = "Winner") : (participants.participant.status = "Lost :(");
                 })
             }
+            participants.map(async participant => {
+                const p = await User.findOne({ username: { $eq: participant.user } })
+                const index = p.participatedContest.findIndex(contest => contest.contestId === participant.participant.contestId)
+                if (index !== -1) {
+                    p.participatedContest[index].status = participant.participant.status
+                    await p.save()
+                }
+            })
         }
         res.render("contests/participants", { page: " ", participants, contest })
     } catch (err) {
