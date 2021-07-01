@@ -30,15 +30,19 @@ router.post("/create-profile",isLoggedIn,upload.any(), async(req,res)=>{
     }  
 })
 
+
 router.get("/Profile", isLoggedIn, async (req, res) => {
-    const Details = await User.find({ username: { $eq: req.query.user } })
-    // Details.profile = await Profile.find({username:{$eq:req.query.user}})
-    const ContestDetails = Details[0].participatedContest.map(async (contest) => {
+    console.log(req.query)
+    const details = await User.find({ username: { $eq: req.query.user } })
+    const ContestDetails = details[0].participatedContest.map(async (contest) => {
         const Data = await Contest.findOne({ "_id": { "$eq": contest.contestId } });
         return Data;
     })
     var ContestData = await Promise.all(ContestDetails);
-    res.render("userInfo/Profile/Profile", { page: " ", Details, ContestData })
+    details.profile = await Profile.find({username:{$eq:req.query.user}})
+    await details.save()
+    console.log("PROFILE ROUTE")
+    res.render("userInfo/Profile/Profile", { page: " ", details, ContestData })
 })
 
 module.exports = router

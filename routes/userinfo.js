@@ -3,6 +3,7 @@ const router = express.Router()
 const User = require("../models/user")
 const Contest = require("../models/contest")
 const Payment = require("../models/payment")
+const Profile = require("../models/profile")
 const multer = require("multer")
 const { storage } = require("../cloudinary")
 const upload = multer({ storage })
@@ -194,6 +195,19 @@ router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
         res.redirect("/post-contest")
     }
 })
+
+
+router.get("/Profile", isLoggedIn, async (req, res) => {
+    const details = await User.find({ username: { $eq: req.query.user } })
+    const ContestDetails = details[0].participatedContest.map(async (contest) => {
+        const Data = await Contest.findOne({ "_id": { "$eq": contest.contestId } });
+        return Data;
+    })
+    var ContestData = await Promise.all(ContestDetails);
+    details[0].profile = await Profile.find({username:{$eq:req.query.user}})
+    res.render("userInfo/Profile/Profile", { page: " ", details, ContestData })
+})
+
 
 router.get("/update-profile", isLoggedIn, (req, res) => {
     res.render("userInfo/UpdateProfile", { page: "" })
