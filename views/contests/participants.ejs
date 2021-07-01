@@ -44,7 +44,7 @@
                 <th scope="col">Drop a heart</th>
                 <th scope="col">Report participant</th>
               <% } %>
-              <% if(today==contest.WinnerDate){%>
+              <% if(today>=contest.WinnerDate){%>
                 <th scope="col">Points</th>
               <% } %>
             <% } %>
@@ -111,7 +111,7 @@
                       </button>
                     </td>
                   <% } %>
-                  <% if(today==contest.WinnerDate) { %>
+                  <% if(today>=contest.WinnerDate) { %>
                     <td> <%= p.participant.points %> </td>
                   <% } %>
                 <% } %>

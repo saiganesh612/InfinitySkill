@@ -58,10 +58,12 @@ router.get("/list-of-participants", isLoggedIn, async (req, res) => {
             participants.forEach(p => {
                 if (winner.participant.points < p.participant.points) winner = p
             })
-            var maxPoints = winner.participant.points;
-            participants.forEach(participants => {
-                (participants.participant.points == maxPoints && participants.participant.points != 0) ? (participants.participant.status = "Winner") : (participants.participant.status = "Lost :(");
-            })
+            if (winner) {
+                var maxPoints = winner.participant.points;
+                participants.forEach(participants => {
+                    (participants.participant.points == maxPoints && participants.participant.points != 0) ? (participants.participant.status = "Winner") : (participants.participant.status = "Lost :(");
+                })
+            }
         }
         res.render("contests/participants", { page: " ", participants, contest })
     } catch (err) {
