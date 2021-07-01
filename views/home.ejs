@@ -89,31 +89,26 @@
               <script>
                 async function search(){
                     x=document.getElementById("search").value;
-                    await axios.get( `search?contestName=${x}`).then(res=>{
-                        console.log(res)
-                        url=res.config.url;
-                        console.log(url);    
-                    })
-                  return url;
+                    if(location.search==""){
+                      url= window.location.href;
+                    }else{
+                      url = "http://localhost:3000/home?";
+                    }
+                    url = url+"&"+`search=${x}`
+                    console.log(url);
+                  return url
                 }
                 async function urlChange(){
                   //e.preventDefault();
                   const url1 =  await search();
                   console.log(url1);
-                  var newUrl=`https://infinite-skill.herokuapp.com/${url1}`
-                  console.log(newUrl);
-                  window.location.href=(newUrl);
-                  //history.pushState({}, null, newUrl);        
+                  window.location.href=(url1);
+                         
                 }
                 document.getElementById("searchForm").addEventListener("submit", (event)=>{
                   event.preventDefault();
                   urlChange(event);
                 })
-                // document.getElementById("searchForm").submit(function(e){
-                //   e.preventDefault();
-                //   urlChange();
-                // })
-              
               </script>
                <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item">

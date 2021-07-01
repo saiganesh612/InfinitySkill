@@ -1,0 +1,58 @@
+<%- include("../../partials/header2") %>
+
+<div style="margin-top:100px;">
+    <div class="container" style="padding:50px;" >
+        <div class="card shadow p-3 mb-5 bg-body rounded" >
+        <div style="padding:20px;">
+            <h2>Create your Profile</h2>
+        </div>
+        <form action="/create-profile" method="POST">
+          <div class="row" style="padding:30px">
+            <div class="col-6" >
+              <div class="form-floating mb-3 ">
+                <input type="text" class="form-control" id="floatingInput" name="fullName" required>
+                <label for="floatingInput">Full name</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-floating mb-3">
+                <input type="tel" class="form-control" id="floatingInput" name="mobileNumber" required>
+                <label for="floatingInput">Mobile number</label>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="padding:30px">
+            <div class="col">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="floatingInput" name="Skills" required>
+              <label for="floatingInput">Skills</label>
+            </div>
+            </div>
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input type="url" class="form-control" id="floatingInput" name="LinkedInURL" required>
+                <label for="floatingInput">Linked in URL</label>
+              </div>
+              </div>
+          </div>
+          <div class="row" style="padding:30px">
+            <div class="form-floating mb-3">
+              <textarea type="text" class="form-control" id="floatingInput" name="descripton" required></textarea>
+              <label for="floatingInput">Descripton</label>
+            </div>
+          </div>
+          <div class="row" style="padding:30px">
+            <div class="form-floating mb-3">
+              <input type="file" name="profilePhoto" class="form-control"  name="dp"  accept="image/*" required>
+              <label >Profile Photo</label>
+            </div>
+          </div>
+          <div>
+              <button type="submit"  style="width: 140px;" class="btn btn-info">Submit</button>
+          </div>
+        </form>
+        </div>
+      </div>
+</div>
+
+<%- include("../../partials/footer") %>

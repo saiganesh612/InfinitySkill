@@ -8,10 +8,7 @@ const contestSchema = new mongoose.Schema({
         url: String,
         filename: String
     },
-    rules: {
-        url: String,
-        filename: String
-    },
+    rules: String,
     startDate: String,
     endDate: String,
     votingStart: String,

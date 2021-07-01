@@ -9,7 +9,7 @@ module.exports.isLoggedIn = (req, res, next) => {
 module.exports.isAdmin = (req, res, next) => {
     if (!req.user.isAdmin) {
         req.flash("error", "This is Admin privileged page. You don't have access to this page.")
-        return res.redirect("/home")
+        return res.redirect("/home?")
     }
     next()
 }

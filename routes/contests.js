@@ -76,10 +76,10 @@ router.get("/update-data/:id", isLoggedIn, async (req, res) => {
         contest.payment_status = "paid"
         await contest.save()
         req.flash("success", "Your payment was successful")
-        res.redirect("/home")
+        res.redirect("/home?")
     } catch (err) {
         req.flash("error", "Something went wrong while updating the data.")
-        res.redirect("/home")
+        res.redirect("/home?")
     }
 })
 
@@ -157,7 +157,7 @@ router.get("/requested-contests", isLoggedIn, isAdmin, async (req, res) => {
         res.render("contests/requested", { page: "", requestedContests })
     } catch (err) {
         console.log(err)
-        res.redirect("/home")
+        res.redirect("/home?")
     }
 })
 
@@ -167,7 +167,7 @@ router.get("/approved-contests", isLoggedIn, isAdmin, async (req, res) => {
         res.render("contests/approved", { page: "", approvedContests: approvedContests.reverse() })
     } catch (err) {
         console.log(err)
-        res.redirect("/home")
+        res.redirect("/home?")
     }
 })
 

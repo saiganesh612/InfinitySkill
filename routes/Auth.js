@@ -15,7 +15,7 @@ router.post("/login", passport.authenticate('local', {
     failureRedirect: "/login"
 }), (req, res) => {
     req.flash("success", `Welcome back ${req.user.username}!!`)
-    res.redirect("/home")
+    res.redirect("/home?")
 })
 
 router.get("/signup", (req, res) => {
@@ -67,7 +67,7 @@ router.get("/verify-email/:id", async (req, res) => {
         req.login(user, err => {
             if (err) throw "Failed to authenticate"
             req.flash("success", `Welcome ${user.username}. We verified you successfully...`)
-            res.redirect("/home")
+            res.redirect("/home?")
         })
     } catch (err) {
         req.flash("error", err)
@@ -179,7 +179,7 @@ router.post("/reset/:token", (req, res) => {
             });
         }
     ], err => {
-        res.redirect('/home');
+        res.redirect('/home?');
     });
 })
 

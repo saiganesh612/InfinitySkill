@@ -12,34 +12,30 @@ const ReportedIssue = require("../models/report")
 global.fetch = require("node-fetch"); 
 
 // /users?page=1&size=2
-router.get("/home", isLoggedIn, async (req, res) => {
+router.get("/home?", isLoggedIn, async (req, res) => {
     const contestsLen = await Contest.find({
         $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] }]
     })
     let TotalContests = contestsLen.length;
-    let {page,size} = req.query;
+    let {page,size,search} = req.query;
     if(!page) page=1;
     if(!size) size=10;
     TotalContests =Math.ceil(TotalContests/size);
     const limit = parseInt(size)
     const skip = (page-1)*size;
-    const contests = await Contest.find({
+    let contests = await Contest.find({
         $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] }]
     }).limit(limit).skip(skip)
+    // SEARCH FIELD
+    console.log("searver side", search);
+    if(search){
+     contests = await Contest.find({ $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] },{contestName: { $regex: search, $options: "$i" }}]}).limit(limit).skip(skip)
+     console.log( contests)
+    }
+    
     res.render("home", { page: "", contests: contests.reverse(),TotalContests })
 })
 
-router.get("/search", isLoggedIn, async (req, res) => {
-    try {
-        const searchField = req.query.contestName;
-        console.log("searver side", searchField);
-        const contests = await Contest.find({ contestName: { $regex: searchField, $options: "$i" } })
-        res.render("home", { page: "", contests: contests.reverse() })
-    } catch (err) {
-        console.log(err)
-        res.redirect("/home")
-    }
-})
 
 router.get("/home", isLoggedIn, async (req, res) => {
     try {
@@ -163,7 +159,7 @@ router.get("/dashboard", isLoggedIn, async (req, res) => {
         res.render("userInfo/sidebar", { page: "sidebar", postedCont, participatedCont, payments,ReportedIssues })
     } catch (err) {
         console.log(err);
-        res.redirect("/home");
+        res.redirect("/home?");
     }
 })
 
@@ -173,7 +169,7 @@ router.get("/post-contest", isLoggedIn, (req, res) => {
 
 router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
     try {
-        const { contestName, motive, startDate, endDate, votingStart,
+        const { contestName, motive, rules, startDate, endDate, votingStart,
             votingEnd, WinnerDate, description, category, subCategory, prizeMoney, entryFee
         } = req.body
         const { username, isEmailVerified } = req.user;
@@ -181,14 +177,13 @@ router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
         const user = await User.findOne({ username: { $eq: username } })
         const newContest = new Contest({
             owner: username,
-            contestName, motive, startDate, endDate, votingStart, votingEnd, WinnerDate,
+            contestName, motive, rules, startDate, endDate, votingStart, votingEnd, WinnerDate,
             description, category, subCategory, prizeMoney, entryFee
         })
 
         if (entryFee > 0) newContest.mode = "paid"
 
         newContest.coverPhoto = { url: req.files[0].path, filename: req.files[0].filename }
-        newContest.rules = { url: req.files[1].path, filename: req.files[1].filename }
         await newContest.save()
         user.postedContests.unshift(newContest)
         await user.save()

@@ -47,13 +47,13 @@ router.get("/pay-prize-money/:id", isLoggedIn, async (req, res) => {
         open(session.url)
             .then(() => {
                 req.flash("success", "Your payment was successful")
-                res.redirect("/home")
+                res.redirect("/home?")
             })
     } catch (err) {
         err = err ? err : "Can't able to initiate the payment process"
         console.log(err)
         req.flash("error", err)
-        res.redirect("/home")
+        res.redirect("/home?")
     }
 })
 
