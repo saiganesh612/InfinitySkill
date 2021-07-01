@@ -9,7 +9,8 @@ const profileschema = new mongoose.Schema({
     profilePhoto:{
         url: String,
         filename: String
-    }
+    },
+    username:String
 })
 
 module.exports = mongoose.model("Profile", profileschema)

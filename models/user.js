@@ -20,6 +20,12 @@ const userSchema = new mongoose.Schema({
             ref: "Contest"
         }
     ],
+    profile: [
+        {
+            type: mongoose.Schema.Types.ObjectID,
+            ref: "Profile"
+        }
+    ],
     participatedContest: [
         {
             _id: false,
