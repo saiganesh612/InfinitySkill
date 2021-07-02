@@ -1,58 +1,64 @@
 <%- include("../../partials/header2") %>
 
-<div style="margin-top:100px;">
-    <div class="container" style="padding:50px;" >
-        <div class="card shadow p-3 mb-5 bg-body rounded" >
+  <div style="margin-top:100px;">
+    <div class="container" style="padding:50px;">
+      <div class="card shadow p-3 mb-5 bg-body rounded">
         <div style="padding:20px;">
-            <h2>Create your Profile</h2>
+          <h2>Create your Profile</h2>
         </div>
         <form action="/create-profile" method="POST" enctype="multipart/form-data">
           <div class="row" style="padding:30px">
-            <div class="col-6" >
+            <div class="col-6">
               <div class="form-floating mb-3 ">
-                <input type="text" class="form-control" id="floatingInput" name="fullName" required>
+                <input type="text" class="form-control" id="floatingInput" name="fullName" placeholder="Enter full name"
+                  required>
                 <label for="floatingInput">Full name</label>
               </div>
             </div>
             <div class="col-6">
               <div class="form-floating mb-3">
-                <input type="tel" class="form-control" id="floatingInput" name="mobileNumber" required>
+                <input type="tel" class="form-control" id="floatingInput" name="mobileNumber"
+                  placeholder="Enter mobile number" required>
                 <label for="floatingInput">Mobile number</label>
               </div>
             </div>
           </div>
           <div class="row" style="padding:30px">
             <div class="col">
-            <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="floatingInput" name="Skills" required>
-              <label for="floatingInput">Skills</label>
-            </div>
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" name="Skills" placeholder="Enter your skills"
+                  required>
+                <label for="floatingInput">Skills</label>
+              </div>
             </div>
             <div class="col">
               <div class="form-floating mb-3">
-                <input type="url" class="form-control" id="floatingInput" name="LinkedInURL" required>
+                <input type="url" class="form-control" id="floatingInput" name="LinkedInURL"
+                  placeholder="Enter your LinkedIn profile link" required>
                 <label for="floatingInput">Linked in URL</label>
               </div>
-              </div>
+            </div>
           </div>
           <div class="row" style="padding:30px">
             <div class="form-floating mb-3">
-              <textarea type="text" class="form-control" id="floatingInput" name="descripton" required></textarea>
+              <textarea type="text" class="form-control" rows="3" id="floatingInput" name="descripton"
+                placeholder="Description" style="height: auto;" required>
+              </textarea>
               <label for="floatingInput">Descripton</label>
             </div>
           </div>
           <div class="row" style="padding:30px">
-            <div class="form-floating mb-3">
-              <input type="file" name="profilePhoto" class="form-control"  name="dp"  accept="image/*" required>
-              <label >Profile Photo</label>
+            <div class="input-group mb-3">
+              <input type="file" name="profilePhoto" class="form-control" id="dp" name="dp" accept="image/*" required>
+              <label for="dp" class="input-group-text">Profile Photo</label>
             </div>
           </div>
           <div>
-              <button type="submit"  style="width: 140px;" class="btn btn-info">Submit</button>
+            <button type="submit" style="width: 140px;" class="btn btn-info">Submit</button>
           </div>
         </form>
-        </div>
       </div>
-</div>
+    </div>
+  </div>
 
 <%- include("../../partials/footer") %>
