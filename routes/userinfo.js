@@ -12,13 +12,13 @@ const { sortBy } = require("async")
 const ReportedIssue = require("../models/report")
 global.fetch = require("node-fetch"); 
 
-// /users?page=1&size=2
+
 router.get("/home?", isLoggedIn, async (req, res) => {
     const contestsLen = await Contest.find({
         $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] }]
     })
     let TotalContests = contestsLen.length;
-    let {page,size,search} = req.query;
+    let {page,size,search,category, status,type,popularity, prize} = req.query;
     if(!page) page=1;
     if(!size) size=10;
     TotalContests =Math.ceil(TotalContests/size);
@@ -27,13 +27,52 @@ router.get("/home?", isLoggedIn, async (req, res) => {
     let contests = await Contest.find({
         $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] }]
     }).limit(limit).skip(skip)
-    // SEARCH FIELD
-    console.log("searver side", search);
+    console.log(search)
     if(search){
      contests = await Contest.find({ $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] },{contestName: { $regex: search, $options: "$i" }}]}).limit(limit).skip(skip)
-     console.log( contests)
     }
-    
+    if(category){
+     contests = await Contest.find({ $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] },{ category: { $eq: category } }]}).limit(limit).skip(skip) 
+    }
+    if(status){
+        const dateObj = new Date();
+        let month = dateObj.getUTCMonth() + 1; //months from 1-12
+        const day = dateObj.getUTCDate();
+        const year = dateObj.getUTCFullYear();
+        month = month >= 10 ? month : `0${month}`
+        today = `${year}-${month}-${day}`
+        today = String(today)
+        if (status === "Ongoing") {
+            contests = await Contest.find({ $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] },{ $and: [{ endDate: { "$gte": today } }, { startDate: { "$lte": today } }] }]}).limit(limit).skip(skip) 
+        } else if (status === "Upcoming") {
+            contests = await Contest.find({ $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] },{ startDate: { "$gt": today } }]}).limit(limit).skip(skip)
+        } else if (status === "completed") {
+            contests = await Contest.find({ $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] },{ endDate: { "$lt": today } }]}).limit(limit).skip(skip)
+        } else if (status == "voting") {
+            contests = await Contest.find({ $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] },{ $and: [{ votingEnd: { "$gte": today } }, { votingStart: { "$lte": today } }] }]}).limit(limit).skip(skip)
+        }
+    }
+    if(type){
+        if (type == 'free') {
+            contests = await Contest.find({ $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] },{ entryFee: { $eq: 0 } }]}).limit(limit).skip(skip)
+        } else {
+            contests = await Contest.find({ $and: [{ isApproved: { $eq: true }, $or: [{ $and: [{ mode: "free", payment_status: "paid" }] }, { $and: [{ mode: "paid", payment_status: "paid" }] }] },{ entryFee: { $gt: 0 } }]}).limit(limit).skip(skip)
+        }
+    }
+    if(popularity){
+        if (popularity == "asc") {
+            contests = contestsLen.sort((a, b) => Number(b.peopleParticipated.length) - Number(a.peopleParticipated.length));
+        } else {
+            contests = contestsLen.sort((a, b) => Number(a.peopleParticipated.length) - Number(b.peopleParticipated.length));
+        }  
+    }
+    if(prize){
+        if (prize == "asc") {
+            contests = contestsLen.sort((a, b) => Number(b.prizeMoney) - Number(a.prizeMoney));
+        } else {
+            contests = contestsLen.sort((a, b) => Number(a.prizeMoney) - Number(b.prizeMoney));
+        } 
+    }
     res.render("home", { page: "", contests: contests.reverse(),TotalContests })
 })
 
@@ -54,94 +93,6 @@ router.get("/home", isLoggedIn, async (req, res) => {
     }
 })
 
-router.get("/sort", isLoggedIn, async (req, res) => {
-    try {
-        const { category } = req.query
-        const contests = await Contest.find({ category: { $eq: category } })
-        res.render("home", { page: "", contests })
-    } catch (err) {
-        console.log(err)
-        res.redirect("/home")
-    }
-})
-
-router.get("/filter", isLoggedIn, async (req, res) => {
-    try {
-        const { status } = req.query
-        const dateObj = new Date();
-        let month = dateObj.getUTCMonth() + 1; //months from 1-12
-        const day = dateObj.getUTCDate();
-        const year = dateObj.getUTCFullYear();
-        month = month >= 10 ? month : `0${month}`
-        today = `${year}-${month}-${day}`
-        today = String(today)
-        if (status === "Ongoing") {
-            var contests = await Contest.find({ $and: [{ endDate: { "$gte": today } }, { startDate: { "$lte": today } }] })
-            //start<=today<=end
-        } else if (status === "Upcoming") {
-            var contests = await Contest.find({ startDate: { "$gt": today } })
-            //startdate > today
-        } else if (status === "completed") {
-            var contests = await Contest.find({ endDate: { "$lt": today } })
-            //end date > today
-        } else if (status == "voting") {
-            var contests = await Contest.find({ $and: [{ votingEnd: { "$gte": today } }, { votingStart: { "$lte": today } }] })
-        }
-        res.render("home", { page: " ", contests })
-    } catch (err) {
-        console.log(err)
-        res.redirect("/home")
-    }
-})
-
-router.get("/classify", isLoggedIn, async (req, res) => {
-    try {
-        const { type } = req.query;
-        if (type == 'free') {
-            var contests = await Contest.find({ entryFee: { $eq: 0 } })
-        } else {
-            var contests = await Contest.find({ entryFee: { $gt: 0 } })
-            console.log(contests)
-        }
-        res.render("home", { page: "", contests: contests.reverse() })
-    } catch (err) {
-        res.redirect("/home")
-    }
-})
-
-router.get("/class", isLoggedIn, async (req, res) => {
-    try {
-        const { popularity } = req.query;
-        var ans = await Contest.find()
-        if (popularity == "asc") {
-            var contests = ans.sort((a, b) => Number(a.peopleParticipated.length) - Number(b.peopleParticipated.length));
-        } else {
-            var contests = ans.sort((a, b) => Number(b.peopleParticipated.length) - Number(a.peopleParticipated.length));
-        }
-        res.render("home", { page: "", contests })
-    } catch (err) {
-        console.log("EROR")
-        res.redirect("/home")
-    }
-})
-
-
-router.get("/organise", isLoggedIn, async (req, res) => {
-    try {
-        const { prize } = req.query;
-        var ans = await Contest.find()
-        var ans = await Contest.find()
-        if (prize == "asc") {
-            var contests = ans.sort((a, b) => Number(a.prizeMoney) - Number(b.prizeMoney));
-        } else {
-            var contests = ans.sort((a, b) => (b.prizeMoney) - (a.prizeMoney));
-        }
-        res.render("home", { page: "", contests })
-    } catch (err) {
-        console.log("EROR")
-        res.redirect("/home")
-    }
-})
 
 router.get("/dashboard", isLoggedIn, async (req, res) => {
     try {
@@ -157,7 +108,8 @@ router.get("/dashboard", isLoggedIn, async (req, res) => {
         })
         payments = await Promise.all(payments)
         const ReportedIssues = await ReportedIssue.find({ status: { $eq: "under review" } })
-        res.render("userInfo/sidebar", { page: "sidebar", postedCont, participatedCont, payments,ReportedIssues })
+        const profileData = await Profile.find({username:{$eq:req.user.username}});
+        res.render("userInfo/sidebar", { page: "sidebar", postedCont, participatedCont, payments,ReportedIssues,profileData })
     } catch (err) {
         console.log(err);
         res.redirect("/home?");
@@ -196,7 +148,7 @@ router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
     }
 })
 
-
+// create profile
 router.get("/Profile", isLoggedIn, async (req, res) => {
     const details = await User.find({ username: { $eq: req.query.user } })
     const ContestDetails = details[0].participatedContest.map(async (contest) => {
@@ -208,7 +160,25 @@ router.get("/Profile", isLoggedIn, async (req, res) => {
     res.render("userInfo/Profile/Profile", { page: " ", details, ContestData })
 })
 
+// update profile
+router.get("/update-profileData", isLoggedIn , async(req,res)=>{
+    const details = await Profile.find({username:{$eq:req.user.username}});
+    res.render("userInfo/Profile/UpdateProfile2", { page: " ", details })
+})
 
+router.put("/update-profileData",isLoggedIn,async(req,res)=>{
+    try{
+    const {fullName,mobileNumber,Skills,LinkedInURL,descripton} = req.body;
+    await Profile.findOneAndUpdate({username:{$eq:req.user.username} },{fullName,mobileNumber,Skills,LinkedInURL,descripton })
+    req.flash("success", "Changes saved successfully")
+    res.redirect("/dashboard")
+    }catch(err){
+        req.flash("error", "Oho no, somethng went wrong")
+        res.redirect("/update-profileData")
+    }
+})
+
+// update username and email
 router.get("/update-profile", isLoggedIn, (req, res) => {
     res.render("userInfo/UpdateProfile", { page: "" })
 })

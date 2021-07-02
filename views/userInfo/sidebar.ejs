@@ -25,7 +25,7 @@
           </div>
           <div class="media-body" style="margin-left: 10px;">
             <h4 class="m-0" style="color: #1483ce;">
-              <%= currentUser.username %> 
+              <%= currentUser.username %> <a href="/Profile?user=<%=currentUser.username%>" >View Profile</a> 
             </h4>
           </div>
 
@@ -41,8 +41,11 @@
             <li><a class="dropdown-item" href="/forgotPass">Update password</a></li>
             <li><a class="dropdown-item" href="#">Update profile</a></li>
           </ul>
-       <div> <a href="/create-profile"><button class="btn btn-info" style="background: #1483ce !important ;color: white;">Create Profile</button></a></div>
-        
+       <% if(profileData[0]){ %>
+        <div> <a href="/update-profileData"><button class="btn btn-info" style="background: #1483ce !important ;color: white;">Update Profile</button></a></div>
+       <% } else{%> 
+        <div> <a href="/create-profile"><button class="btn btn-info" style="background: #1483ce !important ;color: white;">Create Profile</button></a></div>
+       <% } %> 
         </div>
       </div>
       <p align="left" style="color:rgba(56, 53, 53, 0.534);font-size: 17px;"
