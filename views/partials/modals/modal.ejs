@@ -105,3 +105,34 @@
         </div>
     </div>
 </div>
+
+<!-- Vote model for admin -->
+<div class="modal fade" id="points" tabindex="-1" aria-labelledby="submitLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="color: black;" class="modal-title" id="submitLabel">Points form</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="color: black;">
+                <div class="form-floating mb-3">
+                    <input type="text" name="contestId" class="form-control" id="cid"
+                        placeholder="Contest identifier" value="<%= contest._id %>" required readonly>
+                    <label for="cid">Contest identifier</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" name="pname" class="form-control" id="pn" placeholder="Enter participant name" required>
+                    <label for="pn">Enter participant name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" name="points" class="form-control" id="adminPoints" min="0"
+                        placeholder="Enter points you want to give..." required>
+                    <label for="adminPoints">Enter points you want to give...</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" data-bs-dismiss="modal" onclick="handleSubmit(this)">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
