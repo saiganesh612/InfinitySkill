@@ -29,9 +29,10 @@ router.get("/list-of-participants", isLoggedIn, async (req, res) => {
     //today
     const dateObj = new Date();
     let month = dateObj.getUTCMonth() + 1; //months from 1-12
-    const day = dateObj.getUTCDate();
+    let day = dateObj.getUTCDate();
     const year = dateObj.getUTCFullYear();
     month = month >= 10 ? month : `0${month}`
+    day = day >= 10 ? day : `0${day}`
     today = `${year}-${month}-${day}`
     today = String(today)
     try {
@@ -183,17 +184,32 @@ router.get("/approved-contests", isLoggedIn, isAdmin, async (req, res) => {
 
 router.get("/approve/:id", isLoggedIn, isAdmin, async (req, res) => {
     try {
+        let body
         const { id } = req.params;
-        const contest = await Contest.findByIdAndUpdate(id, { isApproved: true })
+        const contest = await Contest.findByIdAndUpdate(id, { isApproved: true }, { new: true })
         const user = await User.findOne({ username: { $eq: contest.owner } })
 
-        const body = `
-            Hey ${contest.owner},
-            Admin reviewed your ${contest.contestName} contest and was approved by the admin.
-            Now, send us the prize money of ${contest.prizeMoney}rs before contest end date. So, that we can make your contest public.
-            Click here to send the money,
-            ${url}/pay-prize-money/${id}
-        `
+        if (contest.entryFee <= 0 || contest.owner === "Admin") {
+            contest.payment_status = "paid"
+            await contest.save()
+        }
+
+        if (contest.entryFee <= 0 || contest.owner === "Admin") {
+            body = `
+                Hey ${contest.owner},
+                Admin reviewed your ${contest.contestName} contest and was approved by the admin.
+                Now, your contest is made public you can check now.
+                Have a great day.
+            `
+        } else {
+            body = `
+                Hey ${contest.owner},
+                Admin reviewed your ${contest.contestName} contest and was approved by the admin.
+                Now, send us the prize money of ${contest.prizeMoney}rs before contest end date. So, that we can make your contest public.
+                Click here to send the money,
+                ${url}/pay-prize-money/${id}
+            `
+        }
 
         const mailOptions = {
             from: sender,

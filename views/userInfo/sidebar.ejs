@@ -2,10 +2,11 @@
 <% 
   const dateObj = new Date();
   let month = dateObj.getUTCMonth() + 1; //months from 1-12
-  const day = dateObj.getUTCDate();
+  let day = dateObj.getUTCDate();
   const year = dateObj.getUTCFullYear();
 
   month = month >= 10 ? month : `0${month}`
+  day = day >= 10 ? day : `0${day}`
   today = `${year}-${month}-${day}`
   let depositedAmount;
 %> 
@@ -39,7 +40,6 @@
             <li><a class="dropdown-item" href="/update-profile">Update username</a></li>
             <li><a class="dropdown-item" href="/update-profile">Update e-mail</a></li>
             <li><a class="dropdown-item" href="/forgotPass">Update password</a></li>
-            <li><a class="dropdown-item" href="#">Update profile</a></li>
           </ul>
        <% if(profileData[0]){ %>
         <div> <a href="/update-profileData"><button class="btn btn-info" style="background: #1483ce !important ;color: white;">Update Profile</button></a></div>
@@ -51,7 +51,6 @@
       <p align="left" style="color:rgba(56, 53, 53, 0.534);font-size: 17px;"
         class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Dashboard
       </p>
-      <% if(currentUser.username !== "Admin"){ %>
         <button class="nav-link active text-left" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
           type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
           <p style="font-size: 20px;" style="color: rgb(14, 166, 226);"><i style="color: yellowgreen;font-weight: 700;" class="bi bi-trophy-fill"></i>
@@ -62,9 +61,8 @@
           <p style="font-size: 20px;" style="color: rgb(14, 166, 226);"><i style="color: yellowgreen;font-weight: 700;" class="bi bi-check-circle-fill"></i>
             Participated Contests </p>
         </button>
-      <% } %> 
       <% if(currentUser.username==="Admin" ){ %>
-        <button class="nav-link active text-left" id="v-pills-report-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report"
+        <button class="nav-link text-left" id="v-pills-report-tab" data-bs-toggle="pill" data-bs-target="#v-pills-report"
           type="button" role="tab" aria-controls="v-pills-report" aria-selected="false">
           <p style="font-size: 20px;" style="color: rgb(14, 166, 226);"><i style="color: yellowgreen;font-weight: 700;"
               class="bi bi-currency-exchange"></i>
@@ -87,7 +85,7 @@
 <div id="main" style="margin-top: 70px;">
   <button style="background-color: #1483ce;color: white;border-radius: 25px; border:1px solid grey" class="openbtn" onclick="openNav()">☰ Open Dashboard</button>  
   <div class="tab-content" id="main v-pills-tabContent">
-    <% if(currentUser.username !=="Admin" ){ %>
+
       <div class="tab-pane fade show active " id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
         <div class="container">
         <div style="color: black;margin-top: 10px;">
@@ -224,7 +222,6 @@
         </div>
         </div>
       </div>
-    <% } %>
     <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
       <div class="container">
       <div style="margin-top: 10px;color: black;">
@@ -281,8 +278,7 @@
       </div>
     </div>
     </div>
-    <div class="tab-pane fade <%= currentUser.username === "Admin" ? 'show active' : '' %>" 
-      id="v-pills-report" role="tabpanel" aria-labelledby="v-pills-report-tab">
+    <div class="tab-pane fade" id="v-pills-report" role="tabpanel" aria-labelledby="v-pills-report-tab">
       <div class="container">
       <div style="margin-top: 10px;color: black;">
         <h1>Report Requests</h1>
