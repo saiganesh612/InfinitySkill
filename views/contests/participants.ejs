@@ -43,6 +43,7 @@
               <% if(today>=contest.votingStart && today <= contest.votingEnd){ %>
                 <th scope="col">Submitted work</th>
                 <th scope="col">Drop a heart</th>
+                <th scope="col" style="display: none;">Points</th>
                 <th scope="col">Report participant</th>
               <% } %>
               <% if(today>=contest.WinnerDate){%>
@@ -116,6 +117,7 @@
                         <i class="bi bi-check-lg"></i>
                       </button>
                     </td>
+                    <td id="<%= index+1 %>" style="display: none;"> <%= p.participant.points %> </td>
                     <td>
                       <button type="button" class="btn btn-outline-danger <%= p.participant.workSubmitted !=="No" ? '' : 'disable' %>" 
                         data-bs-toggle="modal" data-bs-target="#report">
