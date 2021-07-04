@@ -32,7 +32,6 @@ const calculatePoints = (participants, currentUser, owner, index, adminPoints = 
 
     axios.post(`/manage-votes/${_id}`, { cun, pts: tempPoints })
         .then(res => {
-            console.log(res)
             btns[1].classList.remove("display")
             btns[1].classList.add("not-display")
             btns[2].classList.remove("not-display")
