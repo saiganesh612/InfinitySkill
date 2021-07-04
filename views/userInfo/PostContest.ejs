@@ -3,7 +3,7 @@
         <div class="title" style="padding: 20px;">
             <h3 style="color: rgb(65, 131, 206);">Post a Contest</h3>
         </div>
-        <form action="/post-contest" method="POST" enctype="multipart/form-data">
+        <form name="my-form" action="/post-contest" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col">
                     <div class="form-floating mb-3">
@@ -145,5 +145,19 @@
             </div>
             <button class="btn btn-primary btn-lg">Send Request</button>
         </form>
+        <script>
+            var img = document.forms['my-form']['coverPhoto'];
+            var validtxt=['png','jpeg','jpg'];
+            function validation(){
+                if(img.value !=''){
+                        var dot = img.value.lastIndexOf('.')+1;
+                        var imgExt = img.value.substring(dot);
+                        var result =  validtxt.includes(imgExt);
+                        if(result==false){
+                            alert("Please upload img files only");    
+                        }
+                }
+            }
+        </script>
     </div>
 <%- include("../partials/footer") %>

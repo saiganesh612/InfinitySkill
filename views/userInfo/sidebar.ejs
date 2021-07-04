@@ -17,13 +17,17 @@
       <div class="py-4 px-3 mb-4 bg-light">
         <div class="media d-flex align-items-center" style="width: inherit;">
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-         
-          <div style="height: 70px;width: 70px;border-radius: 50%; background-color:#1483ce; color: white;margin: 3px">
+          <% if(profileData){ %>
+              <img height="100" width="100" style="border-radius: 50%;" src=<%= profileData[0].profilePhoto.url %>  >
+          <% }else{ %>
+             <div style="height: 70px;width: 70px;border-radius: 50%; background-color:#1483ce; color: white;margin: 3px">
             <p
               style="color: whitesmoke; margin-top: 13px; margin-left: 25px; font-size: 30px; font-weight: bold; text-transform: uppercase;">
               <%= currentUser.username[0] %>
             </p>
           </div>
+          <%} %> 
+         
           <div class="media-body" style="margin-left: 10px;">
             <h4 class="m-0" style="color: #1483ce;">
               <%= currentUser.username %> <a href="/Profile?user=<%=currentUser.username%>" >View Profile</a> 

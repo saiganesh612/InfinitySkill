@@ -108,6 +108,7 @@ router.get("/dashboard", isLoggedIn, async (req, res) => {
         payments = await Promise.all(payments)
         const ReportedIssues = await ReportedIssue.find({ status: { $eq: "under review" } })
         const profileData = await Profile.find({ username: { $eq: req.user.username } });
+        console.log(profileData)
         res.render("userInfo/sidebar", { page: "sidebar", postedCont, participatedCont, payments, ReportedIssues, profileData })
     } catch (err) {
         console.log(err);
@@ -158,8 +159,8 @@ router.get("/Profile", isLoggedIn, async (req, res) => {
             return Data;
         })
         var ContestData = await Promise.all(ContestDetails);
-        details.profile = await Profile.find({ username: { $eq: user } })
-        res.render("userInfo/Profile/Profile", { page: " ", details, ContestData })
+        ProfileDetails = await Profile.findOne({ username: { $eq: user } })
+        res.render("userInfo/Profile/Profile", { page: " ", details, ContestData,ProfileDetails })
     } catch (err) {
         req.flash("error", "Something went wrong")
         res.redirect("/dashboard")
@@ -174,7 +175,7 @@ router.get("/update-profileData", isLoggedIn, async (req, res) => {
 
 router.put("/update-profileData", isLoggedIn, upload.any(), async (req, res) => {
     try {
-        const { fullName, mobileNumber, Skills, LinkedInURL, description } = req.body;
+        const { fullName, mobileNumber, Skills, LinkedInURL, gitHub, designation } = req.body;
         const { path, filename } = req.files[0]
 
         let profile = await Profile.findOne({ username: { $eq: req.user.username } })
@@ -189,7 +190,8 @@ router.put("/update-profileData", isLoggedIn, upload.any(), async (req, res) => 
         profile.mobileNumber = mobileNumber
         profile.Skills = Skills
         profile.LinkedInURL = LinkedInURL
-        profile.description = description
+        profile.gitHub=gitHub
+        profile.designation = designation
         await profile.save()
         req.flash("success", "Changes saved successfully")
         res.redirect("/Profile")

@@ -1,15 +1,11 @@
-/**
-* Template Name: Eterna - v4.3.0
-* Template URL: https://bootstrapmade.com/eterna-free-multipurpose-bootstrap-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+
 (function() {
   "use strict";
 
   /**
    * Easy selector helper function
    */
+  
   const select = (el, all = false) => {
     el = el.trim()
     if (all) {
