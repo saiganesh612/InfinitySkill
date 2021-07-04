@@ -156,7 +156,7 @@ router.get("/Profile", isLoggedIn, async (req, res) => {
         if(!user) user = req.user.username
         
         const profile = await Profile.find({ username: { $eq: user } })
-        if (!profile.length) throw "You need to create your profile inorder to view."
+        if (!profile.length) throw "Profile not yet created."
 
         const details = await User.findOne({ username: { $eq: user } })
         const ContestDetails = details.participatedContest.map(async (contest) => {
@@ -165,13 +165,11 @@ router.get("/Profile", isLoggedIn, async (req, res) => {
         })
         var ContestData = await Promise.all(ContestDetails);
         ProfileDetails = await Profile.findOne({ username: { $eq: user } })
-        res.render("userInfo/Profile/Profile", { page: " ", details, ContestData,ProfileDetails })
-        details.profile = profile
-        res.render("userInfo/Profile/Profile", { page: " ", details, ContestData })
+        res.render("userInfo/Profile/Profile", { page: " ", details, ContestData, ProfileDetails })
     } catch (err) {
         err = err ? err : "Something went wrong"
         req.flash("error", err)
-        res.redirect("/dashboard")
+        res.redirect("back")
     }
 })
 

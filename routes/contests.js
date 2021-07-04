@@ -189,12 +189,12 @@ router.get("/approve/:id", isLoggedIn, isAdmin, async (req, res) => {
         const contest = await Contest.findByIdAndUpdate(id, { isApproved: true }, { new: true })
         const user = await User.findOne({ username: { $eq: contest.owner } })
 
-        if (contest.entryFee <= 0 || contest.owner === "Admin") {
+        if (contest.prizeMoney <= 0 || contest.owner === "Admin") {
             contest.payment_status = "paid"
             await contest.save()
         }
 
-        if (contest.entryFee <= 0 || contest.owner === "Admin") {
+        if (contest.prizeMoney <= 0 || contest.owner === "Admin") {
             body = `
                 Hey ${contest.owner},
                 Admin reviewed your ${contest.contestName} contest and was approved by the admin.

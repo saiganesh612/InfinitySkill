@@ -95,7 +95,7 @@
                     if(location.search==""){
                       url= window.location.href;
                     }else{
-                      url = "http://localhost:3000/home?";
+                      url = `${window.location.origin}/home?`;
                     }
                     url = url+"&"+`search=${x}`
                     console.log(url);
