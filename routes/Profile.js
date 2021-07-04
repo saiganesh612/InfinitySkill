@@ -14,9 +14,9 @@ router.get("/create-profile", isLoggedIn, async (req, res) => {
 
 router.post("/create-profile", isLoggedIn, upload.any(), async (req, res) => {
     try {
-        const { fullName, mobileNumber, Skills, LinkedInURL, descripton } = req.body;
+        const { fullName, mobileNumber, Skills, LinkedInURL, description } = req.body;
         const profileDetails = new Profile({
-            fullName, mobileNumber, Skills, LinkedInURL, descripton
+            fullName, mobileNumber, Skills, LinkedInURL, description
         })
         profileDetails.profilePhoto = { url: req.files[0].path, filename: req.files[0].filename }
         profileDetails.username = req.user.username;
