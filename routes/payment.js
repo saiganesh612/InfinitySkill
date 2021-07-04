@@ -16,10 +16,11 @@ router.get("/pay-prize-money/:id", isLoggedIn, async (req, res) => {
 
         const dateObj = new Date();
         let month = dateObj.getUTCMonth() + 1; //months from 1-12
-        const day = dateObj.getUTCDate();
+        let day = dateObj.getUTCDate();
         const year = dateObj.getUTCFullYear();
 
         month = month >= 10 ? month : `0${month}`
+        day = day >= 10 ? day : `0${day}`
         today = `${year}-${month}-${day}`
 
         if (today >= contest.endDate) throw "Sorry, you made it late."
