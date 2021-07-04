@@ -166,7 +166,6 @@ router.get("/Profile", isLoggedIn, async (req, res) => {
         var ContestData = await Promise.all(ContestDetails);
         ProfileDetails = await Profile.findOne({ username: { $eq: user } })
         res.render("userInfo/Profile/Profile", { page: " ", details, ContestData,ProfileDetails })
-        const ContestData = await Promise.all(ContestDetails);
         details.profile = profile
         res.render("userInfo/Profile/Profile", { page: " ", details, ContestData })
     } catch (err) {
