@@ -184,7 +184,6 @@ router.put("/update-profileData", isLoggedIn, upload.any(), async (req, res) => 
         const { fullName, mobileNumber, Skills, LinkedInURL, gitHub, designation } = req.body;
 
         let profile = await Profile.findOne({ username: { $eq: req.user.username } })
-        console.log(req.files)
         if (req.files.length) {
             const oldProfile = profile.profilePhoto.filename
             if (oldProfile) {
