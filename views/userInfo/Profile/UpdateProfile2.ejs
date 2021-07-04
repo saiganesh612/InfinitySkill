@@ -5,7 +5,7 @@
       <h3 style="color: rgb(65, 131, 206);">Update Profile</h3>
   </div>
     
-  <form action="/update-profileData?_method=PUT" method="POST">
+  <form action="/update-profileData?_method=PUT" method="POST" enctype="multipart/form-data">
       <div class="row" style="padding:30px">
           <div class="col-6" >
             <div class="form-floating mb-3 ">
@@ -35,15 +35,15 @@
             </div>
         </div>
         <div class="form-floating">
-          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="descripton"
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name="description"
             style="height: 100px" required>
-            <%= details.descripton %>
+            <%= details.description %>
           </textarea>
           <label for="floatingTextarea2">Comments</label>
         </div>
         <div class="row" style="padding:30px">
           <div class="form-floating mb-3">
-            <input type="file" name="profilePhoto" class="form-control"  name="dp"  accept="image/*" required>
+            <input type="file" name="profilePhoto" class="form-control" name="dp" accept="image/*" required>
             <label >Profile Photo</label>
           </div>
         </div>

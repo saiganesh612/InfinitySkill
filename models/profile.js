@@ -5,7 +5,7 @@ const profileschema = new mongoose.Schema({
     mobileNumber: String,
     Skills: String,
     LinkedInURL: String,
-    descripton: String,
+    description: String,
     profilePhoto:{
         url: String,
         filename: String

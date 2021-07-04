@@ -5,7 +5,7 @@ const Contest = require("../models/contest")
 const Payment = require("../models/payment")
 const Profile = require("../models/profile")
 const multer = require("multer")
-const { storage } = require("../cloudinary")
+const { storage, deleteImage } = require("../cloudinary")
 const upload = multer({ storage })
 const { isLoggedIn } = require("../middlewares")
 const { sortBy } = require("async")
@@ -150,13 +150,15 @@ router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
 // create profile
 router.get("/Profile", isLoggedIn, async (req, res) => {
     try {
-        const details = await User.findOne({ username: { $eq: req.query.user } })
+        let { user } = req.query
+        if(!user) user = req.user.username
+        const details = await User.findOne({ username: { $eq: user } })
         const ContestDetails = details.participatedContest.map(async (contest) => {
             const Data = await Contest.findOne({ "_id": { "$eq": contest.contestId } });
             return Data;
         })
         var ContestData = await Promise.all(ContestDetails);
-        details.profile = await Profile.find({ username: { $eq: req.query.user } })
+        details.profile = await Profile.find({ username: { $eq: user } })
         res.render("userInfo/Profile/Profile", { page: " ", details, ContestData })
     } catch (err) {
         req.flash("error", "Something went wrong")
@@ -170,15 +172,31 @@ router.get("/update-profileData", isLoggedIn, async (req, res) => {
     res.render("userInfo/Profile/UpdateProfile2", { page: " ", details })
 })
 
-router.put("/update-profileData", isLoggedIn, async (req, res) => {
+router.put("/update-profileData", isLoggedIn, upload.any(), async (req, res) => {
     try {
-        const { fullName, mobileNumber, Skills, LinkedInURL, descripton } = req.body;
-        await Profile.findOneAndUpdate({ username: { $eq: req.user.username } }, { fullName, mobileNumber, Skills, LinkedInURL, descripton })
+        const { fullName, mobileNumber, Skills, LinkedInURL, description } = req.body;
+        const { path, filename } = req.files[0]
+
+        let profile = await Profile.findOne({ username: { $eq: req.user.username } })
+        const oldProfile = profile.profilePhoto.filename
+        if (oldProfile) {
+            const result = await deleteImage(oldProfile)
+            console.log(result)
+        }
+        const dp = { url: path, filename }
+        profile.profilePhoto = dp
+        profile.fullName = fullName
+        profile.mobileNumber = mobileNumber
+        profile.Skills = Skills
+        profile.LinkedInURL = LinkedInURL
+        profile.description = description
+        await profile.save()
         req.flash("success", "Changes saved successfully")
-        res.redirect("/dashboard")
+        res.redirect("/Profile")
     } catch (err) {
+        console.log(err)
         req.flash("error", "Oho no, somethng went wrong")
-        res.redirect("/update-profileData")
+        res.redirect("/dashboard")
     }
 })
 

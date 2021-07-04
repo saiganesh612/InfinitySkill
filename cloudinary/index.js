@@ -15,4 +15,13 @@ const storage = new CloudinaryStorage({
     }
 })
 
-module.exports = { cloudinary, storage }
+const deleteImage = async filename => {
+    try {
+        const result = await cloudinary.uploader.destroy(filename, { invalidate: true })
+        return result
+    } catch (err) {
+        return err
+    }
+}
+
+module.exports = { cloudinary, storage, deleteImage }
