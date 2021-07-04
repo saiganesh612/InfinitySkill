@@ -108,7 +108,6 @@ router.get("/dashboard", isLoggedIn, async (req, res) => {
         payments = await Promise.all(payments)
         const ReportedIssues = await ReportedIssue.find({ status: { $eq: "under review" } })
         const profileData = await Profile.find({ username: { $eq: req.user.username } });
-        console.log(profileData)
         res.render("userInfo/sidebar", { page: "sidebar", postedCont, participatedCont, payments, ReportedIssues, profileData })
     } catch (err) {
         console.log(err);
@@ -152,7 +151,13 @@ router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
 router.get("/Profile", isLoggedIn, async (req, res) => {
     try {
         let { user } = req.query
+        if (!user) user = req.user.username
+
         if(!user) user = req.user.username
+        
+        const profile = await Profile.find({ username: { $eq: user } })
+        if (!profile.length) throw "You need to create your profile inorder to view."
+
         const details = await User.findOne({ username: { $eq: user } })
         const ContestDetails = details.participatedContest.map(async (contest) => {
             const Data = await Contest.findOne({ "_id": { "$eq": contest.contestId } });
@@ -161,8 +166,12 @@ router.get("/Profile", isLoggedIn, async (req, res) => {
         var ContestData = await Promise.all(ContestDetails);
         ProfileDetails = await Profile.findOne({ username: { $eq: user } })
         res.render("userInfo/Profile/Profile", { page: " ", details, ContestData,ProfileDetails })
+        const ContestData = await Promise.all(ContestDetails);
+        details.profile = profile
+        res.render("userInfo/Profile/Profile", { page: " ", details, ContestData })
     } catch (err) {
-        req.flash("error", "Something went wrong")
+        err = err ? err : "Something went wrong"
+        req.flash("error", err)
         res.redirect("/dashboard")
     }
 })
