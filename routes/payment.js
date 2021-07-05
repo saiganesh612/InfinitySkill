@@ -45,11 +45,7 @@ router.get("/pay-prize-money/:id", isLoggedIn, async (req, res) => {
             cancel_url: `${url}/home`,
         });
 
-        open(session.url)
-            .then(() => {
-                req.flash("success", "Your payment was successful")
-                res.redirect("/home?")
-            })
+        res.redirect(session.url)
     } catch (err) {
         err = err ? err : "Can't able to initiate the payment process"
         console.log(err)
