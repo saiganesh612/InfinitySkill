@@ -135,7 +135,7 @@ router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
 
         if (entryFee > 0) newContest.mode = "paid"
 
-        newContest.coverPhoto = { url: req.files[0].path, filename: req.files[0].filename }
+        newContest.coverPhoto = { url: req.files[0].location, filename: req.files[0].key }
         await newContest.save()
         user.postedContests.unshift(newContest)
         await user.save()
@@ -153,8 +153,8 @@ router.get("/Profile", isLoggedIn, async (req, res) => {
         let { user } = req.query
         if (!user) user = req.user.username
 
-        if(!user) user = req.user.username
-        
+        if (!user) user = req.user.username
+
         const profile = await Profile.find({ username: { $eq: user } })
         if (!profile.length) throw "Profile not yet created."
 
@@ -190,13 +190,13 @@ router.put("/update-profileData", isLoggedIn, upload.any(), async (req, res) => 
                 const result = await deleteImage(oldProfile)
                 console.log(result)
             }
-            profile.profilePhoto = { url: req.files[0].path, filename: req.files[0].filename }
+            profile.profilePhoto = { url: req.files[0].location, filename: req.files[0].key }
         }
         profile.fullName = fullName
         profile.mobileNumber = mobileNumber
         profile.Skills = Skills
         profile.LinkedInURL = LinkedInURL
-        profile.gitHub=gitHub
+        profile.gitHub = gitHub
         profile.designation = designation
         await profile.save()
         req.flash("success", "Changes saved successfully")
