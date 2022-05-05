@@ -31,6 +31,19 @@ const deleteImage = async filename => {
     }
 }
 
+const rekognition = new aws.Rekognition()
+
+const generateParams = (name) => {
+    return {
+        Image: {
+            S3Object: {
+                Bucket: process.env.BUCKET,
+                Name: `${name}`
+            }
+        }
+    }
+}
+
 const s3 = new aws.S3()
 const storage = multerS3({
     s3,
@@ -43,6 +56,6 @@ const storage = multerS3({
     }
 })
 
-module.exports = { storage, s3, deleteImage }
+module.exports = { storage, s3, deleteImage, rekognition, generateParams }
 
 // module.exports = { cloudinary, storage, deleteImage }

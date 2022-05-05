@@ -5,7 +5,7 @@ const Contest = require("../models/contest")
 const Payment = require("../models/payment")
 const Profile = require("../models/profile")
 const multer = require("multer")
-const { storage, deleteImage } = require("../cloudinary")
+const { storage, rekognition, generateParams, deleteImage } = require("../cloudinary")
 const upload = multer({ storage })
 const { isLoggedIn } = require("../middlewares")
 const { sortBy } = require("async")
@@ -121,26 +121,36 @@ router.get("/post-contest", isLoggedIn, (req, res) => {
 
 router.post("/post-contest", isLoggedIn, upload.any(), async (req, res) => {
     try {
-        const { contestName, motive, rules, startDate, endDate, votingStart,
-            votingEnd, WinnerDate, description, category, subCategory, prizeMoney, entryFee
-        } = req.body
-        const { username, isEmailVerified } = req.user;
-        if (!isEmailVerified) throw "U need to verify your email to perform this action.";
-        const user = await User.findOne({ username: { $eq: username } })
-        const newContest = new Contest({
-            owner: username,
-            contestName, motive, rules, startDate, endDate, votingStart, votingEnd, WinnerDate,
-            description, category, subCategory, prizeMoney, entryFee
+        const params = generateParams(req.files[0].key)
+        rekognition.detectModerationLabels(params, async (err, data) => {
+            if(err || data.ModerationLabels.length !== 0) {
+                await deleteImage(req.files[0].key)
+                req.flash("error", "Your Image contains inappropritate content.")
+                res.redirect("/post-contest")
+            }
+            else {
+                const { contestName, motive, rules, startDate, endDate, votingStart,
+                    votingEnd, WinnerDate, description, category, subCategory, prizeMoney, entryFee
+                } = req.body
+                const { username, isEmailVerified } = req.user;
+                if (!isEmailVerified) throw "U need to verify your email to perform this action.";
+                const user = await User.findOne({ username: { $eq: username } })
+                const newContest = new Contest({
+                    owner: username,
+                    contestName, motive, rules, startDate, endDate, votingStart, votingEnd, WinnerDate,
+                    description, category, subCategory, prizeMoney, entryFee
+                })
+        
+                if (entryFee > 0) newContest.mode = "paid"
+        
+                newContest.coverPhoto = { url: req.files[0].location, filename: req.files[0].key }
+                await newContest.save()
+                user.postedContests.unshift(newContest)
+                await user.save()
+                req.flash("success", "Thanks for posting a contest. Once this was reviewed by admin the contest will be seen by public.")
+                res.redirect("/dashboard")
+            }
         })
-
-        if (entryFee > 0) newContest.mode = "paid"
-
-        newContest.coverPhoto = { url: req.files[0].location, filename: req.files[0].key }
-        await newContest.save()
-        user.postedContests.unshift(newContest)
-        await user.save()
-        req.flash("success", "Thanks for posting a contest. Once this was reviewed by admin the contest will be seen by public.")
-        res.redirect("/dashboard")
     } catch (err) {
         req.flash("error", err)
         res.redirect("/post-contest")
@@ -181,26 +191,36 @@ router.get("/update-profileData", isLoggedIn, async (req, res) => {
 
 router.put("/update-profileData", isLoggedIn, upload.any(), async (req, res) => {
     try {
-        const { fullName, mobileNumber, Skills, LinkedInURL, gitHub, designation } = req.body;
-
-        let profile = await Profile.findOne({ username: { $eq: req.user.username } })
-        if (req.files.length) {
-            const oldProfile = profile.profilePhoto.filename
-            if (oldProfile) {
-                const result = await deleteImage(oldProfile)
-                console.log(result)
+        const params = generateParams(req.files[0].key)
+        rekognition.detectModerationLabels(params, async (err, data) => {
+            if(err || data.ModerationLabels.length !== 0) {
+                await deleteImage(req.files[0].key)
+                req.flash("error", "Your Image contains inappropritate content.")
+                res.redirect("/dashboard")
             }
-            profile.profilePhoto = { url: req.files[0].location, filename: req.files[0].key }
-        }
-        profile.fullName = fullName
-        profile.mobileNumber = mobileNumber
-        profile.Skills = Skills
-        profile.LinkedInURL = LinkedInURL
-        profile.gitHub = gitHub
-        profile.designation = designation
-        await profile.save()
-        req.flash("success", "Changes saved successfully")
-        res.redirect("/Profile")
+            else {
+                const { fullName, mobileNumber, Skills, LinkedInURL, gitHub, designation } = req.body;
+
+                let profile = await Profile.findOne({ username: { $eq: req.user.username } })
+                if (req.files.length) {
+                    const oldProfile = profile.profilePhoto.filename
+                    if (oldProfile) {
+                        const result = await deleteImage(oldProfile)
+                        console.log(result)
+                    }
+                    profile.profilePhoto = { url: req.files[0].location, filename: req.files[0].key }
+                }
+                profile.fullName = fullName
+                profile.mobileNumber = mobileNumber
+                profile.Skills = Skills
+                profile.LinkedInURL = LinkedInURL
+                profile.gitHub = gitHub
+                profile.designation = designation
+                await profile.save()
+                req.flash("success", "Changes saved successfully")
+                res.redirect("/Profile")
+            }
+        })
     } catch (err) {
         console.log(err)
         req.flash("error", "Oho no, somethng went wrong")
